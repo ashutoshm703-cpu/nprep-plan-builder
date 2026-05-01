@@ -67,7 +67,11 @@ i.ph, i.ph-duotone, i.ph-fill { display:inline-flex; align-items:center; justify
 
 /* Phone */
 .phone{
-  width:430px;height:880px;
+  width:430px;
+  /* V5 — fit available viewport height. 84px reserves room for the desktop top-bar
+     above the phone. min() prevents the phone from ever being taller than the viewport. */
+  height:min(880px, calc(100vh - 84px));
+  max-height:100vh;
   background:#fff;border-radius:var(--r-phone);
   position:relative;overflow:hidden;
   box-shadow:var(--shadow-phone);
@@ -1383,10 +1387,14 @@ body.no-section-anim .fvc{
 .cmp-pick-btn:not(.current):hover{background:var(--midnight-2)}
 .cmp-pick-btn:not(.current):active{transform:scale(.95)}
 
-@media (max-width:520px){
+@media (max-width:720px){
+  /* V5 — raised from 520px so wide-mobile / small-tablet viewports also go full-screen.
+     Below this width, the desktop "phone frame" no longer makes sense.
+     Height is `100vh - 50px` to account for the brand bar above (margin-top:50px),
+     so the phone never overflows the viewport. */
   body{padding:0;align-items:stretch}
   .top-bar{padding:10px 14px}
-  .phone{width:100%;border-radius:0;border:0;box-shadow:none;height:100vh;margin-top:50px}
+  .phone{width:100%;max-width:none;border-radius:0;border:0;box-shadow:none;height:calc(100vh - 50px);max-height:calc(100vh - 50px);margin-top:50px}
   .video-prompt{right:14px;left:14px;width:auto;bottom:120px}
 }
 
@@ -1480,6 +1488,125 @@ body.v2 .plan-cta{background:linear-gradient(180deg,#1c2475 0%,var(--midnight) 1
 body.v2 .plan-cta:hover{background:linear-gradient(180deg,#1c2475 0%,var(--midnight) 100%);transform:none;box-shadow:0 8px 22px rgba(19,27,99,.3),inset 0 1px 0 rgba(255,255,255,.12)}
 body.v2 .plan-cta:active{transform:scale(.97);box-shadow:0 4px 12px rgba(19,27,99,.25),inset 0 1px 0 rgba(255,255,255,.12)}
 body.v2 .plan-cta i{font-size:17px}
+
+/* ========================================================================
+   V5 — "add more exams" V2 carousel upgrade
+   - asymmetric featured card · hairline outline · soft inline add hint
+   - dot rail + counter · Fraunces numerals · blur+scale morph · sheet detail
+   ======================================================================== */
+
+/* V1: hide V2-only elements so default render is unchanged */
+.addon-section-sub{display:none}
+.addon-row-icon{display:none}
+.addon-row-sub-v2{display:none}
+.addon-quick-add{display:none}
+.addon-pagination{display:none}
+.addon-helper-v1{font-size:10px;color:var(--gray-4);font-weight:600;text-align:center;margin-top:6px;letter-spacing:.08em;font-family:'JetBrains Mono';text-transform:uppercase}
+.fr-italic{font-family:'Fraunces',serif;font-style:italic;font-weight:400;font-variation-settings:"opsz" 144}
+.fr-italic-num{font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-variation-settings:"opsz" 144}
+
+/* V2: hide V1-only elements */
+body.v2 .addon-row-sub-v1{display:none}
+body.v2 .addon-helper-v1{display:none}
+body.v2 .addon-add-btn{display:none}
+
+/* V2 section sub — Hinglish anchor under section header */
+body.v2 .addon-section-sub{display:block;font-size:13px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;margin:-2px 0 12px;font-family:'Fraunces',serif;font-style:italic;font-variation-settings:"opsz" 144}
+
+/* V2 social-proof chip — quieter to make room for the carousel */
+body.v2 .bundled-chip{background:transparent;border:1px solid var(--ice);font-weight:500;color:var(--gray-4);padding:7px 12px}
+body.v2 .bundled-chip strong{color:var(--midnight);font-weight:700}
+
+/* V2 stack — wider peek window + edge fade masks */
+body.v2 .addon-stack{padding:14px 22px 14px;gap:12px;mask-image:linear-gradient(to right,black 0%,black 88%,transparent 100%);-webkit-mask-image:linear-gradient(to right,black 0%,black 88%,transparent 100%);scrollbar-width:none}
+body.v2 .addon-stack::-webkit-scrollbar{display:none}
+body.v2 .addon-stack.scrolled{mask-image:linear-gradient(to right,transparent 0%,black 12%,black 88%,transparent 100%);-webkit-mask-image:linear-gradient(to right,transparent 0%,black 12%,black 88%,transparent 100%)}
+
+/* V2 cards — hairline outline, no shadow, asymmetric (featured wider) */
+body.v2 .addon-card-row{width:64vw;max-width:240px;min-height:auto;border:1px solid var(--ice);border-radius:18px;background:#fff;box-shadow:none;padding:16px 16px 14px;gap:10px;transition:border-color .25s var(--ease),background .25s var(--ease),transform .25s cubic-bezier(.34,1.56,.64,1),filter .28s var(--ease);scroll-snap-align:start;animation:addonV2In .56s cubic-bezier(.23,1,.32,1) backwards}
+body.v2 .addon-card-row.featured{width:78vw;max-width:300px}
+body.v2 .addon-card-row:hover{border-color:var(--sky-100);transform:none;box-shadow:none}
+body.v2 .addon-card-row:active{transform:scale(.985);filter:blur(.5px)}
+body.v2 .addon-card-row.selected{border:1.5px solid var(--midnight);background:var(--ice-2);box-shadow:none}
+body.v2 .addon-card-row.morphing{filter:blur(2px);transform:scale(.96)}
+
+/* V2 stagger entrance — staggered 60ms per card */
+@keyframes addonV2In{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+body.v2 .addon-card-row:nth-child(1){animation-delay:.05s}
+body.v2 .addon-card-row:nth-child(2){animation-delay:.11s}
+body.v2 .addon-card-row:nth-child(3){animation-delay:.17s}
+body.v2 .addon-card-row:nth-child(4){animation-delay:.23s}
+
+/* V2 card name + chip — Fraunces numerals, italic */
+body.v2 .addon-row-name{font-size:14.5px;font-weight:700;letter-spacing:-.012em}
+body.v2 .addon-card-row.featured .addon-row-name{font-size:16px;font-weight:800}
+body.v2 .addon-month-chip{font-family:'Poppins';font-size:10.5px;font-weight:600;color:var(--gold);background:var(--gold-50);border:1px solid rgba(212,166,23,.22);padding:3px 9px;letter-spacing:0;text-transform:none}
+body.v2 .addon-month-chip .fr-italic-num em{font-family:'Fraunces',serif;font-style:italic;font-weight:600;font-variation-settings:"opsz" 144;font-size:13px;letter-spacing:-.012em}
+
+/* V2 icon for non-featured cards */
+body.v2 .addon-row-icon{display:flex;width:36px;height:36px;border-radius:10px;background:var(--ice-2);align-items:center;justify-content:center;margin-top:2px}
+body.v2 .addon-row-icon i{font-size:20px;color:var(--midnight)}
+body.v2 .addon-card-row.selected .addon-row-icon{background:rgba(19,27,99,.08)}
+
+/* V2 sub copy — Hinglish */
+body.v2 .addon-row-sub{font-size:12px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;line-height:1.4}
+body.v2 .addon-row-sub-v2{display:block}
+
+/* V2 pill pair — Fraunces numerals */
+body.v2 .addon-pill{font-family:'Poppins';font-weight:700;font-size:11.5px;padding:5px 11px;letter-spacing:-.005em}
+body.v2 .addon-pill .strike,body.v2 .addon-pill:not(.without):not(.with):not(.neutral):not(.neutral-with){letter-spacing:-.005em}
+body.v2 .addon-pill.with{font-family:'Poppins'}
+body.v2 .addon-pill-pair{margin-top:6px}
+
+/* V2 savings line — italic save + Fraunces numbers */
+body.v2 .addon-total-saved{font-size:12px;color:var(--gray-4);font-weight:500;margin-top:6px}
+body.v2 .addon-total-saved .fr-italic{font-size:14px;color:var(--gray-4);margin-right:2px}
+body.v2 .addon-total-saved strong.fr-italic-num{font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-variation-settings:"opsz" 144;color:var(--success);font-size:15px;letter-spacing:-.005em}
+body.v2 .addon-pct-inline{font-family:'Poppins';font-size:10.5px;letter-spacing:0;text-transform:none;color:var(--success);font-weight:600}
+body.v2 .addon-pct-inline .fr-italic-num{font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-variation-settings:"opsz" 144;font-size:13px;color:var(--success)}
+
+/* V2 soft inline add hint — replaces solid navy CTA */
+body.v2 .addon-quick-add{display:flex;align-items:center;gap:8px;margin-top:auto;padding-top:12px;border-top:1px solid var(--ice);font-family:'Poppins';font-size:12.5px;font-weight:600;color:var(--midnight);letter-spacing:-.005em;transition:color .2s var(--ease)}
+body.v2 .addon-quick-add i{font-size:15px;color:var(--gold)}
+body.v2 .addon-quick-add .addon-quick-arrow{margin-left:auto;font-size:12px;color:var(--midnight);transition:transform .2s var(--ease)}
+body.v2 .addon-quick-add .fr-italic-num{font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-variation-settings:"opsz" 144;font-size:14px;color:var(--midnight)}
+body.v2 .addon-card-row:hover .addon-quick-arrow{transform:translateX(3px)}
+body.v2 .addon-card-row.selected .addon-quick-add{color:var(--success)}
+body.v2 .addon-card-row.selected .addon-quick-add i:first-child{color:var(--success)}
+body.v2 .addon-card-row.selected .addon-quick-add .addon-quick-arrow{color:var(--success)}
+
+/* V2 pagination — dots + counter rail */
+body.v2 .addon-pagination{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:8px;padding:0 22px}
+body.v2 .addon-dots{display:flex;align-items:center;gap:8px}
+body.v2 .addon-dot{width:6px;height:6px;border-radius:99px;background:var(--ice);transition:background .25s var(--ease),transform .25s cubic-bezier(.34,1.56,.64,1)}
+body.v2 .addon-dot.active{background:var(--midnight);transform:scale(1.25)}
+body.v2 .addon-counter{font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-variation-settings:"opsz" 144;font-size:13px;color:var(--gray-4);letter-spacing:-.005em}
+
+/* V2 add-on detail sheet — long-form pitch + sky CTA */
+body.v2 #addonPopup .popup-body{padding:8px 22px 28px}
+body.v2 .addon-sheet-pitch{font-family:'Fraunces',serif;font-style:italic;font-weight:400;font-variation-settings:"opsz" 144;font-size:18px;color:var(--midnight);line-height:1.4;letter-spacing:-.005em;margin-bottom:18px}
+body.v2 .addon-sheet-math{padding:14px 16px;background:var(--ice-2);border-radius:14px;margin-bottom:18px}
+body.v2 .addon-sheet-pills{display:flex;align-items:center;gap:8px;justify-content:center}
+body.v2 .addon-sheet-pill{display:inline-flex;align-items:center;padding:6px 12px;border-radius:99px;font-family:'Poppins';font-size:13px;font-weight:700;letter-spacing:-.005em}
+body.v2 .addon-sheet-pill.without{background:#fff;color:var(--gray-3);border:1px solid var(--ice)}
+body.v2 .addon-sheet-pill.without .strike{text-decoration:line-through;text-decoration-thickness:1.5px;text-decoration-color:var(--gray-3)}
+body.v2 .addon-sheet-pill.with{background:rgba(14,157,97,.12);color:var(--success);border:1px solid rgba(14,157,97,.25)}
+body.v2 .addon-sheet-arrow{color:var(--gray-3);font-size:14px}
+body.v2 .addon-sheet-saved{text-align:center;margin-top:10px;font-size:13px;color:var(--gray-4);font-weight:500}
+body.v2 .addon-sheet-saved .fr-italic{font-size:15px;margin-right:2px}
+body.v2 .addon-sheet-saved .fr-italic-num{font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-variation-settings:"opsz" 144;color:var(--success);font-size:16px;letter-spacing:-.005em}
+body.v2 .addon-sheet-pct{font-family:'Poppins';font-weight:600;color:var(--success);display:inline-flex;align-items:center;gap:3px}
+body.v2 .addon-sheet-pct i{font-size:13px}
+body.v2 .addon-sheet-bullets{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+body.v2 .addon-sheet-bullet{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--midnight);font-weight:500;letter-spacing:-.005em}
+body.v2 .addon-sheet-bullet i{color:var(--sky);font-size:18px;flex-shrink:0}
+body.v2 .addon-sheet-foot{font-family:'Fraunces',serif;font-style:italic;font-size:13px;color:var(--gray-4);text-align:center;margin-bottom:14px;font-variation-settings:"opsz" 144}
+body.v2 .addon-sheet-cta{width:100%;padding:16px 18px;border-radius:14px;background:var(--sky);color:var(--midnight);border:0;font-family:'Poppins';font-size:15px;font-weight:800;letter-spacing:-.008em;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:transform .15s cubic-bezier(.34,1.56,.64,1),background .25s var(--ease);box-shadow:0 6px 18px rgba(21,202,232,.28)}
+body.v2 .addon-sheet-cta:hover{background:#16d4f0}
+body.v2 .addon-sheet-cta:active{transform:scale(.97)}
+body.v2 .addon-sheet-cta i{font-size:18px}
+body.v2 .addon-sheet-cta.remove{background:#fff;color:var(--gray-4);border:1px solid var(--ice);box-shadow:none}
+body.v2 .addon-sheet-cta.remove:hover{background:var(--ice-2);color:var(--midnight)}
 
 /* =========================================================================
    V4 — V2 Guarantee section: Option 4 LOCKUP CARD (compact main flow) +
@@ -1792,6 +1919,17 @@ body.v2 .up2-cta:hover i{transform:translateX(3px)}
         <button class="popup-close" data-act="close-popup-compare"><i class="ph ph-x"></i></button>
       </div>
       <div class="popup-body" id="compareBody"></div>
+    </div>
+  </div>
+
+  <!-- V5 — add-on detail bottom sheet (V2 only) -->
+  <div class="popup-back" id="addonPopup">
+    <div class="popup">
+      <div class="popup-head">
+        <div class="popup-title"><i class="ph-fill ph-plus-circle"></i><span id="addonPopupTitle">add-on detail</span></div>
+        <button class="popup-close" data-act="close-addon-popup"><i class="ph ph-x"></i></button>
+      </div>
+      <div class="popup-body" id="addonPopupBody"></div>
     </div>
   </div>
 
@@ -3259,6 +3397,82 @@ function closeGuaranteePopup(){
   document.getElementById('guaranteePopup').classList.remove('show');
 }
 
+// V5 — add-on detail sheet (V2 only)
+const ADDON_LONG_COPY = {
+  upgrade12: {
+    title: 'NORCET 12 upgrade',
+    pitch: 'do attempts handle, ek hi plan se. NORCET 11 ke saath NORCET 12 prelim + mains ka full prep — extra plan kharidne ki zaroorat nahi.',
+    bullets: ['+8 months runway','prelim + mains dono cover','day-by-day plan auto-unlocks']
+  },
+  stateExams: {
+    title: 'state nursing officer',
+    pitch: 'har state ki nursing exams · jab chaho add karo. UPNHM, Bihar NHM, RUHS — teen state-level attempts saath mein chalein.',
+    bullets: ['UPNHM · Bihar NHM · RUHS','3 state-level attempts','question banks + mocks per state']
+  },
+  railway: {
+    title: 'railway + ESIC',
+    pitch: 'AIIMS + private hospital exams · saath mein. RRB SSE, ESIC, DSSSB — alternate pattern aur ek prep kit.',
+    bullets: ['RRB SSE · ESIC · DSSSB','alternate pattern coverage','prep kit included']
+  },
+  defense: {
+    title: 'defense nursing',
+    pitch: 'army, navy, air force nursing · teen service exams ek pack mein. timeline tang ho to bhi handle ho jata hai.',
+    bullets: ['army · navy · air force','3 service exams','focused syllabus pack']
+  },
+};
+
+function renderAddonPopupBody(addonId){
+  const a = ADD_ONS[addonId];
+  if(!a) return '';
+  const copy = ADDON_LONG_COPY[addonId] || { title:a.name, pitch:a.sub, bullets:[] };
+  const selected = !!state.addOns[addonId];
+  const isValidityExt = a.id === 'upgrade12' && a.monthsAdded > 1;
+
+  let mathBlock = '';
+  if(isValidityExt){
+    const r = getBlendedRates();
+    const isWin = r.savedMonthly > 0;
+    if(isWin){
+      mathBlock = `<div class="addon-sheet-math">
+        <div class="addon-sheet-pills">
+          <span class="addon-sheet-pill without"><span class="strike">₹${r.baseMonthly}/mo</span></span>
+          <i class="ph ph-arrow-right addon-sheet-arrow"></i>
+          <span class="addon-sheet-pill with">₹${r.extMonthly}/mo</span>
+        </div>
+        <div class="addon-sheet-saved"><em class="fr-italic">save</em> <span class="fr-italic-num">₹${r.savedTotal.toLocaleString('en-IN')}</span> · <span class="addon-sheet-pct"><i class="ph-fill ph-trend-down"></i><span class="fr-italic-num">${r.savedPct}%</span></span></div>
+      </div>`;
+    } else {
+      mathBlock = `<div class="addon-sheet-math">
+        <div class="addon-sheet-saved addon-neutral-line">+${a.monthsAdded} months · <strong>${r.totalMonths} months</strong> total coverage</div>
+      </div>`;
+    }
+  }
+
+  const ctaLabel = selected ? 'remove from plan' : `add · ₹${a.price.toLocaleString('en-IN')}`;
+  const ctaIcon = selected ? 'ph-minus-circle' : 'ph-plus-circle';
+
+  return `<div class="addon-sheet-pitch">${copy.pitch}</div>
+    ${mathBlock}
+    <div class="addon-sheet-bullets">
+      ${copy.bullets.map(b=>`<div class="addon-sheet-bullet"><i class="ph-fill ph-check-circle"></i><span>${b}</span></div>`).join('')}
+    </div>
+    <div class="addon-sheet-foot">kabhi bhi add ya remove kar sakte ho · plan reset nahi hota</div>
+    <button class="addon-sheet-cta ${selected?'remove':''}" data-act="addon-sheet-confirm" data-addon="${a.id}" type="button">
+      <i class="ph-fill ${ctaIcon}"></i><span>${ctaLabel}</span>
+    </button>`;
+}
+
+function openAddonPopup(addonId){
+  const a = ADD_ONS[addonId];
+  if(!a) return;
+  document.getElementById('addonPopupTitle').textContent = a.name;
+  document.getElementById('addonPopupBody').innerHTML = renderAddonPopupBody(addonId);
+  document.getElementById('addonPopup').classList.add('show');
+}
+function closeAddonPopup(){
+  document.getElementById('addonPopup').classList.remove('show');
+}
+
 // 7. After sign up
 function renderAfterSignupV3(){
   const pid = getCurrentPlanId();
@@ -3303,6 +3517,21 @@ function renderAfterSignupV3(){
 }
 
 // 8. Add more exams — horizontal scroll cards (portrait, snap)
+// V5 — V2-aware: asymmetric featured card + hairline outline + soft inline add hint + dot rail + Hinglish copy.
+//      Tap card → bottom sheet detail (no quick-toggle in V2).
+const ADDON_V2_SUB = {
+  upgrade12:  'do attempts handle, ek hi plan se',
+  stateExams: 'har state ki nursing · jab chaho add karo',
+  railway:    'AIIMS + private hospital exams · saath mein',
+  defense:    'army · navy · air force · teen service exams',
+};
+const ADDON_ICON_OTHER = {
+  stateExams: 'ph-buildings',
+  railway:    'ph-train-simple',
+  defense:    'ph-shield-star',
+  upgrade12:  'ph-arrow-circle-up',
+};
+
 function renderAddMoreExamsV3(){
   if(!state.stage) return '';
 
@@ -3320,24 +3549,30 @@ function renderAddMoreExamsV3(){
     </div>`;
   }
 
-  // V3.27 — horizontal scroll of portrait cards (~2 visible at a time, swipe for more).
+  // Reorder: validity-extension card always first when present (featured slot)
+  const ordered = [...visibleAddOns].sort((x,y)=>{
+    const xv = (x.id === 'upgrade12' && x.monthsAdded > 1) ? 0 : 1;
+    const yv = (y.id === 'upgrade12' && y.monthsAdded > 1) ? 0 : 1;
+    return xv - yv;
+  });
+
+  // V5 — horizontal scroll of portrait cards. V2 adds asymmetric layout, hairlines, soft add hint, dot rail.
   return `<div class="plan-section" style="animation-delay:.35s">
     <div class="section-h"><i class="ph-fill ph-plus-circle"></i><span>add more exams</span></div>
+    <div class="addon-section-sub">ye exams bhi add karo · jab chaho</div>
     <div class="bundled-chip">
       <i class="ph-fill ph-fire"></i>
       <span><strong>62%</strong> of ${PLANS[getCurrentPlanId()].name} + ${TIMELINE_MAJOR_LABEL[state.timeline]} students added an extra exam</span>
     </div>
-    <div class="addon-stack">
-      ${visibleAddOns.map(a=>{
-        // V3.29 — Option A: name + chip top, pill pair, savings line (with % inline), CTA with price.
+    <div class="addon-stack" id="addonStack">
+      ${ordered.map((a,idx)=>{
         const isValidityExt = a.id === 'upgrade12' && a.monthsAdded > 1;
         const selected = !!state.addOns[a.id];
         const chipText = isValidityExt
           ? `+${a.monthsAdded} mo`
           : (a.examsAdded > 0 ? `+${a.examsAdded} exams` : '');
 
-        // V3.30 — always show the before/after pill pair. Savings line adapts honestly
-        // depending on whether the math is a win (Gold/Revision) or neutral (Practice).
+        // Math block (validity-extension only)
         let middleBlock = '';
         if(isValidityExt){
           const r = getBlendedRates();
@@ -3348,27 +3583,43 @@ function renderAddMoreExamsV3(){
             <span class="addon-pill ${isWin ? 'with' : 'neutral-with'}">₹${r.extMonthly}/mo</span>
           </div>`;
           const savingsLine = isWin
-            ? `<div class="addon-total-saved">save <strong>₹${r.savedTotal.toLocaleString('en-IN')}</strong> · <span class="addon-pct-inline"><i class="ph-fill ph-trend-down"></i>${r.savedPct}%</span></div>`
+            ? `<div class="addon-total-saved"><em class="fr-italic">save</em> <strong class="fr-italic-num">₹${r.savedTotal.toLocaleString('en-IN')}</strong> · <span class="addon-pct-inline"><i class="ph-fill ph-trend-down"></i><span class="fr-italic-num">${r.savedPct}%</span></span></div>`
             : `<div class="addon-total-saved addon-neutral-line">+${a.monthsAdded} months · <strong>${r.totalMonths} months</strong> total coverage</div>`;
           middleBlock = pillPair + savingsLine;
         } else {
-          middleBlock = `<div class="addon-row-sub">${a.sub}</div>`;
+          // V2 mentor copy if available; falls back to original sub for V1
+          const v2Sub = ADDON_V2_SUB[a.id] || a.sub;
+          const icon = ADDON_ICON_OTHER[a.id] || 'ph-graduation-cap';
+          // V2 markup includes phosphor icon; V1 ignores .addon-row-icon via display:none
+          middleBlock = `<div class="addon-row-icon"><i class="ph-duotone ${icon}"></i></div><div class="addon-row-sub addon-row-sub-v1">${a.sub}</div><div class="addon-row-sub addon-row-sub-v2">${v2Sub}</div>`;
         }
 
         const ctaContent = selected
           ? `<i class="ph-fill ph-check"></i> added`
           : `<i class="ph ph-plus"></i> add · ₹${a.price.toLocaleString('en-IN')}`;
 
-        return `<button class="addon-card-row ${selected?'selected':''}" data-addon-toggle="${a.id}" type="button">
+        // V2 inline soft add hint (visual only — entire card is the click target in V2)
+        const v2Hint = selected
+          ? `<i class="ph-fill ph-check-circle"></i><span>added · tap to manage</span><i class="ph ph-arrow-right addon-quick-arrow"></i>`
+          : `<i class="ph ph-plus-circle"></i><span>add · <span class="fr-italic-num">₹${a.price.toLocaleString('en-IN')}</span></span><i class="ph ph-arrow-right addon-quick-arrow"></i>`;
+
+        return `<button class="addon-card-row ${selected?'selected':''} ${isValidityExt?'featured':''}" data-addon-toggle="${a.id}" data-addon-idx="${idx}" type="button">
         <div class="addon-row-top">
           <div class="addon-row-name">${a.name}</div>
-          ${chipText ? `<span class="addon-month-chip">${chipText}</span>` : ''}
+          ${chipText ? `<span class="addon-month-chip"><span class="fr-italic-num">${chipText.replace(/\d+/, m=>`<em>${m}</em>`)}</span></span>` : ''}
         </div>
         ${middleBlock}
         <div class="addon-add-btn">${ctaContent}</div>
+        <div class="addon-quick-add">${v2Hint}</div>
       </button>`}).join('')}
     </div>
-    <div style="font-size:10px;color:var(--gray-4);font-weight:600;text-align:center;margin-top:6px;letter-spacing:.08em;font-family:'JetBrains Mono';text-transform:uppercase">↔ swipe for ${visibleAddOns.length} add-on${visibleAddOns.length > 1 ? 's' : ''}</div>
+    <div class="addon-helper-v1">↔ swipe for ${ordered.length} add-on${ordered.length > 1 ? 's' : ''}</div>
+    <div class="addon-pagination" id="addonPagination">
+      <div class="addon-dots">
+        ${ordered.map((_,i)=>`<span class="addon-dot ${i===0?'active':''}" data-dot="${i}"></span>`).join('')}
+      </div>
+      <div class="addon-counter"><span id="addonCounterCur">1</span> / ${ordered.length}</div>
+    </div>
   </div>`;
 }
 
@@ -3599,6 +3850,38 @@ function buildPlanUI(){
 
   // V4 — Show v1/v2 toggle once plan is built (state.step >= 6)
   updateVersionToggleVisibility();
+
+  // V5 — wire add-on carousel pagination (dot rail + edge-fade) after every render
+  wireAddonPagination();
+}
+
+// V5 — pagination dot + counter sync, plus left-edge fade toggle.
+// Driven by scroll position of `.addon-stack`. Cheap, no observer.
+function wireAddonPagination(){
+  const stack = document.getElementById('addonStack');
+  if(!stack) return;
+  const cards = Array.from(stack.querySelectorAll('.addon-card-row'));
+  const dots = Array.from(document.querySelectorAll('.addon-dot'));
+  const counter = document.getElementById('addonCounterCur');
+  if(!cards.length || !dots.length) return;
+
+  function update(){
+    const stackRect = stack.getBoundingClientRect();
+    let activeIdx = 0;
+    let bestDist = Infinity;
+    cards.forEach((c, i)=>{
+      const r = c.getBoundingClientRect();
+      const d = Math.abs(r.left - stackRect.left - 22); // 22 == padding-left of stack
+      if(d < bestDist){ bestDist = d; activeIdx = i; }
+    });
+    dots.forEach((d, i)=> d.classList.toggle('active', i === activeIdx));
+    if(counter) counter.textContent = String(activeIdx + 1);
+    stack.classList.toggle('scrolled', stack.scrollLeft > 8);
+  }
+
+  stack.addEventListener('scroll', update, { passive:true });
+  // initial sync (next frame so layout has settled)
+  requestAnimationFrame(update);
 }
 
 // V4 — v1/v2 toggle visibility + switching
@@ -4323,14 +4606,32 @@ document.addEventListener('click', e=>{
     return;
   }
 
-  // V3 add-on toggle (multi-select)
+  // V5 add-on detail sheet close
+  if(e.target.closest('[data-act="close-addon-popup"]')){ closeAddonPopup(); return; }
+
+  // V5 add-on sheet confirm (toggle from inside the bottom sheet)
+  const addonConfirm = e.target.closest('[data-act="addon-sheet-confirm"]');
+  if(addonConfirm){
+    const k = addonConfirm.dataset.addon;
+    state.addOns[k] = !state.addOns[k];
+    closeAddonPopup();
+    buildPlanUI();
+    bumpTotal();
+    return;
+  }
+
+  // Add-on card tap — V2: opens detail sheet · V1: toggles directly (legacy)
   const addonV3 = e.target.closest('[data-addon-toggle]');
   if(addonV3){
     const k = addonV3.dataset.addonToggle;
-    state.addOns[k] = !state.addOns[k];
-    buildPlanUI();
-    bumpTotal();
-    // V4 — toast removed; card state change (selected/border/CTA flip + receipt update) is enough feedback.
+    if(document.body.classList.contains('v2')){
+      openAddonPopup(k);
+    } else {
+      state.addOns[k] = !state.addOns[k];
+      buildPlanUI();
+      bumpTotal();
+      // V4 — toast removed; card state change (selected/border/CTA flip + receipt update) is enough feedback.
+    }
     return;
   }
 
