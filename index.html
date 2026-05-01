@@ -2724,6 +2724,9 @@ async function pickQ2(stageId){
   await delay(4700);
   state.step = 6;
   dismissSheet();
+  // V5 fix — step=6 was set after the last buildPlanUI; explicitly refresh the
+  // version toggle so it appears on the final screen as designed.
+  updateVersionToggleVisibility();
 }
 
 function editQ(which){
