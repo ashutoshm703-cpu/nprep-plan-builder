@@ -6,7 +6,7 @@
 <title>NPrep · plan builder · build-in-background</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&family=Playfair+Display:ital,wght@0,500;0,700;0,800;1,500;1,700;1,800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,800;9..144,900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/duotone/style.css" />
 <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" />
 <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css" />
@@ -56,7 +56,8 @@ i.ph, i.ph-duotone, i.ph-fill { display:inline-flex; align-items:center; justify
 /* Top frame */
 .top-bar{position:fixed;top:0;left:0;right:0;z-index:200;backdrop-filter:blur(14px);background:rgba(255,255,255,.78);border-bottom:1px solid var(--gray-2);padding:11px 24px;display:flex;align-items:center;justify-content:space-between}
 .brand{display:flex;align-items:center;gap:12px}
-.brand-logo{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,var(--midnight) 0%,var(--sky) 140%);display:grid;place-items:center;color:#fff;font-weight:800;font-size:14px}
+.brand-logo{width:34px;height:34px;display:grid;place-items:center;flex-shrink:0}
+.brand-logo img{width:100%;height:100%;object-fit:contain;display:block}
 .brand-text{font-size:13px;font-weight:700;color:var(--midnight);letter-spacing:-.01em}
 .brand-text small{display:block;font-weight:400;color:var(--gray-4);font-size:10.5px;margin-top:1px;letter-spacing:.04em;text-transform:uppercase}
 .btn-restart{border:1px solid var(--gray-2);background:#fff;cursor:pointer;padding:7px 14px;border-radius:99px;font-family:inherit;font-size:12px;font-weight:600;color:var(--gray-4);display:inline-flex;align-items:center;gap:6px;transition:all .25s var(--ease)}
@@ -154,12 +155,25 @@ i.ph, i.ph-duotone, i.ph-fill { display:inline-flex; align-items:center; justify
 .tc-row.muted i{color:var(--gray-3)}
 
 /* Guarantee card */
-.guarantee{background:linear-gradient(95deg,var(--success-50),#fff);border:1.5px solid rgba(14,157,97,.25);border-radius:var(--r-md);padding:14px 15px;display:flex;align-items:flex-start;gap:11px}
-.guarantee-icon{width:42px;height:42px;border-radius:12px;background:rgba(14,157,97,.12);display:grid;place-items:center;color:var(--success);flex-shrink:0;font-size:20px}
-.guarantee-body{flex:1;min-width:0}
-.guarantee-h{font-size:14.5px;font-weight:800;color:var(--midnight);letter-spacing:-.015em;margin-bottom:3px}
-.guarantee-sub{font-size:12px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;line-height:1.5}
-.guarantee-sub strong{color:var(--success);font-weight:700}
+/* V4 — Pattern B: number-led commitment list. Base styles for v1. */
+/* Mode toggle: V1 default = stacked list visible; V2 = lockup card visible */
+.guarantee-list-mode{display:block}
+.guarantee-lockup-mode{display:none}
+
+.guarantee-section{background:linear-gradient(180deg,var(--success-50) 0%,#fff 100%);border:1px solid rgba(14,157,97,.18);border-radius:var(--r-md);padding:14px 15px}
+.guarantee-section .section-h{margin-bottom:8px}
+.guarantee-intro{margin-bottom:14px;padding-bottom:12px;border-bottom:1px dashed rgba(14,157,97,.22)}
+.g-intro-h{font-size:14px;font-weight:800;color:var(--midnight);letter-spacing:-.012em;margin-bottom:3px;line-height:1.35}
+.g-intro-sub{font-size:11.5px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;line-height:1.5}
+.g-list{display:flex;flex-direction:column;gap:0}
+.g-item{display:flex;align-items:flex-start;gap:14px;padding:12px 0}
+.g-item:first-child{padding-top:4px}
+.g-item:last-child{padding-bottom:4px}
+.g-num{font-family:'Poppins';font-size:18px;font-weight:800;color:var(--success);min-width:28px;line-height:1.05;letter-spacing:-.005em;flex-shrink:0}
+.g-content{flex:1;min-width:0}
+.g-h{font-size:13px;font-weight:800;color:var(--midnight);letter-spacing:-.005em;line-height:1.35;margin-bottom:4px}
+.g-d{font-size:11.5px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;line-height:1.55}
+.g-divider{height:1px;background:rgba(14,157,97,.15);margin:0}
 
 /* Features grid */
 .feats-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
@@ -266,14 +280,6 @@ i.ph, i.ph-duotone, i.ph-fill { display:inline-flex; align-items:center; justify
 .btn-close-sheet:active{transform:scale(.92)}
 
 /* "Plan so far" collapsible chips */
-.summary-strip{flex-shrink:0;padding:11px 18px 0;background:var(--ice-2);border-bottom:1px solid var(--gray-2);overflow:hidden;max-height:0;opacity:0;transition:max-height .35s var(--ease),opacity .25s var(--ease),padding .35s var(--ease)}
-.summary-strip.show{max-height:200px;opacity:1;padding:11px 18px 11px}
-.summary-toggle{display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-size:11px;font-weight:700;color:var(--gray-4);letter-spacing:.04em;text-transform:uppercase;margin-bottom:7px}
-.summary-toggle span{display:flex;align-items:center;gap:5px}
-.summary-toggle i{font-size:12px;transition:transform .25s var(--ease)}
-.summary-strip.collapsed .summary-toggle i{transform:rotate(-90deg)}
-.summary-strip.collapsed .summary-chips{max-height:0;opacity:0;margin-top:0}
-.summary-chips{display:flex;flex-wrap:wrap;gap:6px;max-height:120px;opacity:1;transition:max-height .3s var(--ease),opacity .25s var(--ease),margin-top .25s var(--ease);overflow:hidden}
 .sum-chip{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--ice);padding:6px 6px 6px 10px;border-radius:99px;font-size:11.5px;font-weight:700;color:var(--midnight);cursor:pointer;transition:all .25s var(--ease);letter-spacing:-.005em;animation:chipPop .35s var(--spring)}
 @keyframes chipPop{0%{opacity:0;transform:scale(.85) translateY(-4px)}100%{opacity:1;transform:scale(1) translateY(0)}}
 .sum-chip:hover{border-color:var(--sky);transform:translateY(-1px)}
@@ -432,17 +438,7 @@ i.ph, i.ph-duotone, i.ph-fill { display:inline-flex; align-items:center; justify
 .plan-card-v3.amber .plan-card-v3-tagline::before{color:var(--amber-line)}
 
 /* Social proof chips below plan name */
-.social-proof-stack{display:flex;flex-direction:column;gap:5px;margin-top:8px;margin-bottom:6px}
-.social-proof-stack.pc-social-bottom{margin-top:14px;margin-bottom:0;padding-top:12px;border-top:1px solid rgba(19,27,99,.06)}
-.sp-chip{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.6);backdrop-filter:blur(6px);border:1px solid rgba(184,134,11,.18);padding:6px 11px;border-radius:99px;font-size:11.5px;font-weight:700;color:var(--midnight);letter-spacing:-.005em;animation:planSecIn .4s var(--ease) backwards}
-.sp-chip:nth-child(2){animation-delay:.06s}
-.plan-card-v3.sky .sp-chip{border-color:rgba(21,202,232,.25)}
-.plan-card-v3.amber .sp-chip{border-color:rgba(212,166,23,.25)}
-.sp-chip .pulse-dot{width:7px;height:7px;border-radius:50%;background:var(--success);animation:pulse 2s var(--ease) infinite;flex-shrink:0}
-.sp-chip i{font-size:13px;flex-shrink:0;color:var(--gold)}
-.plan-card-v3.sky .sp-chip i{color:var(--sky)}
-.plan-card-v3.amber .sp-chip i{color:var(--amber-line)}
-.sp-chip strong{font-weight:800}
+/* V3.23 — .social-proof-stack and .sp-chip CSS removed (chips no longer rendered) */
 
 .plan-card-v3-radio{width:24px;height:24px;border-radius:50%;border:2px solid var(--gray-2);flex-shrink:0;display:grid;place-items:center;transition:all .25s var(--ease);background:#fff}
 .plan-card-v3.selected .plan-card-v3-radio{border-color:var(--gold);background:var(--gold);color:#fff}
@@ -610,7 +606,6 @@ body.no-section-anim .day1-row,
 body.no-section-anim .feat-card,
 body.no-section-anim .tier-expanded,
 body.no-section-anim .pyramid-band,
-body.no-section-anim .sp-chip,
 body.no-section-anim .timeline-card,
 body.no-section-anim .study-path,
 body.no-section-anim .day1,
@@ -734,6 +729,118 @@ body.no-section-anim .fvc{
 .vp-popup-point{display:flex;align-items:flex-start;gap:9px;font-size:12.5px;color:var(--midnight);font-weight:500;letter-spacing:-.005em;line-height:1.4}
 .vp-popup-point i{color:var(--success);font-size:14px;flex-shrink:0;margin-top:2px}
 
+/* ============= V3.15 TIER COUPONS in coupon popup (state-aware cards) ============= */
+.coupon-section-h{display:flex;align-items:center;gap:7px;margin-bottom:8px;font-family:'JetBrains Mono';font-size:10px;font-weight:800;color:var(--gray-4);letter-spacing:.08em;text-transform:uppercase}
+.coupon-section-h i{font-size:13px;color:var(--gold)}
+.coupon-section-h:nth-of-type(2) i{color:var(--sky)}
+
+.tier-coupon-list{display:flex;flex-direction:column;gap:7px;margin-bottom:6px}
+.tier-coupon-card{display:flex;align-items:center;gap:11px;padding:11px 13px;border-radius:11px;background:#fff;border:1.5px solid var(--ice);transition:all .25s var(--ease)}
+.tier-coupon-card.tier-applied{border-color:#c5ecd6;background:linear-gradient(95deg,var(--success-50) 0%,#fff 100%)}
+.tier-coupon-card.tier-unlocked{border-color:var(--gold-100);background:linear-gradient(95deg,var(--gold-50) 0%,#fff 100%)}
+.tier-coupon-card.tier-available{border-color:var(--sky-100);background:linear-gradient(95deg,var(--sky-50) 0%,#fff 100%)}
+.tier-coupon-card.tier-locked{opacity:.55;background:var(--ice-2)}
+
+.tier-coupon-icon{flex-shrink:0;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:18px}
+.tier-coupon-card.tier-applied .tier-coupon-icon{background:var(--success-50);color:var(--success)}
+.tier-coupon-card.tier-unlocked .tier-coupon-icon{background:var(--gold-100);color:var(--gold)}
+.tier-coupon-card.tier-available .tier-coupon-icon{background:var(--sky-50);color:var(--sky)}
+.tier-coupon-card.tier-locked .tier-coupon-icon{background:var(--gray-2);color:var(--gray-4)}
+
+.tier-coupon-body{flex:1;min-width:0}
+.tier-coupon-code{font-family:'JetBrains Mono';font-size:10.5px;font-weight:800;color:var(--midnight);letter-spacing:.06em;line-height:1.1}
+.tier-coupon-label{font-size:12.5px;font-weight:700;color:var(--midnight);letter-spacing:-.005em;margin-top:3px;line-height:1.3}
+.tier-coupon-desc{font-size:10.5px;color:var(--gray-4);font-weight:500;margin-top:2px;letter-spacing:-.005em;line-height:1.4}
+
+.tier-coupon-action{flex-shrink:0}
+.tier-cta{display:inline-flex;align-items:center;gap:5px;background:var(--midnight);color:#fff;border:0;cursor:pointer;font-family:inherit;font-size:11px;font-weight:700;padding:7px 11px;border-radius:99px;letter-spacing:-.005em;transition:all .2s var(--ease);white-space:nowrap}
+.tier-cta:hover{background:var(--midnight-2);transform:translateY(-1px)}
+.tier-cta:active{transform:scale(.97)}
+.tier-cta-locked{display:inline-flex;align-items:center;gap:4px;background:var(--sky);color:#fff;border:0;cursor:pointer;font-family:inherit;font-size:10.5px;font-weight:700;padding:6px 10px;border-radius:99px;letter-spacing:-.005em;transition:all .2s var(--ease);white-space:nowrap}
+.tier-cta-locked:hover{background:var(--midnight)}
+.tier-cta-locked i{font-size:11px}
+.tier-state{display:inline-flex;align-items:center;gap:4px;font-family:'JetBrains Mono';font-size:9px;font-weight:800;color:var(--success);letter-spacing:.05em;text-transform:uppercase;background:rgba(14,157,97,.14);padding:4px 8px;border-radius:99px;white-space:nowrap}
+.tier-state.locked{color:var(--gray-4);background:var(--gray-2)}
+.tier-state i{font-size:11px}
+
+/* ============= V3.14 OFFERS POPUP ============= */
+.op-tagline-row{font-size:11.5px;font-style:italic;color:var(--gray-4);letter-spacing:-.005em;margin-bottom:12px;text-align:center}
+.op-tagline-row strong{font-style:normal;font-weight:800;font-family:'Poppins';color:var(--gold-ink);font-size:13px}
+.op-footer{display:flex;align-items:flex-start;gap:8px;margin-top:14px;padding:10px 12px;background:var(--ice-2);border:1px solid var(--ice);border-radius:10px;font-size:11.5px;font-weight:500;color:var(--gray-4);letter-spacing:-.005em;line-height:1.4}
+.op-footer i{color:var(--sky);font-size:14px;flex-shrink:0;margin-top:1px}
+
+/* Highlight pulse on coupon section after offers popup closes */
+.coupon-card.highlight-pulse,.coupon-empty.highlight-pulse{animation:couponPulse 2.2s var(--ease)}
+@keyframes couponPulse{0%{box-shadow:0 0 0 0 rgba(21,202,232,.5)}30%{box-shadow:0 0 0 6px rgba(21,202,232,.18)}100%{box-shadow:0 0 0 0 rgba(21,202,232,0)}}
+
+/* ============= V3.13 OFFERS PANEL + CELEBRATION POPUP ============= */
+.offers-panel{background:linear-gradient(135deg,#fff8db 0%,#fff 60%);border:1.5px solid var(--gold-100);border-radius:var(--r-md);padding:14px;box-shadow:0 2px 10px rgba(184,134,11,.08);transition:box-shadow .35s var(--ease)}
+.offers-panel.flash{animation:opFlash 1.2s var(--ease)}
+@keyframes opFlash{0%{box-shadow:0 0 0 0 rgba(184,134,11,.5)}50%{box-shadow:0 0 0 8px rgba(184,134,11,.2)}100%{box-shadow:0 2px 10px rgba(184,134,11,.08)}}
+.op-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:11px;flex-wrap:wrap}
+.op-title-block{display:flex;flex-direction:column;gap:2px}
+.op-title{font-family:'JetBrains Mono';font-size:11px;font-weight:800;color:var(--gold-ink);letter-spacing:.06em;text-transform:uppercase}
+.op-tagline{font-size:11px;font-style:italic;color:var(--gray-4);letter-spacing:-.005em}
+.op-current{font-family:'JetBrains Mono';font-size:9.5px;font-weight:700;color:var(--gold-ink);background:rgba(184,134,11,.14);padding:4px 9px;border-radius:99px;letter-spacing:.05em;text-transform:uppercase}
+.op-current strong{font-family:'Poppins';font-weight:800;font-size:12px;letter-spacing:-.005em;margin-right:3px}
+
+.op-cards{display:flex;flex-direction:column;gap:7px}
+.offer-card{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;background:#fff;border:1.5px solid var(--ice);transition:all .25s var(--ease)}
+.offer-card.state-unlocked{border-color:#c5ecd6;background:linear-gradient(95deg,var(--success-50) 0%,#fff 100%)}
+.offer-card.state-available{border-color:var(--sky-100);background:linear-gradient(95deg,var(--sky-50) 0%,#fff 100%);cursor:pointer}
+.offer-card.state-available:hover{border-color:var(--sky);transform:translateY(-1px);box-shadow:0 4px 12px rgba(21,202,232,.15)}
+.offer-card.state-locked{opacity:.55;background:var(--ice-2)}
+.off-icon{flex-shrink:0;width:32px;height:32px;border-radius:9px;display:grid;place-items:center;font-size:17px}
+.offer-card.state-unlocked .off-icon{background:var(--success-50);color:var(--success)}
+.offer-card.state-available .off-icon{background:var(--sky-50);color:var(--sky)}
+.offer-card.state-locked .off-icon{background:var(--gray-2);color:var(--gray-4)}
+.off-body{flex:1;min-width:0}
+.off-title{font-size:12.5px;font-weight:700;color:var(--midnight);letter-spacing:-.005em;line-height:1.3}
+.off-sub{font-size:11px;font-weight:500;color:var(--gray-4);letter-spacing:-.005em;margin-top:2px;line-height:1.35}
+.off-action{flex-shrink:0}
+.off-cta{display:inline-flex;align-items:center;gap:5px;background:var(--midnight);color:#fff;border:0;cursor:pointer;font-family:inherit;font-size:11px;font-weight:700;padding:7px 11px;border-radius:99px;letter-spacing:-.005em;transition:all .2s var(--ease);white-space:nowrap}
+.off-cta:hover{background:var(--midnight-2);transform:translateY(-1px)}
+.off-cta:active{transform:scale(.97)}
+.off-cta i{font-size:11px}
+.off-state{display:inline-flex;align-items:center;gap:4px;font-family:'JetBrains Mono';font-size:9.5px;font-weight:800;color:var(--success);letter-spacing:.05em;text-transform:uppercase;background:rgba(14,157,97,.12);padding:4px 9px;border-radius:99px}
+.off-state.muted{color:var(--gray-4);background:var(--ice-2)}
+.off-state.locked{color:var(--gray-4);background:var(--gray-2)}
+.off-state i{font-size:11px}
+
+/* Celebration popup */
+.celebration-back{position:absolute;inset:42px 0 0;background:rgba(11,14,42,.55);backdrop-filter:blur(14px);z-index:300;display:none;align-items:center;justify-content:center;padding:20px;animation:fadeIn .3s var(--ease)}
+.celebration-back.show{display:flex}
+.celebration-card{background:#fff;border-radius:22px;padding:30px 26px 22px;width:100%;max-width:280px;text-align:center;box-shadow:0 30px 80px rgba(11,14,42,.4);animation:celebPop .55s var(--spring);position:relative}
+@keyframes celebPop{0%{transform:scale(.6);opacity:0}50%{transform:scale(1.05)}100%{transform:scale(1);opacity:1}}
+.celebration-emoji{font-size:48px;line-height:1;margin-bottom:12px;animation:celebBounce 1.4s ease-in-out infinite}
+@keyframes celebBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.celebration-h{font-family:'Poppins';font-weight:800;font-size:21px;line-height:1.2;color:var(--midnight);letter-spacing:-.018em;margin-bottom:6px}
+.celebration-sub{font-size:12.5px;font-style:italic;color:var(--gray-4);letter-spacing:-.005em;margin-bottom:20px}
+.celebration-cta{display:flex;align-items:center;justify-content:center;gap:7px;background:var(--midnight);color:#fff;border:0;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:700;padding:13px 18px;border-radius:99px;width:100%;letter-spacing:-.005em;transition:all .25s var(--ease);box-shadow:0 6px 18px rgba(19,27,99,.25)}
+.celebration-cta:hover{background:var(--midnight-2);transform:translateY(-1px);box-shadow:0 10px 24px rgba(19,27,99,.35)}
+.celebration-cta:active{transform:scale(.98)}
+.celebration-cta i{font-size:14px;transition:transform .2s var(--ease)}
+.celebration-cta:hover i{transform:translateX(3px)}
+.celebration-close{position:absolute;top:12px;right:12px;width:28px;height:28px;border-radius:99px;background:var(--ice-2);border:0;cursor:pointer;color:var(--gray-4);display:grid;place-items:center;font-size:13px;transition:all .2s var(--ease)}
+.celebration-close:hover{background:var(--gray-2);color:var(--midnight)}
+
+/* Confetti — 12 falling sparkles */
+.celebration-confetti{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.celebration-confetti span{position:absolute;width:8px;height:8px;border-radius:2px;animation:confettiFall 2.5s ease-in infinite}
+.celebration-confetti span:nth-child(1){left:10%;background:var(--sky);animation-delay:0s}
+.celebration-confetti span:nth-child(2){left:20%;background:var(--gold);animation-delay:.2s;width:6px;height:6px}
+.celebration-confetti span:nth-child(3){left:30%;background:var(--success);animation-delay:.4s}
+.celebration-confetti span:nth-child(4){left:40%;background:var(--amber-line);animation-delay:.6s;width:7px;height:7px}
+.celebration-confetti span:nth-child(5){left:55%;background:var(--sky);animation-delay:.1s;width:6px;height:6px}
+.celebration-confetti span:nth-child(6){left:65%;background:var(--gold);animation-delay:.3s}
+.celebration-confetti span:nth-child(7){left:75%;background:var(--success);animation-delay:.5s;width:7px;height:7px}
+.celebration-confetti span:nth-child(8){left:85%;background:var(--amber-line);animation-delay:.7s}
+.celebration-confetti span:nth-child(9){left:90%;background:var(--sky);animation-delay:.15s;width:6px;height:6px}
+.celebration-confetti span:nth-child(10){left:5%;background:var(--gold);animation-delay:.45s}
+.celebration-confetti span:nth-child(11){left:50%;background:var(--success);animation-delay:.65s;width:7px;height:7px}
+.celebration-confetti span:nth-child(12){left:60%;background:var(--amber-line);animation-delay:.85s}
+@keyframes confettiFall{0%{transform:translateY(-30px) rotate(0);opacity:1}100%{transform:translateY(calc(100vh + 30px)) rotate(720deg);opacity:0}}
+
 /* ============= V3.10 DIRECTION-AWARE plan UI ============= */
 /* Back-to-match row (downgrade only) — sits between section heading and plan card */
 .back-to-match-row{display:flex;align-items:center;gap:8px;width:100%;background:linear-gradient(95deg,var(--ice-2) 0%,#fff 100%);border:1px solid var(--ice);border-radius:99px;padding:10px 16px;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;color:var(--midnight);letter-spacing:-.005em;margin:0 0 12px;transition:all .25s var(--ease);text-align:left}
@@ -768,6 +875,19 @@ body.no-section-anim .fvc{
 
 .upgrade-card{background:linear-gradient(135deg,var(--gold-50) 0%,#fff 80%);border:1.5px solid var(--gold-100);border-radius:var(--r-md);padding:14px 16px;display:flex;flex-direction:column;gap:8px;cursor:pointer;transition:all .25s var(--ease);box-shadow:0 2px 8px rgba(184,134,11,.06)}
 .upgrade-card:hover{border-color:var(--gold);box-shadow:0 6px 18px rgba(184,134,11,.16);transform:translateY(-2px)}
+
+/* V4 — V1 soft inline link (no card, just hairlines top/bottom + text) */
+.upgrade-link{display:flex;flex-direction:column;gap:5px;width:100%;background:transparent;border:0;border-top:1px solid var(--ice);border-bottom:1px solid var(--ice);padding:18px 4px;cursor:pointer;font-family:inherit;text-align:left;transition:background .2s var(--ease);min-height:64px}
+.upgrade-link:hover{background:var(--ice-2)}
+.upgrade-link:active{transform:scale(.99)}
+.ul-row{display:flex;align-items:center;gap:10px}
+.ul-icon{font-size:18px;color:var(--gold);flex-shrink:0}
+.ul-headline{flex:1;min-width:0;font-size:14px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;line-height:1.3}
+.ul-headline strong{color:var(--midnight);font-weight:800}
+.ul-arrow{color:var(--midnight);font-size:14px;flex-shrink:0;transition:transform .2s var(--ease)}
+.upgrade-link:hover .ul-arrow{transform:translateX(3px)}
+.ul-sub{font-size:11.5px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;padding-left:28px;line-height:1.4}
+.upgrade-link.restore .ul-icon{color:var(--sky)}
 .up-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
 .up-title{font-family:'JetBrains Mono';font-size:11.5px;font-weight:800;color:var(--gold-ink);letter-spacing:.06em;text-transform:uppercase}
 .up-stat{display:inline-flex;align-items:center;gap:5px;font-family:'JetBrains Mono';font-size:9.5px;font-weight:800;color:var(--gold-ink);background:rgba(184,134,11,.14);padding:3px 9px;border-radius:99px;letter-spacing:.05em;text-transform:uppercase}
@@ -841,6 +961,260 @@ body.no-section-anim .fvc{
 .qn-config-step.shield .qn-config-text strong::before{content:'free · ';color:var(--success);font-weight:800;font-family:'JetBrains Mono';font-size:10px;letter-spacing:.06em;text-transform:uppercase;margin-right:2px}
 .qn-config-text small{font-size:11.5px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;line-height:1.35;margin-top:2px}
 
+/* ============= V3.21 GOAL — edit-info button in nav row, top-RIGHT (back arrow stays left) ============= */
+/* "edit info" button — sits in the top nav, mono caps utility style */
+.edit-inputs-btn{display:inline-flex;align-items:center;gap:6px;background:transparent;border:0;padding:6px 8px;cursor:pointer;font-family:'JetBrains Mono';font-size:10px;font-weight:800;color:var(--gray-4);letter-spacing:.08em;text-transform:uppercase;transition:color .2s var(--ease);border-radius:6px}
+.edit-inputs-btn:hover{color:var(--sky);background:var(--ice-2)}
+.edit-inputs-btn i{font-size:11px;transition:transform .25s var(--ease)}
+.edit-inputs-btn[aria-expanded="true"] i.ph-pencil-simple{transform:rotate(-12deg);color:var(--sky)}
+.edit-inputs-btn[aria-expanded="true"]{color:var(--sky)}
+.edit-inputs-btn .ph-caret-down{font-size:10px;transition:transform .25s var(--ease)}
+.edit-inputs-btn[aria-expanded="true"] .ph-caret-down{transform:rotate(180deg)}
+
+/* Collapsible pills wrapper */
+.edit-inputs-pills{max-height:0;overflow:hidden;transition:max-height .35s var(--ease),margin .35s var(--ease),opacity .25s var(--ease);opacity:0;margin-bottom:0}
+.edit-inputs-pills.show{max-height:120px;opacity:1;margin-bottom:14px}
+
+/* Smaller, utility-styled pills (was big primary pills before V3.19) */
+.goal-pills{display:flex;gap:6px;animation:planSecIn .35s var(--ease)}
+.goal-pill{flex:1;min-width:0;display:flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--ice);border-radius:99px;padding:6px 10px 6px 12px;cursor:pointer;font-family:inherit;text-align:left;transition:all .2s var(--ease)}
+.goal-pill:hover{border-color:var(--sky-100);background:var(--ice-2)}
+.goal-pill:active{transform:scale(.98)}
+.gp-key{font-family:'JetBrains Mono';font-size:8px;font-weight:800;color:var(--gray-4);letter-spacing:.08em;text-transform:uppercase;flex-shrink:0}
+.gp-val{flex:1;font-size:11.5px;font-weight:700;color:var(--midnight);letter-spacing:-.005em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gp-edit{flex-shrink:0;color:var(--gray-3);font-size:11px;transition:all .2s var(--ease)}
+.goal-pill:hover .gp-edit{color:var(--sky);transform:rotate(-8deg)}
+
+/* Soft divider before the real plan heading */
+.plan-divider{height:1px;background:linear-gradient(90deg,transparent 0%,var(--ice) 20%,var(--ice) 80%,transparent 100%);margin:6px 0 18px;animation:planSecIn .5s var(--ease)}
+
+/* The real, primary plan heading — opens the plan content */
+.plan-h-main{display:flex;align-items:center;gap:10px;margin-bottom:14px;animation:planSecIn .5s var(--ease) .05s backwards}
+.plan-h-main i{font-size:20px;color:var(--sky)}
+.plan-h-main h2{font-size:20px;font-weight:800;color:var(--midnight);letter-spacing:-.022em;line-height:1.15;margin:0}
+
+/* V3.18 — Display-only chip below pills (compact, 3 lines, two inline tappable phrases) */
+.goal-chip{background:#fff;border:1px solid var(--ice);border-radius:var(--r-md);padding:11px 14px;margin-bottom:18px;display:flex;flex-direction:column;gap:8px;box-shadow:0 1px 3px rgba(19,27,99,.04);animation:planSecIn .55s var(--ease)}
+.goal-chip .gc-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.goal-chip .gc-label{font-family:'JetBrains Mono';font-size:9px;font-weight:800;color:var(--gray-4);letter-spacing:.08em;text-transform:uppercase}
+.goal-chip .gc-name{font-size:14px;font-weight:800;color:var(--midnight);letter-spacing:-.012em}
+.goal-chip .gc-link{display:inline-flex;align-items:center;gap:6px;background:transparent;border:0;padding:0;font-family:inherit;font-size:12px;font-weight:600;color:var(--sky);cursor:pointer;letter-spacing:-.005em;text-align:left;width:fit-content;transition:color .2s var(--ease)}
+.goal-chip .gc-link:hover{color:var(--midnight)}
+.goal-chip .gc-link strong{font-weight:800;color:var(--midnight)}
+.goal-chip .gc-link i.ph-arrow-right{font-size:12px;transition:transform .2s var(--ease)}
+.goal-chip .gc-link:hover i.ph-arrow-right{transform:translateX(3px)}
+.goal-chip .gc-validity i.ph-shield-check{color:var(--success);font-size:14px}
+
+/* V3.24 — chip "extend coverage" link */
+.goal-chip .gc-extend{color:var(--gold);font-weight:700}
+.goal-chip .gc-extend:hover{color:var(--midnight)}
+.goal-chip .gc-extend i.ph-fill.ph-arrow-fat-up{color:var(--gold);font-size:13px}
+.goal-chip .gc-extend.active{color:var(--success)}
+.goal-chip .gc-extend.active i{color:var(--success)}
+
+/* V3.24 — price-band cheapest-rate tease */
+.pc-price-line-stack{display:flex;flex-direction:column;align-items:flex-end;gap:2px}
+.pc-monthly-tease{font-size:10.5px;color:var(--gray-4);font-weight:600;letter-spacing:-.005em;display:inline-flex;align-items:center;gap:4px;cursor:pointer;background:transparent;border:0;font-family:inherit;padding:0;transition:color .2s var(--ease);text-align:right}
+.pc-monthly-tease strong{color:var(--midnight);font-weight:800}
+.pc-monthly-tease.tappable{color:var(--sky);font-weight:700}
+.pc-monthly-tease.tappable:hover{color:var(--midnight)}
+.pc-monthly-tease i.ph-arrow-right{font-size:11px;transition:transform .2s var(--ease)}
+.pc-monthly-tease.tappable:hover i.ph-arrow-right{transform:translateX(2px)}
+
+/* V3.24 — upgrade card with two stacked actions */
+.up-actions{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.up-action-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 13px;background:#fff;border:1.5px solid var(--ice);border-radius:10px;cursor:pointer;font-family:inherit;text-align:left;width:100%;transition:all .2s var(--ease)}
+.up-action-row:hover{border-color:var(--sky);background:var(--ice-2);transform:translateY(-1px)}
+.up-action-row:active{transform:scale(.99)}
+.up-action-row.extend{border-color:var(--gold-100);background:linear-gradient(135deg,var(--gold-50) 0%,#fff 100%)}
+.up-action-row.extend:hover{border-color:var(--gold);background:var(--gold-50)}
+.up-action-row.extend.active{border-color:var(--success);background:var(--success-50)}
+.up-action-info{flex:1;min-width:0}
+.up-action-h{font-size:13px;font-weight:800;color:var(--midnight);letter-spacing:-.012em;display:flex;align-items:center;gap:6px;margin-bottom:2px}
+.up-action-h i{font-size:14px;color:var(--sky)}
+.up-action-row.extend .up-action-h i{color:var(--gold)}
+.up-action-row.extend.active .up-action-h i{color:var(--success)}
+.up-action-sub{font-size:11px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;line-height:1.35}
+.up-action-sub strong{color:var(--midnight);font-weight:700}
+.up-action-cta{flex-shrink:0;font-family:'JetBrains Mono';font-size:9.5px;font-weight:800;color:var(--sky);letter-spacing:.06em;text-transform:uppercase;display:inline-flex;align-items:center;gap:4px}
+.up-action-row.extend .up-action-cta{color:var(--gold)}
+.up-action-row.extend.active .up-action-cta{color:var(--success)}
+.up-action-cta i{font-size:11px}
+
+/* V3.24 — enhanced add-on card per-month math */
+.addon-permonth{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;color:var(--success);background:var(--success-50);padding:2px 7px;border-radius:99px;margin-top:6px;letter-spacing:-.005em;font-family:'JetBrains Mono';text-transform:uppercase}
+.addon-permonth i{font-size:11px}
+.addon-card-v3 .addon-permonth-line{font-size:10.5px;color:var(--gray-4);font-weight:600;margin-top:4px;letter-spacing:-.005em;line-height:1.35}
+.addon-card-v3 .addon-permonth-line strong{color:var(--midnight);font-weight:700}
+
+/* V3.24 — Coverage popup body */
+.cov-popup-body{padding:6px 2px}
+.cov-state-h{font-family:'JetBrains Mono';font-size:9.5px;font-weight:800;color:var(--gray-4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+.cov-current{display:flex;align-items:center;gap:10px;padding:11px 13px;background:var(--ice-2);border:1px solid var(--ice);border-radius:10px;margin-bottom:16px}
+.cov-current i{font-size:18px;color:var(--success)}
+.cov-current-info{flex:1}
+.cov-current-h{font-size:13px;font-weight:800;color:var(--midnight);letter-spacing:-.012em}
+.cov-current-sub{font-size:11px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;margin-top:1px}
+
+.cov-divider{height:1px;background:var(--ice);margin:0 0 14px}
+
+.cov-options{display:flex;flex-direction:column;gap:10px}
+.cov-option{display:flex;flex-direction:column;gap:8px;padding:14px;background:#fff;border:1.5px solid var(--ice);border-radius:12px;cursor:pointer;font-family:inherit;text-align:left;width:100%;transition:all .2s var(--ease)}
+.cov-option:hover{border-color:var(--gold);background:var(--gold-50);transform:translateY(-1px);box-shadow:0 4px 12px rgba(212,166,23,.1)}
+.cov-option:active{transform:scale(.99)}
+.cov-option.active{border-color:var(--success);background:var(--success-50)}
+.cov-option-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.cov-option-h{font-size:14px;font-weight:800;color:var(--midnight);letter-spacing:-.012em;display:flex;align-items:center;gap:7px}
+.cov-option-h i{color:var(--gold);font-size:16px}
+.cov-option.active .cov-option-h i{color:var(--success)}
+.cov-option-price{font-size:13px;font-weight:800;color:var(--midnight);letter-spacing:-.012em;flex-shrink:0;font-family:'Poppins'}
+.cov-option-sub{font-size:11.5px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;line-height:1.4}
+.cov-option-math{display:flex;align-items:center;gap:8px;padding:8px 11px;background:var(--ice-2);border-radius:8px;margin-top:2px}
+.cov-option.active .cov-option-math{background:rgba(14,157,97,.08)}
+.cov-option-math .math-rate{font-size:12px;font-weight:800;color:var(--midnight);letter-spacing:-.005em;font-family:'Poppins'}
+.cov-option-math .math-vs{font-size:10px;color:var(--success);font-weight:700;letter-spacing:.04em;text-transform:uppercase;font-family:'JetBrains Mono';display:inline-flex;align-items:center;gap:3px}
+.cov-option-math .math-vs i{font-size:11px}
+.cov-option-cta{font-family:'JetBrains Mono';font-size:9.5px;font-weight:800;color:var(--gold);letter-spacing:.08em;text-transform:uppercase;display:inline-flex;align-items:center;gap:5px;margin-top:2px}
+.cov-option.active .cov-option-cta{color:var(--success)}
+.cov-option-cta i{font-size:12px}
+
+.cov-explainer{margin-top:14px;padding:11px 13px;background:var(--sky-50);border-left:3px solid var(--sky);border-radius:8px;font-size:11px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;line-height:1.45}
+.cov-explainer strong{color:var(--midnight);font-weight:700}
+
+/* V3.28 — V1 pill-pair: single-row only, tightened to fit narrow cards */
+.addon-pill-pair{display:flex;align-items:center;gap:6px;flex-wrap:nowrap;margin-top:4px}
+.addon-pill{display:inline-flex;align-items:center;gap:4px;padding:4px 9px;border-radius:99px;font-family:'Poppins';font-size:11.5px;font-weight:800;letter-spacing:-.012em;line-height:1;flex-shrink:0;white-space:nowrap}
+.addon-pill.without{background:var(--ice-2);color:var(--gray-3);border:1px solid var(--ice)}
+.addon-pill.without .strike{text-decoration:line-through;text-decoration-thickness:1.5px;text-decoration-color:var(--gray-3)}
+.addon-pill.with{background:rgba(14,157,97,.12);color:var(--success);border:1px solid rgba(14,157,97,.25)}
+/* V3.30 — neutral pill state for cheaper plans where extension doesn't reduce per-month rate */
+.addon-pill.neutral{background:var(--ice-2);color:var(--gray-3);border:1px solid var(--ice)}
+.addon-pill.neutral-with{background:rgba(19,27,99,.06);color:var(--midnight);border:1px solid var(--ice)}
+.addon-neutral-line{color:var(--gray-4)}
+.addon-neutral-line strong{color:var(--midnight);font-weight:700}
+.addon-pill-arrow{color:var(--gray-3);font-size:12px;flex-shrink:0}
+.addon-pill-pct{display:inline-flex;align-items:center;gap:2px;font-size:9.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;font-family:'JetBrains Mono';margin-left:2px;color:var(--success)}
+.addon-pill-pct i{font-size:10px}
+.addon-total-saved{font-size:11px;color:var(--gray-4);font-weight:600;letter-spacing:-.005em;margin-top:5px}
+.addon-total-saved strong{color:var(--success);font-weight:800;font-family:'Poppins'}
+
+/* Coverage popup — pill pair + total saved (variants) */
+.cov-pill-pair{margin-top:6px}
+.cov-total-saved{margin-top:6px;font-size:12px}
+.cov-option.active .addon-pill.without{opacity:.55}
+
+/* Goal-detail popup variants */
+.gd-pill-pair{padding:11px 13px;background:rgba(255,255,255,.7);backdrop-filter:blur(6px);border-radius:9px;border:1px solid rgba(212,166,23,.18)}
+.gd-extend-card.active .gd-pill-pair{border-color:rgba(14,157,97,.18)}
+.gd-total-saved{font-size:11px;margin-top:4px}
+
+/* Animated number on toggle */
+.cov-anim-num{display:inline-block;font-variant-numeric:tabular-nums;transition:color .25s var(--ease)}
+
+/* Just-toggled pulse on the cov-option to confirm action */
+@keyframes cov-toggle-pulse{
+  0%{transform:scale(1);box-shadow:0 0 0 0 rgba(14,157,97,.3)}
+  50%{transform:scale(1.015);box-shadow:0 0 0 8px rgba(14,157,97,0)}
+  100%{transform:scale(1);box-shadow:0 0 0 0 rgba(14,157,97,0)}
+}
+.cov-option.just-toggled{animation:cov-toggle-pulse .6s var(--ease)}
+
+/* Goal-detail popup extension card (matches popup styling) */
+.gd-extend-card{display:flex;flex-direction:column;gap:8px;padding:14px;background:#fff;border:1.5px solid var(--gold-100);border-radius:12px;cursor:pointer;font-family:inherit;text-align:left;width:100%;transition:all .2s var(--ease);background:linear-gradient(135deg,var(--gold-50) 0%,#fff 100%)}
+.gd-extend-card:hover{border-color:var(--gold);transform:translateY(-1px);box-shadow:0 4px 12px rgba(212,166,23,.12)}
+.gd-extend-card:active{transform:scale(.99)}
+.gd-extend-card.active{border-color:var(--success);background:var(--success-50)}
+.gd-ext-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.gd-ext-h{font-size:14px;font-weight:800;color:var(--midnight);letter-spacing:-.012em;display:inline-flex;align-items:center;gap:7px}
+.gd-ext-h i{color:var(--gold);font-size:16px}
+.gd-extend-card.active .gd-ext-h i{color:var(--success)}
+.gd-ext-price{font-family:'Poppins';font-size:13px;font-weight:800;color:var(--midnight);letter-spacing:-.012em}
+.gd-ext-sub{font-size:11.5px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;line-height:1.4}
+.gd-ext-cta{font-family:'JetBrains Mono';font-size:9.5px;font-weight:800;color:var(--gold);letter-spacing:.08em;text-transform:uppercase;display:inline-flex;align-items:center;gap:5px}
+.gd-extend-card.active .gd-ext-cta{color:var(--success)}
+.gd-ext-cta i{font-size:12px}
+
+/* V3.26 — auto-close confirmation animation when extension toggled from goal-detail popup */
+@keyframes gd-just-toggled-pulse{
+  0%{box-shadow:0 0 0 0 rgba(14,157,97,.4);transform:scale(1)}
+  60%{box-shadow:0 0 0 14px rgba(14,157,97,0);transform:scale(1.02)}
+  100%{box-shadow:0 0 0 0 rgba(14,157,97,0);transform:scale(1)}
+}
+.gd-extend-card.just-toggled{animation:gd-just-toggled-pulse .35s var(--ease)}
+
+/* V3.28 — Add-on horizontal scroll: price-top, name, sub, math, ADD-button-bottom template */
+.addon-stack{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:4px 22px 8px;margin:0 -22px;scrollbar-width:thin}
+.addon-stack::-webkit-scrollbar{height:3px}
+.addon-stack::-webkit-scrollbar-thumb{background:rgba(19,27,99,.12);border-radius:99px}
+.addon-card-row{flex-shrink:0;width:258px;min-height:170px;display:flex;flex-direction:column;gap:8px;padding:14px;background:#fff;border:1.5px solid var(--ice);border-radius:12px;cursor:pointer;font-family:inherit;text-align:left;transition:all .25s var(--ease);position:relative;scroll-snap-align:start;animation:planSecIn .4s var(--ease) backwards}
+.addon-card-row:nth-child(2){animation-delay:.05s}
+.addon-card-row:nth-child(3){animation-delay:.10s}
+.addon-card-row:nth-child(4){animation-delay:.15s}
+.addon-card-row:hover{border-color:var(--sky-100);transform:translateY(-2px);box-shadow:0 6px 14px rgba(19,27,99,.08)}
+.addon-card-row:active{transform:translateY(-1px) scale(.99)}
+.addon-card-row.selected{border-color:var(--success);background:var(--success-50);box-shadow:0 0 0 3px rgba(14,157,97,.14)}
+
+/* Top row: name (left) + months/exams chip (right) */
+.addon-row-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.addon-row-name{flex:1;min-width:0;font-size:13.5px;font-weight:800;color:var(--midnight);letter-spacing:-.012em;line-height:1.2}
+.addon-month-chip{flex-shrink:0;font-family:'JetBrains Mono';font-size:9.5px;font-weight:800;color:var(--gold);background:var(--gold-50);border:1px solid rgba(212,166,23,.25);padding:3px 8px;border-radius:99px;letter-spacing:.06em;text-transform:uppercase;line-height:1;white-space:nowrap}
+.addon-card-row.selected .addon-month-chip{color:var(--success);background:rgba(14,157,97,.08);border-color:rgba(14,157,97,.25)}
+
+/* Sub-line: short description for non-validity cards */
+.addon-row-sub{font-size:11px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;line-height:1.4}
+
+/* Savings line: "save ₹2,160 · ↓24%" — both pieces on the same row */
+.addon-pct-inline{display:inline-flex;align-items:center;gap:2px;color:var(--success);font-weight:800;font-family:'JetBrains Mono';font-size:10px;letter-spacing:.04em;text-transform:uppercase;margin-left:2px}
+.addon-pct-inline i{font-size:11px}
+
+/* "+ ADD · ₹1,499" full-width CTA pushed to bottom; "✓ ADDED" when selected */
+.addon-add-btn{margin-top:auto;display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:9px 14px;border-radius:99px;background:var(--midnight);color:#fff;font-family:'JetBrains Mono';font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;border:1.5px solid var(--midnight);transition:all .2s var(--ease)}
+.addon-card-row:hover .addon-add-btn{background:var(--sky);border-color:var(--sky);color:var(--midnight)}
+.addon-card-row.selected .addon-add-btn{background:var(--success);border-color:var(--success);color:#fff}
+.addon-add-btn i{font-size:12px}
+
+/* Chip pulse — fired after extension toggles, draws attention to chip update */
+@keyframes goal-chip-pulse{
+  0%{box-shadow:0 0 0 0 rgba(14,157,97,.35);border-color:var(--ice)}
+  35%{box-shadow:0 0 0 12px rgba(14,157,97,0);border-color:var(--success)}
+  100%{box-shadow:0 0 0 0 rgba(14,157,97,0);border-color:var(--ice)}
+}
+.goal-chip.chip-pulse{animation:goal-chip-pulse .9s var(--ease)}
+
+/* Chip backup line — appears when NORCET 12 extension is active */
+.goal-chip .gc-backup{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;color:var(--success);letter-spacing:-.005em;padding:4px 0 0;animation:planSecIn .4s var(--ease)}
+.goal-chip .gc-backup i{font-size:14px;color:var(--success);flex-shrink:0}
+.goal-chip .gc-backup strong{font-weight:800}
+
+/* Pre-checkout tip line above CTA */
+.cta-tip-line{display:flex;align-items:center;gap:8px;width:100%;padding:9px 14px;background:linear-gradient(90deg,var(--gold-50) 0%,rgba(255,255,255,.8) 100%);border:0;border-bottom:1px solid var(--ice);cursor:pointer;font-family:inherit;text-align:left;font-size:11.5px;color:var(--midnight);font-weight:600;letter-spacing:-.005em;transition:all .2s var(--ease)}
+.cta-tip-line:hover{background:linear-gradient(90deg,var(--gold-50) 0%,var(--gold-50) 100%)}
+.cta-tip-line:active{transform:scale(.99)}
+.cta-tip-line i.ph-fill.ph-arrow-fat-up{color:var(--gold);font-size:14px;flex-shrink:0}
+.cta-tip-line i.ph-arrow-right{color:var(--gold);font-size:13px;margin-left:auto;flex-shrink:0;transition:transform .2s var(--ease)}
+.cta-tip-line:hover i.ph-arrow-right{transform:translateX(3px)}
+.cta-tip-line strong{color:var(--midnight);font-weight:800}
+.cta-tip-line span{flex:1;min-width:0}
+
+/* Stage popup body */
+.stage-list{display:flex;flex-direction:column;gap:8px;padding:4px 0}
+.stage-option{display:flex;align-items:center;gap:11px;padding:12px 14px;background:#fff;border:1.5px solid var(--ice);border-radius:var(--r-md);cursor:pointer;font-family:inherit;text-align:left;width:100%;transition:all .25s var(--ease)}
+.stage-option:hover{border-color:var(--sky);background:var(--ice-2);transform:translateY(-1px)}
+.stage-option.active{border-color:var(--success);background:var(--success-50)}
+.stage-option:active{transform:scale(.99)}
+.stage-icon{flex-shrink:0;width:36px;height:36px;border-radius:10px;background:var(--ice-2);display:grid;place-items:center;color:var(--sky);font-size:18px}
+.stage-option.active .stage-icon{background:rgba(14,157,97,.12);color:var(--success)}
+.stage-icon.amber{color:var(--amber-line);background:var(--amber-50)}
+.stage-icon.gold{color:var(--gold);background:var(--gold-50)}
+.stage-body{flex:1;min-width:0}
+.stage-label{font-size:13px;font-weight:700;color:var(--midnight);letter-spacing:-.005em;line-height:1.3}
+.stage-detail{font-size:11px;font-weight:500;color:var(--gray-4);margin-top:2px;letter-spacing:-.005em}
+.stage-match{font-family:'JetBrains Mono';font-size:9.5px;font-weight:700;color:var(--gray-4);letter-spacing:.04em;text-transform:uppercase;margin-top:5px}
+.stage-match strong{color:var(--midnight);font-weight:800}
+.stage-arrow{color:var(--gray-3);font-size:14px;flex-shrink:0;transition:transform .2s var(--ease)}
+.stage-option:hover .stage-arrow{color:var(--sky);transform:translateX(3px)}
+.stage-check{color:var(--success);font-size:18px;flex-shrink:0}
+
 /* ============= V3.6 GOAL — compact Zomato-style chip + popup ============= */
 .goal-compact{background:#fff;border:1px solid var(--ice);border-radius:var(--r-md);padding:13px 16px;margin-bottom:18px;cursor:pointer;transition:all .25s var(--ease);box-shadow:0 1px 3px rgba(19,27,99,.04);animation:planSecIn .5s var(--ease)}
 .goal-compact:hover{border-color:var(--sky-100);box-shadow:0 4px 14px rgba(19,27,99,.08);transform:translateY(-1px)}
@@ -872,137 +1246,6 @@ body.no-section-anim .fvc{
 .gd-change{display:flex;align-items:center;gap:6px;background:transparent;border:0;color:var(--sky);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;padding:8px 0;letter-spacing:-.005em;width:100%;justify-content:center;border-top:1px solid var(--ice);margin-top:8px;padding-top:14px}
 .gd-change:hover{color:var(--midnight)}
 .gd-change i{font-size:14px}
-
-/* ============= V3.5 STORYBOOK MODE — editorial / Headway-style ============= */
-.mode-toggle{position:absolute;top:8px;left:50%;transform:translateX(-50%);z-index:50;display:inline-flex;background:rgba(255,255,255,.9);backdrop-filter:blur(8px);padding:3px;border-radius:99px;gap:2px;border:1px solid var(--gray-2);box-shadow:0 2px 12px rgba(19,27,99,.08)}
-.mode-toggle button{border:0;background:transparent;cursor:pointer;font-family:'JetBrains Mono';font-size:9.5px;font-weight:800;color:var(--gray-4);padding:5px 10px;border-radius:99px;transition:all .25s var(--ease);letter-spacing:.06em;text-transform:uppercase}
-.mode-toggle button.on{background:var(--midnight);color:#fff}
-.mode-toggle button:hover:not(.on){color:var(--midnight)}
-.mode-toggle button:active{transform:scale(.95)}
-
-/* When body has data-mode="storybook", the plan content gets editorial layout */
-.story-root{font-family:'Poppins';color:var(--midnight)}
-/* Stacked continuous-scroll: each chapter flows naturally; first one has top padding, rest sit with chapter spacing */
-.story-page{padding:48px 24px 56px;position:relative;display:flex;flex-direction:column;justify-content:flex-start;animation:storyFadeIn .55s var(--ease) backwards}
-.story-page + .story-page{padding-top:64px}
-.story-page:first-child{padding-top:62px}
-@keyframes storyFadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-
-/* color worlds per chapter */
-.story-page.cover{background:radial-gradient(ellipse at top,#FFE8C8 0%,#FFF5E6 40%,#fff 80%)}
-.story-page.foundation{background:linear-gradient(180deg,#FFF5E6 0%,#fff 60%)}
-.story-page.guide{background:linear-gradient(180deg,#F5EDD8 0%,#fff 70%)}
-.story-page.editions{background:linear-gradient(180deg,#F0EAFA 0%,#fff 65%)}
-.story-page.pack{background:linear-gradient(180deg,#E8F4EE 0%,#fff 65%)}
-.story-page.begin{background:linear-gradient(180deg,#1a2370 0%,#131B63 100%);color:#fff}
-
-.story-chapter-num{font-family:'Playfair Display';font-style:italic;font-weight:500;font-size:12px;color:var(--gray-4);letter-spacing:.04em;margin-bottom:6px;display:flex;align-items:center;gap:8px}
-.story-chapter-num::before,.story-chapter-num::after{content:'';flex:0 0 22px;height:1px;background:currentColor;opacity:.4}
-.story-chapter-num::after{flex:1}
-.story-page.begin .story-chapter-num{color:rgba(255,255,255,.6)}
-
-.story-h{font-family:'Playfair Display';font-weight:800;font-size:34px;line-height:1.05;letter-spacing:-.025em;color:var(--midnight);margin-bottom:12px}
-.story-page.begin .story-h{color:#fff}
-.story-h em{font-style:italic;font-weight:500}
-.story-sub{font-family:'Poppins';font-size:14px;font-weight:400;line-height:1.55;color:var(--gray-4);letter-spacing:-.005em;margin-bottom:24px;max-width:32ch}
-.story-page.begin .story-sub{color:rgba(255,255,255,.75)}
-
-.story-quote{font-family:'Playfair Display';font-style:italic;font-weight:500;font-size:18px;line-height:1.4;color:var(--midnight);margin:18px 0;padding:0 6px;letter-spacing:-.005em;position:relative}
-.story-quote::before{content:'\\201C';font-size:48px;color:var(--gray-3);position:absolute;left:-12px;top:-14px;font-weight:800;line-height:1;opacity:.6}
-.story-quote-attr{font-family:'Poppins';font-style:normal;font-size:11px;font-weight:600;color:var(--gray-4);letter-spacing:.02em;margin-top:8px;display:block}
-
-.story-page-num{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);font-family:'Playfair Display';font-style:italic;font-size:11px;color:var(--gray-3);letter-spacing:.06em}
-.story-page.begin .story-page-num{color:rgba(255,255,255,.4)}
-
-.story-divider{width:32px;height:2px;background:var(--midnight);opacity:.5;margin:12px 0 18px;border-radius:2px}
-.story-page.begin .story-divider{background:#fff;opacity:.4}
-
-/* Cover scene — sunrise + book stack */
-.story-cover-scene{margin:18px 0 24px;display:flex;justify-content:center}
-.story-cover-svg{width:100%;max-width:280px;height:auto}
-
-/* Foundation chapter — phase milestones as inline editorial list */
-.story-phases{margin:8px 0 18px;display:flex;flex-direction:column;gap:14px}
-.story-phase{display:flex;gap:14px;align-items:flex-start}
-.story-phase-marker{flex-shrink:0;width:38px;height:38px;display:grid;place-items:center;font-family:'Playfair Display';font-style:italic;font-weight:700;font-size:18px;color:var(--midnight);position:relative}
-.story-phase-marker::after{content:'';position:absolute;left:50%;top:calc(100% + 4px);transform:translateX(-50%);width:1px;height:14px;background:var(--gray-3);opacity:.5}
-.story-phase:last-child .story-phase-marker::after{display:none}
-.story-phase-body{flex:1;padding-top:6px}
-.story-phase-name{font-family:'Playfair Display';font-weight:700;font-size:18px;color:var(--midnight);letter-spacing:-.01em}
-.story-phase-meta{font-family:'Poppins';font-size:11px;font-weight:500;color:var(--gray-4);margin-top:2px;letter-spacing:-.005em}
-
-/* Guide chapter — full-bleed photo treatment */
-.story-guide-portrait{position:relative;height:200px;margin:0 -24px 18px;background:linear-gradient(160deg,#E8DFC8 0%,#C5B498 100%);overflow:hidden;display:flex;align-items:flex-end;padding:18px 24px}
-.story-guide-portrait::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 70% 30%,rgba(255,232,200,.6) 0%,transparent 50%);pointer-events:none}
-.story-guide-name{position:relative;z-index:2;font-family:'Playfair Display';font-style:italic;font-weight:500;font-size:13px;color:#3a2f1b;letter-spacing:.02em}
-.story-guide-stat{position:absolute;top:18px;right:24px;font-family:'JetBrains Mono';font-size:10px;font-weight:800;color:#3a2f1b;background:rgba(255,255,255,.6);padding:5px 10px;border-radius:99px;letter-spacing:.05em;text-transform:uppercase}
-
-/* Edition chapter — three book covers */
-.story-editions{display:flex;gap:10px;margin:14px 0 18px;align-items:flex-end}
-.story-edition{flex:1;cursor:pointer;transition:transform .35s var(--spring);position:relative}
-.story-edition:hover{transform:translateY(-4px)}
-.story-edition.active{transform:translateY(-8px)}
-.story-edition.active .story-cover-card::after{opacity:1}
-.story-cover-card{aspect-ratio:.66/1;border-radius:4px 8px 8px 4px;padding:14px 10px;display:flex;flex-direction:column;justify-content:space-between;color:#fff;position:relative;overflow:hidden;box-shadow:-3px 6px 14px rgba(19,27,99,.18),inset 4px 0 0 rgba(0,0,0,.18)}
-.story-cover-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:8px;background:rgba(0,0,0,.22)}
-.story-cover-card::after{content:'';position:absolute;inset:0;border:2px solid var(--midnight);border-radius:4px 8px 8px 4px;opacity:0;transition:opacity .3s var(--ease);pointer-events:none}
-.story-edition.practice .story-cover-card{background:linear-gradient(160deg,#3a87a3 0%,#2d6478 100%)}
-.story-edition.revision .story-cover-card{background:linear-gradient(160deg,#c8842b 0%,#8a5818 100%)}
-.story-edition.gold .story-cover-card{background:linear-gradient(160deg,#3a2f1b 0%,#1a1208 100%)}
-.story-cover-meta{font-family:'Playfair Display';font-style:italic;font-weight:500;font-size:9px;letter-spacing:.08em;text-transform:uppercase;opacity:.7}
-.story-cover-title{font-family:'Playfair Display';font-weight:800;font-size:18px;line-height:1.05;margin-top:6px;letter-spacing:-.01em}
-.story-cover-roman{font-family:'Playfair Display';font-style:italic;font-weight:500;font-size:11px;opacity:.75;margin-top:4px}
-.story-cover-spine{position:absolute;bottom:10px;left:14px;right:10px;font-family:'Playfair Display';font-weight:700;font-size:9px;letter-spacing:.04em;text-transform:uppercase;opacity:.85}
-.story-cover-price{font-family:'Playfair Display';font-style:italic;font-weight:500;font-size:13px;letter-spacing:.02em}
-
-/* Pack chapter — illustrated items */
-.story-pack-list{display:flex;flex-direction:column;gap:10px;margin:8px 0 18px}
-.story-pack-item{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid rgba(19,27,99,.08);cursor:pointer;transition:transform .2s var(--ease)}
-.story-pack-item:last-child{border-bottom:0}
-.story-pack-item:hover{transform:translateX(3px)}
-.story-pack-item.added .story-pack-mark{background:var(--success);color:#fff;border-color:var(--success)}
-.story-pack-mark{flex-shrink:0;width:26px;height:26px;border-radius:99px;border:1.5px solid var(--gray-3);display:grid;place-items:center;font-size:11px;color:var(--gray-3);transition:all .25s var(--ease)}
-.story-pack-body{flex:1;min-width:0}
-.story-pack-name{font-family:'Playfair Display';font-weight:700;font-size:15px;color:var(--midnight);letter-spacing:-.005em}
-.story-pack-meta{font-family:'Poppins';font-size:11px;color:var(--gray-4);margin-top:2px;font-weight:500;letter-spacing:-.005em}
-.story-pack-price{font-family:'Playfair Display';font-style:italic;font-weight:500;font-size:13px;color:var(--midnight);flex-shrink:0;letter-spacing:.02em}
-
-/* Begin chapter — final CTA + receipt */
-.story-receipt{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:14px 16px;margin:18px 0;backdrop-filter:blur(8px)}
-.story-receipt-row{display:flex;justify-content:space-between;font-family:'Poppins';font-size:12.5px;font-weight:500;color:rgba(255,255,255,.78);padding:5px 0;letter-spacing:-.005em}
-.story-receipt-row.total{font-family:'Playfair Display';font-weight:800;font-size:20px;color:#fff;border-top:1px solid rgba(255,255,255,.15);padding-top:10px;margin-top:6px;letter-spacing:-.01em}
-.story-receipt-row.total .story-amt{font-family:'Playfair Display';font-style:italic;font-weight:800}
-.story-cta{margin-top:16px;background:#fff;color:var(--midnight);border:0;cursor:pointer;border-radius:99px;padding:18px 24px;font-family:'Playfair Display';font-weight:800;font-size:17px;letter-spacing:-.005em;width:100%;display:flex;align-items:center;justify-content:space-between;transition:all .25s var(--ease);box-shadow:0 6px 24px rgba(255,255,255,.18)}
-.story-cta:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(255,255,255,.25)}
-.story-cta:active{transform:scale(.99)}
-.story-cta-arrow{font-family:'Playfair Display';font-style:italic;font-weight:500;font-size:15px}
-
-/* Inline progress dots between pages */
-.story-progress{position:fixed;bottom:60px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:30}
-.story-progress span{width:6px;height:6px;border-radius:99px;background:var(--gray-3);opacity:.4;transition:all .25s var(--ease)}
-.story-progress span.active{width:18px;background:var(--midnight);opacity:1}
-.story-page.begin~.story-progress span{background:#fff}
-.story-page.begin~.story-progress span.active{background:#fff}
-
-/* Page-turn nav (next/prev arrows) */
-.story-nav{display:flex;justify-content:space-between;margin-top:auto;padding-top:24px}
-.story-nav-btn{font-family:'Playfair Display';font-style:italic;font-weight:500;font-size:13px;color:var(--gray-4);background:transparent;border:0;cursor:pointer;letter-spacing:-.005em;display:flex;align-items:center;gap:6px;padding:6px 0;transition:color .2s var(--ease)}
-.story-nav-btn:hover{color:var(--midnight)}
-.story-nav-btn.disabled{opacity:.3;pointer-events:none}
-.story-page.begin .story-nav-btn{color:rgba(255,255,255,.6)}
-.story-page.begin .story-nav-btn:hover{color:#fff}
-
-/* Cover page user greeting */
-.story-cover-greet{font-family:'Playfair Display';font-style:italic;font-weight:500;font-size:14px;color:var(--gray-4);margin-bottom:2px;letter-spacing:.02em}
-
-/* Pull-quote ornament for any chapter */
-.story-ornament{text-align:center;font-family:'Playfair Display';color:var(--gray-3);font-size:18px;margin:8px 0;letter-spacing:1em;padding-left:1em}
-
-/* Guarantee seal */
-.story-seal{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;background:rgba(19,27,99,.06);border:1px solid rgba(19,27,99,.18);border-radius:99px;font-family:'Playfair Display';font-style:italic;font-weight:500;font-size:11px;color:var(--midnight);letter-spacing:.02em;margin-top:8px}
-.story-seal i{font-size:13px;color:var(--midnight)}
-.story-page.begin .story-seal{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.25);color:rgba(255,255,255,.85)}
-.story-page.begin .story-seal i{color:#fff}
 
 /* ----- Coupon section + popup ----- */
 .coupon-card{background:linear-gradient(95deg,var(--success-50) 0%,#fff 100%);border:1px solid #c5ecd6;border-radius:var(--r-md);padding:11px 13px;display:flex;align-items:center;gap:10px;position:relative;overflow:hidden}
@@ -1146,13 +1389,203 @@ body.no-section-anim .fvc{
   .phone{width:100%;border-radius:0;border:0;box-shadow:none;height:100vh;margin-top:50px}
   .video-prompt{right:14px;left:14px;width:auto;bottom:120px}
 }
+
+/* =========================================================================
+   V4 — VERSION TOGGLE (v1 / v2)
+   Hidden until plan is built (state.step >= 6). Adding `body.v2` enables all
+   the design-upgrade overrides below.
+   ========================================================================= */
+/* V4 — Prominent tab bar at top, full-width, stands out */
+.version-toggle{position:absolute;top:50px;left:14px;right:14px;z-index:55;display:none;align-items:stretch;background:var(--midnight);border-radius:14px;padding:5px;box-shadow:0 8px 28px rgba(19,27,99,.42),0 0 0 1px rgba(255,255,255,.08) inset}
+.version-toggle.show{display:flex;animation:vtFadeIn .4s var(--ease)}
+@keyframes vtFadeIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.vt-btn{flex:1;padding:11px 14px;border:0;background:transparent;color:rgba(255,255,255,.55);font-family:'JetBrains Mono';font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;border-radius:9px;cursor:pointer;transition:all .25s var(--ease);min-height:42px;line-height:1;display:inline-flex;align-items:center;justify-content:center;gap:7px}
+.vt-btn:active{transform:scale(.97)}
+.vt-btn.active{background:#fff;color:var(--midnight);box-shadow:0 2px 8px rgba(0,0,0,.22)}
+.vt-btn-tag{display:inline-block;font-size:8.5px;font-weight:800;letter-spacing:.1em;padding:2px 6px;border-radius:99px;background:rgba(255,255,255,.12);color:rgba(255,255,255,.7);line-height:1}
+.vt-btn.active .vt-btn-tag{background:rgba(19,27,99,.10);color:var(--midnight)}
+.vt-btn[data-v="v2"] .vt-btn-tag{background:rgba(212,166,23,.18);color:var(--gold)}
+.vt-btn[data-v="v2"].active .vt-btn-tag{background:var(--gold-50);color:var(--gold)}
+
+/* Push the plan-nav down so it doesn't collide with the new fixed tab bar */
+body.has-version-toggle .plan-bg .scroll{padding-top:64px}
+
+/* =========================================================================
+   V4 — body.v2 overrides: design upgrade (Fraunces, hero plan card, bottom
+   sheets, larger spacing, list-style Q&A, premium CTA, etc.)
+   ========================================================================= */
+
+/* P0.1 — display serif on H1 */
+body.v2 .plan-h-main{margin-bottom:22px;gap:12px}
+body.v2 .plan-h-main i{font-size:24px}
+body.v2 .plan-h-main h2{font-family:'Fraunces',Georgia,serif;font-size:28px;font-weight:700;letter-spacing:-.025em;line-height:1.05;font-variation-settings:"opsz" 96}
+
+/* P0.2 — generous spacing between major sections */
+body.v2 .plan-section{margin-bottom:40px}
+
+/* P0.3 — Plan card hierarchy: hero name (Fraunces), big price, line-item features */
+body.v2 .plan-content{padding:28px 22px 24px;margin:0 -8px 16px;border-radius:20px}
+body.v2 .plan-content.gold-bg{background:radial-gradient(120% 80% at 100% 0%,rgba(212,166,23,.18) 0%,transparent 50%),radial-gradient(80% 60% at 0% 100%,rgba(212,166,23,.10) 0%,transparent 60%),linear-gradient(180deg,#fff 0%,#fffaf0 100%);box-shadow:0 1px 0 rgba(212,166,23,.18),0 16px 48px rgba(184,134,11,.10);animation:planSecIn .35s var(--ease)}
+body.v2 .plan-content.sky-bg{background:radial-gradient(120% 80% at 100% 0%,rgba(21,202,232,.14) 0%,transparent 55%),linear-gradient(180deg,#fff 0%,var(--sky-50) 100%);box-shadow:0 1px 0 rgba(21,202,232,.18),0 16px 48px rgba(21,202,232,.10)}
+body.v2 .plan-content.amber-bg{background:radial-gradient(120% 80% at 100% 0%,rgba(212,166,23,.16) 0%,transparent 55%),linear-gradient(180deg,#fff 0%,var(--amber-50) 100%);box-shadow:0 1px 0 rgba(212,166,23,.18),0 16px 48px rgba(184,134,11,.10)}
+body.v2 .pc-head-row{flex-direction:column;align-items:flex-start;gap:6px;margin-top:0;margin-bottom:18px}
+body.v2 .pc-name{font-family:'Fraunces',Georgia,serif !important;font-size:38px;font-weight:700;letter-spacing:-.035em;line-height:.95;display:block;font-variation-settings:"opsz" 144}
+body.v2 .pc-name i{display:none}
+body.v2 .pc-name span{display:inline}
+body.v2 .pc-price-line-stack{display:flex;flex-direction:row;align-items:baseline;gap:10px;flex-wrap:wrap;margin-top:2px}
+body.v2 .pc-now-big{font-family:'Poppins';font-size:30px;font-weight:800;letter-spacing:-.025em;line-height:1}
+body.v2 .pc-quote-big{font-family:'Fraunces',Georgia,serif;font-size:14px;line-height:1.55;padding:14px 0 0;margin:0 0 18px;letter-spacing:-.008em;border-top:1px solid rgba(19,27,99,.06)}
+
+/* P0.3 — features as line-items with hairlines (not chips) */
+body.v2 .feat-chip-row{flex-direction:column;gap:0;margin-top:6px;background:rgba(255,255,255,.5);border-radius:14px;padding:4px 14px;border:1px solid rgba(255,255,255,.7)}
+body.v2 .feat-chip{display:flex;align-items:center;gap:10px;background:transparent;border:0;border-bottom:1px solid rgba(19,27,99,.06);padding:11px 0;border-radius:0;font-size:13.5px;font-weight:600;letter-spacing:-.008em;line-height:1.3}
+body.v2 .feat-chip:last-child{border-bottom:0}
+body.v2 .feat-chip i{font-size:18px;color:var(--success)}
+body.v2 .feat-chip.exclusive{background:transparent;color:var(--midnight);border-color:transparent;border-bottom:1px solid rgba(19,27,99,.06)}
+body.v2 .feat-chip.exclusive:last-child{border-bottom:0}
+body.v2 .feat-chip.exclusive i{color:var(--gold)}
+body.v2 .feat-chip-tag{margin-left:auto;font-size:9px;padding:3px 8px;border-radius:99px;background:var(--gold-50);color:var(--gold);border:1px solid rgba(212,166,23,.25);letter-spacing:.07em}
+
+/* P0.4 — Tap targets ≥44px */
+body.v2 .edit-inputs-btn{padding:12px 14px;min-height:44px;border-radius:8px}
+body.v2 .goal-pill{padding:11px 14px 11px 16px;min-height:44px}
+body.v2 .goal-chip .gc-link{padding:8px 0;min-height:36px;font-size:12.5px}
+body.v2 .addon-add-btn{padding:13px 14px;min-height:44px;font-size:11px}
+
+/* P1.5 — Bottom sheets (mobile-native popup) */
+body.v2 .popup-back{align-items:flex-end;justify-content:center;padding:0}
+body.v2 .popup{border-radius:24px 24px 0 0;max-width:none;max-height:88%;box-shadow:0 -20px 60px -10px rgba(11,14,42,.45);animation:sheetUp .42s cubic-bezier(.32,.72,0,1);position:relative;padding-top:8px}
+body.v2 .popup::before{content:'';position:absolute;top:8px;left:50%;transform:translateX(-50%);width:40px;height:4px;background:var(--gray-2);border-radius:99px;pointer-events:none;z-index:2}
+@keyframes sheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+body.v2 .popup-head{padding:18px 18px 14px;margin-top:8px}
+body.v2 .popup-title{font-size:15px;letter-spacing:-.012em}
+body.v2 .popup-title i{font-size:17px}
+body.v2 .popup-close{width:36px;height:36px;font-size:14px}
+body.v2 .popup-close:hover{transform:none}
+body.v2 .popup-close:active{transform:scale(.92)}
+body.v2 .popup-body{padding:18px 20px 32px;-webkit-overflow-scrolling:touch}
+
+/* P1.6 — Q&A list (no card per item, hairlines) */
+body.v2 .qa-item{background:transparent;border:0;border-bottom:1px solid var(--ice);border-radius:0}
+body.v2 .qa-item:last-child{border-bottom:0}
+body.v2 .qa-q{padding:18px 4px;min-height:56px;font-size:14px;font-weight:600;letter-spacing:-.008em}
+body.v2 .qa-q:hover{background:transparent}
+body.v2 .qa-q:active{transform:scale(.99)}
+body.v2 .qa-q i{font-size:14px}
+body.v2 .qa-a{padding:0 4px;font-size:13px}
+body.v2 .qa-item.open .qa-a{max-height:240px;padding:0 4px 18px}
+
+/* P2.10 — Get Gold CTA: subtle inner gradient + spring tap */
+body.v2 .plan-cta{background:linear-gradient(180deg,#1c2475 0%,var(--midnight) 100%);font-size:16px;letter-spacing:-.008em;padding:18px 18px;min-height:54px;border-radius:16px;transition:transform .15s cubic-bezier(.34,1.56,.64,1),box-shadow .25s var(--ease);box-shadow:0 8px 22px rgba(19,27,99,.3),inset 0 1px 0 rgba(255,255,255,.12)}
+body.v2 .plan-cta:hover{background:linear-gradient(180deg,#1c2475 0%,var(--midnight) 100%);transform:none;box-shadow:0 8px 22px rgba(19,27,99,.3),inset 0 1px 0 rgba(255,255,255,.12)}
+body.v2 .plan-cta:active{transform:scale(.97);box-shadow:0 4px 12px rgba(19,27,99,.25),inset 0 1px 0 rgba(255,255,255,.12)}
+body.v2 .plan-cta i{font-size:17px}
+
+/* =========================================================================
+   V4 — V2 Guarantee section: Option 4 LOCKUP CARD (compact main flow) +
+   editorial bottom sheet (full Fraunces-44 layout) on tap.
+   Vetted via impeccable (no AI slop), refactoring-ui (compact + visible),
+   emil-design-eng (sheet spring physics), ux-heuristics (progressive disclosure),
+   frontend-design (distinctive big-numeral lockup), typeui-refined (editorial
+   detail preserved in sheet).
+   ========================================================================= */
+
+/* Mode toggle: V2 hides list, shows lockup card */
+body.v2 .guarantee-list-mode{display:none}
+body.v2 .guarantee-lockup-mode{display:block}
+
+body.v2 .guarantee-section{background:linear-gradient(180deg,#fff 0%,var(--success-50) 100%);border:1px solid rgba(14,157,97,.14);border-radius:24px;padding:24px 20px 20px;margin:0 -8px 40px}
+/* Section eyebrow: small mono caps, demoted; the intro becomes the real H */
+body.v2 .guarantee-section .section-h{font-family:'JetBrains Mono';font-size:10px;font-weight:800;letter-spacing:.14em;color:var(--success);text-transform:uppercase;margin-bottom:14px;gap:6px}
+body.v2 .guarantee-section .section-h i{font-size:12px;color:var(--success)}
+body.v2 .guarantee-section .section-h span{color:var(--success);font-family:inherit;font-size:inherit;font-weight:inherit;letter-spacing:inherit;text-transform:uppercase}
+
+/* Intro line: serif italic, editorial sub-headline */
+body.v2 .guarantee-intro{margin-bottom:28px;padding-bottom:0;border-bottom:0}
+body.v2 .g-intro-h{font-family:'Fraunces',Georgia,serif;font-size:22px;font-weight:600;color:var(--midnight);letter-spacing:-.025em;line-height:1.15;margin-bottom:8px;font-style:italic;font-variation-settings:"opsz" 96}
+body.v2 .g-intro-sub{font-size:12.5px;color:var(--gray-4);font-weight:500;line-height:1.5;letter-spacing:-.005em}
+
+/* Item rows: more vertical breathing room */
+body.v2 .g-list{gap:0;margin-top:8px}
+body.v2 .g-item{align-items:flex-start;gap:22px;padding:22px 0}
+body.v2 .g-item:first-child{padding-top:12px}
+body.v2 .g-item:last-child{padding-bottom:4px}
+
+/* The hero: big serif numeral */
+body.v2 .g-num{font-family:'Fraunces',Georgia,serif;font-size:44px;font-weight:700;color:var(--success);min-width:52px;line-height:.9;letter-spacing:-.04em;font-variation-settings:"opsz" 144;font-feature-settings:"lnum" 1}
+
+/* Body: tighter weight, larger sizes for premium feel */
+body.v2 .g-content{padding-top:4px}
+body.v2 .g-h{font-size:14.5px;font-weight:700;color:var(--midnight);letter-spacing:-.012em;line-height:1.35;margin-bottom:8px}
+body.v2 .g-d{font-size:13px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;line-height:1.6}
+body.v2 .g-divider{height:1px;background:rgba(14,157,97,.18)}
+
+/* V2 lockup card: tagline + 3 big numerals + read-all CTA */
+body.v2 .guarantee-section .section-h{font-family:'JetBrains Mono';font-size:10px;font-weight:800;letter-spacing:.14em;color:var(--success);text-transform:uppercase;margin-bottom:14px;gap:6px}
+body.v2 .guarantee-section .section-h i{font-size:12px;color:var(--success)}
+body.v2 .guarantee-section .section-h span{color:var(--success);font-family:inherit;font-size:inherit;font-weight:inherit;letter-spacing:inherit;text-transform:uppercase}
+
+body.v2 .g-lockup-tagline{font-family:'Fraunces',Georgia,serif;font-size:18px;font-weight:600;color:var(--midnight);letter-spacing:-.02em;line-height:1.3;margin-bottom:22px;font-style:italic;font-variation-settings:"opsz" 96}
+
+body.v2 .g-lockup-numerals{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:18px}
+body.v2 .g-lockup-cell{flex:1;background:transparent;border:0;padding:10px 6px;cursor:pointer;font-family:inherit;text-align:left;display:flex;flex-direction:column;align-items:flex-start;gap:6px;border-radius:10px;transition:background .2s var(--ease);min-height:80px}
+body.v2 .g-lockup-cell:hover{background:rgba(14,157,97,.06)}
+body.v2 .g-lockup-cell:active{transform:scale(.97)}
+body.v2 .g-lockup-num{font-family:'Fraunces',Georgia,serif;font-size:38px;font-weight:700;color:var(--success);line-height:.9;letter-spacing:-.04em;font-variation-settings:"opsz" 144;font-feature-settings:"lnum" 1}
+body.v2 .g-lockup-label{font-size:11px;color:var(--gray-4);font-weight:600;letter-spacing:-.005em;line-height:1.3}
+
+body.v2 .g-lockup-cta{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;background:transparent;border:0;border-top:1px solid rgba(14,157,97,.18);padding:14px 0 4px;cursor:pointer;font-family:'JetBrains Mono';font-size:10.5px;font-weight:800;letter-spacing:.12em;color:var(--success);text-transform:uppercase;min-height:44px;transition:opacity .2s var(--ease)}
+body.v2 .g-lockup-cta i{font-size:13px;transition:transform .2s var(--ease)}
+body.v2 .g-lockup-cta:hover i{transform:translateX(3px)}
+body.v2 .g-lockup-cta:active{opacity:.6}
+
+/* =========================================================================
+   V4 — Upgrade card V1 vs V2 mode toggle.
+   V1 default: simple single-row card. V2: editorial card with A/C sub-toggle.
+   ========================================================================= */
+.up-v1-mode{display:block}
+.up-v2-mode{display:none}
+body.v2 .up-v1-mode{display:none}
+body.v2 .up-v2-mode{display:block}
+
+/* V2 editorial upgrade card — COMPACT frame (V4 strip-down: no pricing, tight padding) */
+body.v2 .up2-card{background:linear-gradient(180deg,#fff 0%,var(--gold-50) 100%);border:1px solid rgba(212,166,23,.22);border-radius:18px;padding:14px 16px 14px;margin:0 -8px 16px;box-shadow:0 1px 0 rgba(212,166,23,.18),0 8px 24px rgba(184,134,11,.06);position:relative}
+body.v2 .up2-card.restore{background:linear-gradient(180deg,#fff 0%,var(--ice-2) 100%);border-color:rgba(21,202,232,.22);box-shadow:0 1px 0 rgba(21,202,232,.18),0 8px 24px rgba(19,27,99,.06)}
+
+/* A/C sub-toggle: tighter */
+body.v2 .up2-variant-toggle{display:flex;align-items:stretch;background:rgba(19,27,99,.04);border-radius:99px;padding:2px;margin-bottom:12px;border:1px solid rgba(19,27,99,.08)}
+body.v2 .uvt-btn{flex:1;padding:5px 8px;border:0;background:transparent;color:var(--gray-4);font-family:'JetBrains Mono';font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;border-radius:99px;cursor:pointer;transition:all .25s var(--ease);min-height:26px;line-height:1;display:inline-flex;align-items:center;justify-content:center}
+body.v2 .uvt-btn:active{transform:scale(.97)}
+body.v2 .uvt-btn.active{background:#fff;color:var(--midnight);box-shadow:0 1px 3px rgba(0,0,0,.10)}
+
+/* Variant visibility */
+body.v2 .up2-variant{display:none;animation:upVariantFade .3s var(--ease)}
+body.v2 .up2-card[data-variant="a"] .up2-variant-a{display:block}
+body.v2 .up2-card[data-variant="c"] .up2-variant-c{display:block}
+@keyframes upVariantFade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+/* ----- VARIANT A: editorial quote (compact) ----- */
+body.v2 .up2-quote{font-family:'Fraunces',Georgia,serif;font-size:22px;font-weight:600;color:var(--midnight);letter-spacing:-.022em;line-height:1.15;font-style:italic;margin-bottom:8px;font-variation-settings:"opsz" 96}
+body.v2 .up2-features{font-size:11.5px;color:var(--gray-4);font-weight:600;letter-spacing:-.005em;line-height:1.4;margin-bottom:12px}
+
+/* ----- VARIANT C: outcome narrative (compact, single paragraph) ----- */
+body.v2 .up2-hero-word{font-family:'Fraunces',Georgia,serif;font-size:28px;font-weight:700;color:var(--midnight);letter-spacing:-.035em;line-height:.95;margin-bottom:8px;font-variation-settings:"opsz" 144}
+body.v2 .up2-narrative{font-size:12px;color:var(--gray-4);font-weight:500;line-height:1.5;letter-spacing:-.005em;margin:0 0 12px}
+body.v2 .up2-narrative strong{color:var(--midnight);font-weight:800}
+body.v2 .up2-narrative em{font-family:'Fraunces',Georgia,serif;font-style:italic;color:var(--midnight);font-weight:500}
+
+/* Shared CTA (both variants) — slimmer */
+body.v2 .up2-cta{width:100%;display:inline-flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(180deg,#1c2475 0%,var(--midnight) 100%);color:#fff;border:0;padding:11px 14px;min-height:44px;border-radius:12px;cursor:pointer;font-family:inherit;font-size:13px;font-weight:800;letter-spacing:-.005em;transition:transform .15s cubic-bezier(.34,1.56,.64,1),box-shadow .25s var(--ease);box-shadow:0 6px 16px rgba(19,27,99,.24),inset 0 1px 0 rgba(255,255,255,.12);text-transform:none}
+body.v2 .up2-cta:active{transform:scale(.97);box-shadow:0 4px 10px rgba(19,27,99,.20),inset 0 1px 0 rgba(255,255,255,.12)}
+body.v2 .up2-cta i{font-size:14px;transition:transform .2s var(--ease)}
+body.v2 .up2-cta:hover i{transform:translateX(3px)}
 </style>
 </head>
 <body>
 
 <div class="top-bar">
   <div class="brand">
-    <div class="brand-logo">N</div>
+    <div class="brand-logo"><img src="assets/nprep-mark.png" alt="NPrep" /></div>
     <div class="brand-text">NPrep · plan builder<small>build-in-background · phosphor duotone · undraw</small></div>
   </div>
   <button class="btn-restart" id="btn-restart">
@@ -1171,6 +1604,12 @@ body.no-section-anim .fvc{
     </div>
   </div>
 
+  <!-- V4 — Version toggle (v1 / v2). Hidden until plan is built (state.step >= 6). -->
+  <div class="version-toggle" id="versionToggle">
+    <button class="vt-btn active" data-v="v1"><span>version 1</span><span class="vt-btn-tag">current</span></button>
+    <button class="vt-btn" data-v="v2"><span>version 2</span><span class="vt-btn-tag">new</span></button>
+  </div>
+
   <!-- BACKGROUND: Plan UI (always present, builds progressively) -->
   <div class="plan-bg">
     <div class="scroll" id="planScroll">
@@ -1178,8 +1617,11 @@ body.no-section-anim .fvc{
         <div class="plan-back" id="planBack">
           <i class="ph ph-arrow-left"></i>
         </div>
-        <div class="plan-nav-title">your custom plan</div>
-        <div class="plan-nav-spacer"></div>
+        <button class="edit-inputs-btn" data-act="toggle-edit-inputs" aria-expanded="false">
+          <i class="ph ph-pencil-simple"></i>
+          <span>edit info</span>
+          <i class="ph ph-caret-down"></i>
+        </button>
       </div>
 
       <div id="planContent">
@@ -1237,15 +1679,6 @@ body.no-section-anim .fvc{
       </button>
     </div>
 
-    <!-- Plan-so-far summary chips -->
-    <div class="summary-strip" id="summaryStrip">
-      <div class="summary-toggle" id="summaryToggle">
-        <span><i class="ph ph-list-checks"></i>your plan so far</span>
-        <i class="ph ph-caret-down"></i>
-      </div>
-      <div class="summary-chips" id="summaryChips"></div>
-    </div>
-
     <div class="thread" id="thread"></div>
   </div>
 
@@ -1260,6 +1693,31 @@ body.no-section-anim .fvc{
     </div>
   </div>
 
+  <!-- V3.14 Offers popup (opens from celebration "show me now") -->
+  <div class="popup-back" id="offersPopup">
+    <div class="popup">
+      <div class="popup-head">
+        <div class="popup-title"><i class="ph-fill ph-sparkle"></i><span>offers unlocked for you</span></div>
+        <button class="popup-close" data-act="close-offers-popup"><i class="ph ph-x"></i></button>
+      </div>
+      <div class="popup-body" id="offersBody"></div>
+    </div>
+  </div>
+
+  <!-- V3.13 Celebration popup -->
+  <div class="celebration-back" id="celebrationPopup">
+    <div class="celebration-confetti">
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <div class="celebration-card">
+      <div class="celebration-emoji">🎉</div>
+      <div class="celebration-h">4 offers unlocked<br/>for you</div>
+      <div class="celebration-sub">try before you byte</div>
+      <button class="celebration-cta" data-act="celebration-show">show me now <i class="ph ph-arrow-right"></i></button>
+      <button class="celebration-close" data-act="celebration-close" aria-label="close"><i class="ph ph-x"></i></button>
+    </div>
+  </div>
+
   <!-- V3.9 Video pitch popup -->
   <div class="popup-back" id="videoPitchPopup">
     <div class="popup">
@@ -1268,6 +1726,17 @@ body.no-section-anim .fvc{
         <button class="popup-close" data-act="close-video-pitch"><i class="ph ph-x"></i></button>
       </div>
       <div class="popup-body" id="videoPitchBody"></div>
+    </div>
+  </div>
+
+  <!-- V3.17 Stage popup (lightweight 3-option picker for stage edit) -->
+  <div class="popup-back" id="stagePopup">
+    <div class="popup">
+      <div class="popup-head">
+        <div class="popup-title"><i class="ph-fill ph-flag"></i><span>change your stage</span></div>
+        <button class="popup-close" data-act="close-stage-popup"><i class="ph ph-x"></i></button>
+      </div>
+      <div class="popup-body" id="stagePopupBody"></div>
     </div>
   </div>
 
@@ -1290,6 +1759,28 @@ body.no-section-anim .fvc{
         <button class="popup-close" data-act="close-popup-coupon"><i class="ph ph-x"></i></button>
       </div>
       <div class="popup-body coupon-popup-body"></div>
+    </div>
+  </div>
+
+  <!-- V3.24 Coverage extension popup -->
+  <div class="popup-back" id="coveragePopup">
+    <div class="popup">
+      <div class="popup-head">
+        <div class="popup-title"><i class="ph-fill ph-shield-check"></i><span>extend coverage</span></div>
+        <button class="popup-close" data-act="close-coverage-popup"><i class="ph ph-x"></i></button>
+      </div>
+      <div class="popup-body" id="coveragePopupBody"></div>
+    </div>
+  </div>
+
+  <!-- V4 — NPrep Guarantee bottom sheet (V2 only — opens from lockup card) -->
+  <div class="popup-back" id="guaranteePopup">
+    <div class="popup">
+      <div class="popup-head">
+        <div class="popup-title"><i class="ph-fill ph-shield-check"></i><span>NPrep Guarantee</span></div>
+        <button class="popup-close" data-act="close-guarantee-popup"><i class="ph ph-x"></i></button>
+      </div>
+      <div class="popup-body" id="guaranteePopupBody"></div>
     </div>
   </div>
 
@@ -1519,22 +2010,24 @@ const TIMELINE_GOAL_LABEL = {
 // Months-per-timeline (used by goal compact chip, receipt header, etc.)
 const TIMELINE_MONTHS = { '6mo': 5, '6-12mo': 13, '12+': 13 };
 
-// Storybook chapter phases per timeline (used by storybook mode only)
-const TIMELINE_PHASES = {
-  '6mo':    [{k:'foundation', n:'foundation', wks:'wk 1-6',  icon:'ph-plant', tone:'sky'},     {k:'revision', n:'speed-up',   wks:'wk 7-14', icon:'ph-rocket', tone:'amber'},  {k:'mock', n:'mock month', wks:'wk 15-19', icon:'ph-flag-checkered', tone:'gold'}, {k:'exam', n:'exam day', wks:'wk 20',    icon:'ph-trophy', tone:'midnight'}],
-  '6-12mo': [{k:'foundation', n:'foundation', wks:'mo 1-4',  icon:'ph-plant', tone:'sky'},     {k:'building', n:'build speed', wks:'mo 5-8', icon:'ph-rocket', tone:'amber'},  {k:'revision', n:'revision',   wks:'mo 9-11', icon:'ph-flame', tone:'gold'},     {k:'mock', n:'mock + exam',  wks:'mo 12-13', icon:'ph-trophy', tone:'midnight'}],
-  '12+':    [{k:'foundation', n:'long base',  wks:'mo 1-5',  icon:'ph-plant', tone:'sky'},     {k:'building', n:'building',    wks:'mo 6-9', icon:'ph-rocket', tone:'amber'},  {k:'revision', n:'revision',   wks:'mo 10-12',icon:'ph-flame', tone:'gold'},     {k:'mock', n:'exam window',  wks:'mo 13+',   icon:'ph-trophy', tone:'midnight'}],
-};
-
-// Coupons — default WELCOME500 applied; rest available in popup
+// V3.13 — Tier-based offers (4 coupons map to the 4 unlock activities)
+// Plus a few non-tier promo coupons in the library for users who want flat-rupee or specific deals.
 const COUPONS = [
-  { code:'WELCOME500', label:'₹500 off · welcome',         off:500, type:'flat',    desc:'first-time student welcome',         autoApplied:true },
-  { code:'EARLYBIRD',  label:'10% off · early bird',       off:10,  type:'percent', desc:'today only · expires midnight' },
-  { code:'GOLD20',     label:'20% off · Gold plan only',   off:20,  type:'percent', desc:'on Gold plan · stackable',           planOnly:'gold' },
-  { code:'NORCET11',   label:'₹250 off · NORCET 11 sprint',off:250, type:'flat',    desc:'5-month sprint timeline',            timelineOnly:'6mo' },
-  { code:'STUDENT15',  label:'15% off · student bundle',   off:15,  type:'percent', desc:'capped at ₹600 · use student ID' },
-  { code:'BIHAR300',   label:'₹300 off · UP/Bihar/JHR',    off:300, type:'flat',    desc:'auto-detected for these states' },
-  { code:'GROUPBUY',   label:'₹400 off · group of 5+',     off:400, type:'flat',    desc:'WhatsApp counselor for code' },
+  { code:'WELCOME10',  label:'10% off · welcome',           off:10,  type:'percent', desc:'unlocked just by being here · auto-applied', autoApplied:true,   tier:'welcome' },
+  { code:'UNLOCK15',   label:'15% off · day-1 plan unlock', off:15,  type:'percent', desc:'unlocked by previewing your day-1 plan',                         tier:'plan' },
+  { code:'DIAGNOSTIC20',label:'20% off · diagnostic done',  off:20,  type:'percent', desc:'unlocked after completing 10-question diagnostic',               tier:'test' },
+  { code:'MASTER35',   label:'35% off · master 5 activities',off:35, type:'percent', desc:'unlocked after completing 5 in-plan activities',                tier:'activities' },
+  { code:'NORCET11',   label:'₹250 off · NORCET 11 sprint', off:250, type:'flat',    desc:'5-month sprint timeline',            timelineOnly:'6mo' },
+  { code:'BIHAR300',   label:'₹300 off · UP/Bihar/JHR',     off:300, type:'flat',    desc:'auto-detected for these states' },
+  { code:'GROUPBUY',   label:'₹400 off · group of 5+',      off:400, type:'flat',    desc:'WhatsApp counselor for code' },
+];
+
+// V3.13 — Tier ordering (lowest to highest discount)
+const OFFER_TIERS = [
+  { id:'welcome',    pct:10, code:'WELCOME10',    title:'10% off · welcome',                  sub:'unlocked just by being here',  cta:'applied', icon:'ph-confetti',     auto:true },
+  { id:'plan',       pct:15, code:'UNLOCK15',     title:'15% off · pehle plan dekho',         sub:'unlock your day-1 study plan', cta:'show my plan', icon:'ph-book-open' },
+  { id:'test',       pct:20, code:'DIAGNOSTIC20', title:'20% off · quick diagnostic do',      sub:'10 questions · ~5 min',        cta:'start test',   icon:'ph-target' },
+  { id:'activities', pct:35, code:'MASTER35',     title:'35% off · 5 activities try karo',    sub:'complete 5 things in your plan',cta:'start activities', icon:'ph-rocket-launch', requires:'plan' },
 ];
 
 const QA_ITEMS = [
@@ -1551,12 +2044,8 @@ const GUARANTEE_ITEMS = [
   { icon:'ph-stack-plus', h:'add more exams kabhi bhi.', d:'sign-up ke baad bhi state / railway / ESIC exams add kar sakte ho. price difference dena hoga, plan reset nahi hota.' },
 ];
 
-// Pre-computed social proof (mock plausible data)
-const SOCIAL_PROOF = {
-  gold: { pct:87, today:247 },
-  practice: { pct:64, today:138 },
-  revision: { pct:32, today:64 },
-};
+// V3.23 — SOCIAL_PROOF chips removed from plan cards (the "X% picked Gold this month" /
+// "247 started Gold today" stack). Constant deleted along with consumer + CSS.
 
 // ============= STATE =============
 // Single source of truth — referenced by initial load AND startFlow reset.
@@ -1576,14 +2065,17 @@ const DEFAULT_STATE = {
   videoPromptDismissed: false,
   seeAllOpen: false,
   compareOpen: false,
-  tabContentStyle: '1a',    // '1a' = collapsed inherited; '1b' = icon chips wrapping
   comparePopupStyle: '2b',  // '2b' = comparison table; '2a' = stacked pyramid
-  couponCode: 'WELCOME500', // default applied coupon
+  couponCode: 'WELCOME10',  // V3.13 — default tier coupon (10% welcome)
   couponPopupOpen: false,
-  videoPitchStyle: '1',     // V3.9 — '1'=banner, '2'=settings-row, '3'=inline-link
   videoPitchOpen: false,
-  mode: 'dashboard',        // 'dashboard' = current build; 'storybook' = Headway-style editorial
-  storyChapter: 0,          // current chapter index in storybook mode
+  // V3.13 — offers tier system
+  unlockedTiers: ['welcome'],   // user starts with welcome unlocked; more unlock by activity
+  celebrationShown: false,      // gate for the one-time celebration popup
+  celebrationOpen: false,
+  offersPanelExpanded: true,    // panel inline visibility
+  editInputsOpen: false,        // V3.19 — pills are tucked behind "edit inputs" button by default
+  upgradeVariant: 'a',          // V4 — V2-only sub-toggle: 'a' = editorial quote, 'c' = outcome narrative
 };
 let state = { ...DEFAULT_STATE, addOns:{}, qaOpen:{}, tierOpen:{} };
 
@@ -1595,8 +2087,6 @@ const planContent = document.getElementById('planContent');
 const planCtaBar = document.getElementById('planCtaBar');
 const planCtaLabel = document.getElementById('planCtaLabel');
 const planCtaMeta = document.getElementById('planCtaMeta');
-const summaryStrip = document.getElementById('summaryStrip');
-const summaryChips = document.getElementById('summaryChips');
 const videoPrompt = document.getElementById('videoPrompt');
 
 // ============= HELPERS =============
@@ -1640,34 +2130,9 @@ function userSay(text){
   addBubble(text, { who:'user' });
 }
 
-// ============= SUMMARY CHIPS =============
-function renderSummary(){
-  const chips = [];
-  if(state.timeline){
-    const opt = TIMELINE_OPTS.find(o=>o.id===state.timeline);
-    chips.push(`<button class="sum-chip" data-revert="timeline">
-      <i class="ph-duotone ${opt.icon}"></i>
-      <span>${opt.examLabel} · ${opt.meta}</span>
-      <span class="change">change</span>
-    </button>`);
-  }
-  if(state.stage){
-    const opt = STAGE_OPTS.find(o=>o.id===state.stage);
-    const plan = PLANS[opt.planId];
-    chips.push(`<button class="sum-chip" data-revert="stage">
-      <i class="ph-duotone ${opt.icon}"></i>
-      <span>${plan.name} kit</span>
-      <span class="change">change</span>
-    </button>`);
-  }
-  if(chips.length === 0){
-    summaryStrip.classList.remove('show');
-    summaryChips.innerHTML = '';
-    return;
-  }
-  summaryChips.innerHTML = chips.join('');
-  summaryStrip.classList.add('show');
-}
+// V3.17 — renderSummary is now a no-op. The "YOUR PLAN SO FAR" strip was removed —
+// saved answers live in the questionnaire chip stack and on the plan UI as exam+stage pills.
+function renderSummary(){ /* removed */ }
 
 // ============= OPTION TILES =============
 function renderOpts(opts, kind){
@@ -1718,30 +2183,6 @@ function clearOpts(){
 }
 
 // ============= PLAN UI BUILDERS =============
-function renderTimelineSection(){
-  if(!state.timeline) return '';
-  const opt = TIMELINE_OPTS.find(o=>o.id===state.timeline);
-  const accent = opt.iconClass === 'amber' ? 'amber' : '';
-  return `<div class="plan-section" style="animation-delay:.05s">
-    <div class="section-h"><i class="ph-fill ph-target"></i><span>your timeline</span></div>
-    <div class="timeline-card">
-      <div class="tc-head">
-        <div class="tc-icon ${accent}"><i class="ph-duotone ${opt.icon}"></i></div>
-        <div>
-          <div class="tc-name">${opt.examLabel}</div>
-          <div class="tc-meta">${opt.meta} · ${opt.exams.length} exams covered</div>
-        </div>
-      </div>
-      <div class="tc-list">
-        ${opt.exams.map(e=>`<div class="tc-row ${!e.primary?'muted':''}">
-          <i class="ph-fill ph-check-circle"></i>
-          <span>${e.label}</span>
-        </div>`).join('')}
-      </div>
-    </div>
-  </div>`;
-}
-
 function renderPlanHero(){
   if(!state.stage) return '';
   const opt = STAGE_OPTS.find(o=>o.id===state.stage);
@@ -1933,6 +2374,29 @@ function totalMonths(){
   let m = TIMELINE_MONTHS[state.timeline] || 0;
   Object.keys(state.addOns).forEach(k=>{ if(state.addOns[k] && ADD_ONS[k].monthsAdded) m += ADD_ONS[k].monthsAdded; });
   return m;
+}
+
+// V3.26 — Blended-rate math for the validity-extension story.
+// Returns: { baseMonthly, extMonthly, savedMonthly, savedPct, savedTotal, totalMonths }
+//   baseMonthly  = current plan ÷ 12 months (without extension)
+//   extMonthly   = (current plan + ext addon) ÷ (12 + monthsAdded)
+//   savedMonthly = baseMonthly - extMonthly  (positive when extension saves)
+//   savedPct     = % of base saved per month
+//   savedTotal   = savedMonthly × totalMonths (compound savings over the period)
+//   totalMonths  = 12 base + monthsAdded extension
+function getBlendedRates(){
+  const pid = getCurrentPlanId();
+  if(!pid) return { baseMonthly:0, extMonthly:0, savedMonthly:0, savedPct:0, savedTotal:0, totalMonths:12 };
+  const plan = PLANS[pid];
+  const upg = ADD_ONS.upgrade12;
+  const baseMonthly = Math.round(plan.price / 12);
+  if(!upg) return { baseMonthly, extMonthly:baseMonthly, savedMonthly:0, savedPct:0, savedTotal:0, totalMonths:12 };
+  const totalMonths = 12 + upg.monthsAdded;
+  const extMonthly = Math.round((plan.price + upg.price) / totalMonths);
+  const savedMonthly = baseMonthly - extMonthly;
+  const savedPct = baseMonthly > 0 ? Math.max(0, Math.round((savedMonthly / baseMonthly) * 100)) : 0;
+  const savedTotal = savedMonthly * totalMonths;
+  return { baseMonthly, extMonthly, savedMonthly, savedPct, savedTotal, totalMonths };
 }
 function totalExamsCovered(){
   if(!state.timeline) return 0;
@@ -2139,20 +2603,62 @@ function editQ(which){
 
 // V3.4 — Goal style toggle pill row + variant router
 // V3.6 — compact Zomato-style chip (replaces goal-echo + timeline-card pair)
+// V3.17/V3.18 — Two side-by-side input pills above + display chip below.
+// V3.19 — Pills tucked behind a top-left "edit inputs" button (utility, mono caps).
+// Plan content opens with a soft divider + real H "Your plan, built for you" + chip.
 function renderGoalCompact(){
   if(!state.timeline) return '';
   const target = TIMELINE_MAJOR_LABEL[state.timeline];
-  const months = totalMonths();
-  const others = Math.max(0, totalExamsCovered() - 1);
-  return `<div class="goal-compact" data-act="open-goal-detail">
-    <div class="gc-row1">
-      <span class="gc-label">target exam</span>
-      <div class="gc-target">
-        <span class="gc-name">${target}</span>
-        <button class="gc-edit" data-act="open-goal-detail" aria-label="edit"><i class="ph ph-pencil-simple"></i></button>
-      </div>
+  const stageOpt = state.stage ? STAGE_OPTS.find(o=>o.id===state.stage) : null;
+  const stageVal = !stageOpt ? '—'
+    : stageOpt.id === 'starting' ? 'starting from scratch'
+    : stageOpt.id === 'preparing' ? 'middle phase'
+    : 'last mile · revising';
+  const opt = TIMELINE_OPTS.find(o=>o.id===state.timeline);
+  const others = Math.max(0, opt.exams.length - 1);
+  const showCls = state.editInputsOpen ? ' show' : '';
+
+  // V3.25 — chip stays clean (no extend line). Validity label still updates if extension active.
+  const extended = !!state.addOns.upgrade12;
+  const validityTarget = extended ? 'NORCET 12' : target;
+
+  return `<div class="edit-inputs-pills${showCls}">
+    <div class="goal-pills">
+      <button class="goal-pill" data-act="open-goal-detail">
+        <span class="gp-key">exam</span>
+        <span class="gp-val">${target}</span>
+        <i class="ph ph-pencil-simple gp-edit"></i>
+      </button>
+      <button class="goal-pill" data-act="open-stage-popup">
+        <span class="gp-key">stage</span>
+        <span class="gp-val">${stageVal}</span>
+        <i class="ph ph-pencil-simple gp-edit"></i>
+      </button>
     </div>
-    <div class="gc-row2"><strong><span class="cov-num">${months} months</span></strong> · <strong><span class="cov-num">${others}</span> other exams</strong> covered</div>
+  </div>
+  <div class="plan-divider"></div>
+  <div class="plan-h-main">
+    <i class="ph-fill ph-sparkle"></i>
+    <h2>Your plan, built for you</h2>
+  </div>
+  <div class="goal-chip">
+    <div class="gc-row">
+      <span class="gc-label">target exam</span>
+      <span class="gc-name">${target}</span>
+    </div>
+    <button class="gc-link" data-act="open-goal-detail">
+      <span><strong>${others}</strong> other exams covered</span>
+      <i class="ph ph-arrow-right"></i>
+    </button>
+    <button class="gc-link gc-validity" data-act="open-goal-detail">
+      <i class="ph-fill ph-shield-check"></i>
+      <span>with you till <strong>${validityTarget}</strong></span>
+      <i class="ph ph-arrow-right"></i>
+    </button>
+    ${extended ? `<div class="gc-backup">
+      <i class="ph-fill ph-check-circle"></i>
+      <span>✓ <strong>NORCET 12</strong> also covered</span>
+    </div>` : ''}
   </div>`;
 }
 
@@ -2167,6 +2673,32 @@ function renderGoalDetailPopup(){
   const validUntil = new Date(today.getFullYear()+1, today.getMonth(), today.getDate());
   const fmtDate = validUntil.toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' });
 
+  // V3.26 — extension section: V1 pill-pair styling + total savings line.
+  const upg = ADD_ONS.upgrade12;
+  const upgAvailable = !!upg && (!upg.onlyIf || upg.onlyIf === state.timeline);
+  const extActive = !!state.addOns.upgrade12;
+  let extensionSection = '';
+  if(upgAvailable){
+    const r = getBlendedRates();
+    extensionSection = `<div class="gd-section">
+      <div class="gd-section-h">${extActive ? 'coverage extended' : 'extend coverage'}</div>
+      <button class="gd-extend-card ${extActive ? 'active' : ''}" data-act="toggle-coverage-norcet12">
+        <div class="gd-ext-head">
+          <div class="gd-ext-h"><i class="ph-fill ph-arrow-fat-up"></i>till NORCET 12</div>
+          <div class="gd-ext-price">+₹${upg.price.toLocaleString('en-IN')}</div>
+        </div>
+        <div class="gd-ext-sub">+${upg.monthsAdded} months · prelim + mains</div>
+        <div class="addon-pill-pair gd-pill-pair">
+          <span class="addon-pill without"><span class="strike">₹${r.baseMonthly}/mo</span></span>
+          <i class="ph ph-arrow-right addon-pill-arrow"></i>
+          <span class="addon-pill with">₹${r.extMonthly}/mo <span class="addon-pill-pct"><i class="ph-fill ph-trend-down"></i>${r.savedPct}%</span></span>
+        </div>
+        <div class="addon-total-saved gd-total-saved">saves <strong>₹${r.savedTotal.toLocaleString('en-IN')}</strong> over ${r.totalMonths} months</div>
+        <div class="gd-ext-cta">${extActive ? '✓ extension active · tap to remove' : 'tap to extend'} <i class="ph ph-arrow-right"></i></div>
+      </button>
+    </div>`;
+  }
+
   body.innerHTML = `
     <div class="gd-section">
       <div class="gd-section-h">exams covered in this window</div>
@@ -2179,12 +2711,13 @@ function renderGoalDetailPopup(){
       </div>
     </div>
     <div class="gd-section">
-      <div class="gd-section-h">duration & validity</div>
+      <div class="gd-section-h">validity</div>
       <div class="gd-validity">
-        <i class="ph-fill ph-clock-countdown"></i>
-        <div><strong>${months} months</strong> prep window · <strong>1-year access</strong> · until ${fmtDate}</div>
+        <i class="ph-fill ph-shield-check"></i>
+        <div><strong>1-yr base access</strong> · auto-extends till <strong>${(extActive ? 'NORCET 12' : TIMELINE_MAJOR_LABEL[state.timeline])} ends</strong> · no extra fee</div>
       </div>
     </div>
+    ${extensionSection}
     <button class="gd-change" data-act="change-timeline">
       <i class="ph ph-arrows-counter-clockwise"></i><span>change timeline</span>
     </button>
@@ -2199,241 +2732,127 @@ function closeGoalDetailPopup(){
   document.getElementById('goalDetailPopup').classList.remove('show');
 }
 
+// V3.25 — Coverage extension popup with blended-rate math + number animation
+function renderCoveragePopup(opts = {}){
+  const body = document.getElementById('coveragePopupBody');
+  if(!body) return;
+  const target = TIMELINE_MAJOR_LABEL[state.timeline] || 'NORCET 11';
+  const planId = getCurrentPlanId();
+  const plan = planId ? PLANS[planId] : null;
+  const upg = ADD_ONS.upgrade12;
+  const extended = !!state.addOns.upgrade12;
+  const r = getBlendedRates();
+  const justToggled = !!opts.justToggled;
+
+  body.innerHTML = `
+    <div class="cov-popup-body">
+      <div class="cov-state-h">your coverage today</div>
+      <div class="cov-current">
+        <i class="ph-fill ph-shield-check"></i>
+        <div class="cov-current-info">
+          <div class="cov-current-h">till ${extended ? 'NORCET 12' : target}</div>
+          <div class="cov-current-sub">${extended ? `${r.totalMonths}` : '12'} months · ₹<span class="cov-anim-num">${extended ? r.extMonthly : r.baseMonthly}</span>/mo on ${plan ? plan.name : 'your plan'}</div>
+        </div>
+      </div>
+
+      <div class="cov-divider"></div>
+      <div class="cov-state-h">${extended ? 'NORCET 12 extension active' : 'extend further · pay less per month'}</div>
+      <div class="cov-options">
+        <button class="cov-option ${extended ? 'active' : ''} ${justToggled ? 'just-toggled' : ''}" data-act="toggle-coverage-norcet12">
+          <div class="cov-option-head">
+            <div class="cov-option-h"><i class="ph-fill ph-arrow-fat-up"></i>till NORCET 12</div>
+            <div class="cov-option-price">+₹${upg.price.toLocaleString('en-IN')}</div>
+          </div>
+          <div class="cov-option-sub">+${upg.monthsAdded} months · prelim + mains</div>
+          <div class="addon-pill-pair cov-pill-pair">
+            <span class="addon-pill without"><span class="strike">₹${r.baseMonthly}/mo</span></span>
+            <i class="ph ph-arrow-right addon-pill-arrow"></i>
+            <span class="addon-pill with">₹${r.extMonthly}/mo <span class="addon-pill-pct"><i class="ph-fill ph-trend-down"></i>${r.savedPct}%</span></span>
+          </div>
+          <div class="addon-total-saved cov-total-saved">saves <strong>₹${r.savedTotal.toLocaleString('en-IN')}</strong> over ${r.totalMonths} months</div>
+          <div class="cov-option-cta">${extended ? '✓ extension active · tap to remove' : 'tap to extend'} <i class="ph ph-arrow-right"></i></div>
+        </button>
+      </div>
+
+      <div class="cov-explainer">
+        <strong>Why per-month drops:</strong> ₹${upg.price.toLocaleString('en-IN')} adds ${upg.monthsAdded} months on top of your 12-month base. The total cost stretches across ${r.totalMonths} months, so your effective rate falls from <strong>₹${r.baseMonthly}</strong> to <strong>₹${r.extMonthly}</strong> per month.
+      </div>
+    </div>
+  `;
+}
+function openCoveragePopup(){
+  renderCoveragePopup();
+  document.getElementById('coveragePopup').classList.add('show');
+}
+function closeCoveragePopup(){
+  document.getElementById('coveragePopup').classList.remove('show');
+}
+
+// V3.25 — animate a number from `from` to `to` across ~500ms (ease-out)
+function animateCovNumber(from, to){
+  const el = document.querySelector('.cov-anim-num');
+  if(!el) return;
+  const start = performance.now();
+  const dur = 500;
+  function tick(now){
+    const t = Math.min(1, (now - start) / dur);
+    const eased = 1 - Math.pow(1 - t, 3); // cubic ease-out
+    const cur = Math.round(from + (to - from) * eased);
+    el.textContent = cur;
+    if(t < 1) requestAnimationFrame(tick);
+    else el.textContent = to;
+  }
+  requestAnimationFrame(tick);
+}
+
+// V3.17 — Stage popup: lightweight 3-option picker for changing the user's stage answer
+function renderStagePopupBody(){
+  const body = document.getElementById('stagePopupBody');
+  if(!body) return;
+  const html = STAGE_OPTS.map(opt => {
+    const isActive = state.stage === opt.id;
+    const planName = PLANS[opt.planId].name;
+    return `<button class="stage-option ${isActive?'active':''}" data-stage-pick="${opt.id}">
+      <div class="stage-icon ${opt.iconClass||''}"><i class="ph-duotone ${opt.icon}"></i></div>
+      <div class="stage-body">
+        <div class="stage-label">${opt.label}</div>
+        <div class="stage-detail">${opt.detail}</div>
+        <div class="stage-match">→ matches <strong>${planName}</strong></div>
+      </div>
+      ${isActive ? '<i class="ph-fill ph-check-circle stage-check"></i>' : '<i class="ph ph-arrow-right stage-arrow"></i>'}
+    </button>`;
+  }).join('');
+  body.innerHTML = `<div class="stage-list">${html}</div>`;
+}
+
+function openStagePopup(){
+  renderStagePopupBody();
+  document.getElementById('stagePopup').classList.add('show');
+}
+function closeStagePopup(){
+  document.getElementById('stagePopup').classList.remove('show');
+}
+
+function pickStage(stageId){
+  if(!stageId || stageId === state.stage){ closeStagePopup(); return; }
+  state.stage = stageId;
+  // Re-derive the matched plan from the new stage
+  const newMatch = STAGE_OPTS.find(o => o.id === stageId).planId;
+  state.selectedPlan = newMatch;
+  closeStagePopup();
+  buildPlanUI();
+  bumpTotal();
+  showToast(`stage changed · matched to ${PLANS[newMatch].name}`);
+}
+
 function renderGoalSection(){
   return renderGoalCompact();
 }
 
-// ============= V3.5 STORYBOOK MODE — Headway-style chapters =============
-const STORY_CHAPTERS = ['cover','foundation','guide','editions','pack','begin'];
 
-function renderStoryProgress(){
-  return `<div class="story-progress">
-    ${STORY_CHAPTERS.map((c,i)=>`<span class="${i===state.storyChapter?'active':''}"></span>`).join('')}
-  </div>`;
-}
-
-function renderStoryNav(idx){
-  const last = STORY_CHAPTERS.length - 1;
-  const prevLabel = idx === 0 ? '' : `← chapter ${idx}`;
-  const nextLabel = idx === last ? '' : `chapter ${idx+2} →`;
-  return `<div class="story-nav">
-    <button class="story-nav-btn ${idx===0?'disabled':''}" data-story-nav="prev">${idx===0?'':prevLabel}</button>
-    <button class="story-nav-btn ${idx===last?'disabled':''}" data-story-nav="next">${idx===last?'':nextLabel}</button>
-  </div>`;
-}
-
-// Cover page — sunrise + book stack SVG, title, user greeting
-function renderStoryCover(){
-  const target = state.timeline ? TIMELINE_MAJOR_LABEL[state.timeline] : 'NORCET 11';
-  return `<div class="story-page cover">
-    <div class="story-chapter-num">a NPrep journey</div>
-    <div class="story-cover-greet">for ${USER.name},</div>
-    <h1 class="story-h">your road to <em>${target}</em>.</h1>
-    <p class="story-sub">a quiet, unhurried plan. one chapter at a time. backed by a promise.</p>
-    <div class="story-cover-scene">
-      <svg class="story-cover-svg" viewBox="0 0 280 180" fill="none">
-        <defs>
-          <linearGradient id="sunGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFC78F"/><stop offset="100%" stop-color="#FF9C5A"/></linearGradient>
-          <linearGradient id="hillGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7B6650"/><stop offset="100%" stop-color="#5A4936"/></linearGradient>
-        </defs>
-        <circle cx="140" cy="92" r="38" fill="url(#sunGrad)" opacity="0.85"/>
-        <path d="M0 138 Q 70 108, 140 130 T 280 122 V180 H0 Z" fill="url(#hillGrad)" opacity="0.85"/>
-        <path d="M0 156 Q 90 142, 180 158 T 280 152 V180 H0 Z" fill="#3a2f1b" opacity="0.7"/>
-        <!-- book stack on the hill -->
-        <rect x="116" y="138" width="48" height="6" rx="1" fill="#8a5818"/>
-        <rect x="120" y="132" width="42" height="6" rx="1" fill="#c8842b"/>
-        <rect x="118" y="126" width="46" height="6" rx="1" fill="#3a2f1b"/>
-        <line x1="140" y1="126" x2="140" y2="118" stroke="#3a2f1b" stroke-width="1"/>
-        <path d="M140 118 L 148 122 L 140 118 L 140 110" stroke="#3a2f1b" stroke-width="1.5" fill="none"/>
-        <!-- scattered birds -->
-        <path d="M 60 60 q 4 -3 8 0 q 4 -3 8 0" stroke="#3a2f1b" stroke-width="1.2" fill="none" opacity="0.5"/>
-        <path d="M 200 50 q 3 -2 6 0 q 3 -2 6 0" stroke="#3a2f1b" stroke-width="1.2" fill="none" opacity="0.4"/>
-      </svg>
-    </div>
-    <span class="story-seal"><i class="ph-fill ph-shield-check"></i>backed by NPrep guarantee</span>
-    <div class="story-page-num">— prologue —</div>
-  </div>`;
-}
-
-// Foundation chapter — phases as editorial milestones
-function renderStoryFoundation(){
-  const phases = state.timeline ? (TIMELINE_PHASES[state.timeline] || []) : [];
-  const m = totalMonths();
-  const exams = totalExamsCovered();
-  return `<div class="story-page foundation">
-    <div class="story-chapter-num">chapter I</div>
-    <h1 class="story-h">where you <em>begin</em>.</h1>
-    <p class="story-sub">${m}mo · ${exams} exams covered. each phase moves at a pace that fits.</p>
-    <div class="story-divider"></div>
-    <div class="story-phases">
-      ${phases.map((p,i)=>`<div class="story-phase">
-        <div class="story-phase-marker">${['I','II','III','IV','V'][i]||(i+1)}</div>
-        <div class="story-phase-body">
-          <div class="story-phase-name">${p.n}</div>
-          <div class="story-phase-meta">${p.wks}</div>
-        </div>
-      </div>`).join('')}
-    </div>
-    <p class="story-quote">pehli baar nahi hua to dobara karenge. plan tumhare saath chalega, tumhare against nahi.<span class="story-quote-attr">— from your guide</span></p>
-    <div class="story-page-num">— ${m}-month window —</div>
-  </div>`;
-}
-
-// Guide chapter — meet your faculty
-function renderStoryGuide(){
-  return `<div class="story-page guide">
-    <div class="story-chapter-num">chapter II</div>
-    <div class="story-guide-portrait">
-      <div class="story-guide-stat">15 yrs · AIIMS</div>
-      <div class="story-guide-name">— Dr. Anjali Mehra</div>
-    </div>
-    <h1 class="story-h">meet your <em>guide</em>.</h1>
-    <p class="story-sub">600+ hours of lectures, designed and taught by people who teach for AIIMS and PGI selection panels.</p>
-    <p class="story-quote">most students don't fail because of effort. they fail because of order. a good guide fixes the order.<span class="story-quote-attr">— Dr. Anjali, in a recent class</span></p>
-    <div class="story-ornament">·   ·   ·</div>
-    <div class="story-page-num">— meet the team —</div>
-  </div>`;
-}
-
-// Editions chapter — three plan tiers as book covers
-function renderStoryEditions(){
-  const currentPid = getCurrentPlanId();
-  const tiers = ['practice','revision','gold'];
-  const meta = {
-    practice: { roman:'edition I',   sub:'mocks · drilling · 5,000+ MCQs' },
-    revision: { roman:'edition II',  sub:'high-yield notes · rapid revision' },
-    gold:     { roman:'edition III', sub:'full lectures · 1-on-1 mentor · 600+ hr' },
-  };
-  return `<div class="story-page editions">
-    <div class="story-chapter-num">chapter III</div>
-    <h1 class="story-h">choose your <em>edition</em>.</h1>
-    <p class="story-sub">three versions of the same journey. pick the one that fits where you are today.</p>
-    <div class="story-editions">
-      ${tiers.map(pid=>{
-        const p = PLANS[pid];
-        const isActive = pid === currentPid;
-        return `<div class="story-edition ${pid} ${isActive?'active':''}" data-story-edition="${pid}">
-          <div class="story-cover-card">
-            <div>
-              <div class="story-cover-meta">${meta[pid].roman}</div>
-              <div class="story-cover-title">${p.name}</div>
-              <div class="story-cover-roman">a NPrep imprint</div>
-            </div>
-            <div class="story-cover-price">₹${p.price.toLocaleString('en-IN')}</div>
-            <div class="story-cover-spine">${meta[pid].sub.split(' · ')[0]}</div>
-          </div>
-        </div>`;
-      }).join('')}
-    </div>
-    <p class="story-quote">tum jis edition pe ho, wahi sahi hai — jab tak doosri zaroorat na ho.<span class="story-quote-attr">— editor's note</span></p>
-    <div class="story-page-num">— ${PLANS[currentPid]?.name || ''} selected —</div>
-  </div>`;
-}
-
-// Pack chapter — add-ons as items to pack
-function renderStoryPack(){
-  const visible = Object.values(ADD_ONS).filter(a=>{
-    if(a.onlyIf && a.onlyIf !== state.timeline) return false;
-    if(a.notIfTimeline && a.notIfTimeline.includes(state.timeline)) return false;
-    return true;
-  });
-  return `<div class="story-page pack">
-    <div class="story-chapter-num">chapter IV</div>
-    <h1 class="story-h">what you'll <em>pack</em>.</h1>
-    <p class="story-sub">extra exams that fit alongside your main one. each adds a few weeks; each adds attempts.</p>
-    <div class="story-divider"></div>
-    <div class="story-pack-list">
-      ${visible.length === 0 ? `<p class="story-quote">your timeline already covers all the extra exams. the bag is full.<span class="story-quote-attr">— packing notes</span></p>` :
-        visible.map(a=>`<div class="story-pack-item ${state.addOns[a.id]?'added':''}" data-addon-toggle="${a.id}">
-          <div class="story-pack-mark">${state.addOns[a.id]?'✓':'+'}</div>
-          <div class="story-pack-body">
-            <div class="story-pack-name">${a.name}</div>
-            <div class="story-pack-meta">${a.sub}</div>
-          </div>
-          <div class="story-pack-price">+₹${a.price.toLocaleString('en-IN')}</div>
-        </div>`).join('')
-      }
-    </div>
-    <div class="story-page-num">— ${Object.keys(state.addOns).filter(k=>state.addOns[k]).length} packed —</div>
-  </div>`;
-}
-
-// Begin chapter — final CTA + receipt
-function renderStoryBegin(){
-  const pid = getCurrentPlanId();
-  const plan = pid ? PLANS[pid] : null;
-  const total = totalPrice();
-  const m = totalMonths();
-  const exams = totalExamsCovered();
-  const c = getActiveCoupon();
-  const disc = couponDiscount();
-  return `<div class="story-page begin">
-    <div class="story-chapter-num">epilogue</div>
-    <h1 class="story-h">begin <em>chapter one</em>.</h1>
-    <p class="story-sub">payment ke 30 seconds baad, pehla lecture unlock hota hai. WhatsApp pe access link aata hai.</p>
-    <div class="story-receipt">
-      <div class="story-receipt-row"><span>${plan?.name || 'plan'}</span><span>₹${(plan?.price||0).toLocaleString('en-IN')}</span></div>
-      <div class="story-receipt-row"><span>${m}mo · ${exams} exams covered</span><span></span></div>
-      ${c ? `<div class="story-receipt-row"><span>coupon · ${c.code}</span><span>−₹${disc.toLocaleString('en-IN')}</span></div>` : ''}
-      <div class="story-receipt-row total"><span>total</span><span class="story-amt">₹${total.toLocaleString('en-IN')}</span></div>
-    </div>
-    <button class="story-cta" id="storyCta">
-      <span>begin chapter one</span>
-      <span class="story-cta-arrow">turn the page →</span>
-    </button>
-    <span class="story-seal" style="margin-top:14px"><i class="ph-fill ph-shield-check"></i>NPrep guarantee · pass or repeat free</span>
-    <div class="story-page-num">— end of preface —</div>
-  </div>`;
-}
-
-const STORY_RENDERERS = {
-  cover: renderStoryCover,
-  foundation: renderStoryFoundation,
-  guide: renderStoryGuide,
-  editions: renderStoryEditions,
-  pack: renderStoryPack,
-  begin: renderStoryBegin,
-};
-
-function renderStorybookUI(){
-  // All chapters stacked into one continuous scroll — no prev/next nav.
-  return `<div class="story-root">${STORY_CHAPTERS.map(k => STORY_RENDERERS[k]()).join('')}</div>`;
-}
-
-// 2. Timeline V3 — major exams only + see-all popup trigger + change link
-function renderTimelineV3(){
-  if(!state.timeline) return '';
-  const opt = TIMELINE_OPTS.find(o=>o.id===state.timeline);
-  const accent = opt.iconClass === 'amber' ? 'amber' : '';
-  const major = opt.exams.filter(e=>e.primary);
-  return `<div class="plan-section" style="animation-delay:.05s">
-    <div class="section-h"><i class="ph-fill ph-target"></i><span>your timeline + target exam</span></div>
-    <div class="timeline-card">
-      <div class="tc-head">
-        <div class="tc-icon ${accent}"><i class="ph-duotone ${opt.icon}"></i></div>
-        <div>
-          <div class="tc-name">${TIMELINE_MAJOR_LABEL[state.timeline]}</div>
-          <div class="tc-meta">${opt.meta} · ${opt.exams.length} exams covered</div>
-        </div>
-      </div>
-      <div class="major-list">
-        ${major.map(e=>`<div class="major-row">
-          <i class="ph-fill ph-check-circle"></i>
-          <span>${e.label}</span>
-        </div>`).join('')}
-      </div>
-      <button class="see-all-link" data-act="see-all-exams">
-        <i class="ph ph-list-magnifying-glass"></i>
-        <span>see all ${opt.exams.length} exams covered</span>
-      </button>
-      <br/>
-      <button class="change-tl-link" data-act="change-timeline">
-        <i class="ph ph-arrows-counter-clockwise"></i>
-        <span>change timeline</span>
-      </button>
-    </div>
-  </div>`;
-}
+// V3.19 — Dead `renderTimelineV3()` + `renderTimelineSection()` removed.
+// Both were defined but never called (never wired into buildPlanUI). The chip + goal-detail
+// popup cover all the same jobs now (target exam, exams covered, change timeline).
 
 // 3. Plan V3.1 — horizontal tabs (Practice→Revision→Gold) + content with cumulative tier features
 function renderPlanV3(){
@@ -2443,25 +2862,17 @@ function renderPlanV3(){
   const plan = PLANS[currentPid];
   const matchedPlan = PLANS[recommendedPid];
   const direction = getDirection();
-  const sp = SOCIAL_PROOF[currentPid];
   const daily = Math.round(plan.price/365);
   const accentBg = plan.accent === 'gold' ? 'gold-bg' : plan.accent === 'amber' ? 'amber-bg' : 'sky-bg';
 
-  const featsHtml = state.tabContentStyle === '1b' ? renderTabFeats1B(plan) : renderTabFeats1A(plan);
-
-  const toggleRow = `<div class="style-toggle-row">
-    <span>features view</span>
-    <div class="style-toggle">
-      <button class="${state.tabContentStyle==='1a'?'on':''}" data-tab-content-style="1a">collapsed</button>
-      <button class="${state.tabContentStyle==='1b'?'on':''}" data-tab-content-style="1b">chips</button>
-    </div>
-  </div>`;
+  // V3.22 — features view is always the chips layout. Collapsed toggle removed.
+  const featsHtml = renderTabFeats1B(plan);
 
   // V3.10/V3.11 — direction-aware heading + see-other-plans link
   // (match pill dropped — heading already conveys match state; saves a redundant line)
   let headingText, planMatchTag, seeOtherCopy;
   if(direction === 'match'){
-    headingText = 'your matched plan';
+    headingText = 'recommended plan for you';
     planMatchTag = '';
     seeOtherCopy = 'see other plan options';
   } else if(direction === 'upgrade'){
@@ -2494,18 +2905,21 @@ function renderPlanV3(){
       ${planMatchTag}
       <div class="pc-head-row">
         <div class="pc-name"><i class="${plan.icon}"></i><span>${plan.name}</span></div>
-        <div class="pc-price-line">
+        <div class="pc-price-line-stack">
           <span class="pc-now-big">₹${plan.price.toLocaleString('en-IN')}</span>
+          ${(() => {
+            // V3.26 — clean price band: just the year price + plain monthly equivalent.
+            // The extend pitch lives on dedicated surfaces (chip popup, add-on, upgrade card, CTA tip line) — NOT here.
+            const r = getBlendedRates();
+            const monthly = state.addOns.upgrade12 ? r.extMonthly : r.baseMonthly;
+            const subText = state.addOns.upgrade12 ? `≈ ₹${monthly}/mo · over ${r.totalMonths} months` : `≈ ₹${monthly}/mo`;
+            return `<span class="pc-monthly-tease">${subText}</span>`;
+          })()}
         </div>
       </div>
       <div class="pc-quote-big">${plan.quote}</div>
       ${renderVideoPitch(currentPid)}
-      ${toggleRow}
       ${featsHtml}
-      <div class="social-proof-stack pc-social-bottom">
-        <div class="sp-chip"><i class="ph-fill ph-fire"></i><span><strong>${sp.pct}%</strong> of ${TIMELINE_MAJOR_LABEL[state.timeline]} students picked ${plan.name} this month</span></div>
-        <div class="sp-chip"><span class="pulse-dot"></span><span><strong>${sp.today}</strong> started ${plan.name} today</span></div>
-      </div>
     </div>
 
     <button class="see-options-link" data-act="compare-all">
@@ -2559,35 +2973,150 @@ function closeVideoPitchPopup(){
   document.getElementById('videoPitchPopup').classList.remove('show');
 }
 
-// V3.8/V3.10 — Upgrade-to-Gold card. Match-aware: when matched===Gold and selected<Gold,
-// reframe as a "restore your match" CTA instead of a generic upsell.
+// ============= V3.13 OFFERS TIER SYSTEM =============
+function getHighestTier(){
+  const unlocked = state.unlockedTiers || [];
+  // Walk from highest to lowest, return first match
+  for(let i = OFFER_TIERS.length - 1; i >= 0; i--){
+    if(unlocked.includes(OFFER_TIERS[i].id)) return OFFER_TIERS[i];
+  }
+  return OFFER_TIERS[0]; // fallback to welcome
+}
+
+function unlockTier(tierId){
+  const tier = OFFER_TIERS.find(t => t.id === tierId);
+  if(!tier) return;
+  if(!state.unlockedTiers.includes(tierId)){
+    state.unlockedTiers.push(tierId);
+  }
+  // Set the active coupon to the highest tier
+  const highest = getHighestTier();
+  state.couponCode = highest.code;
+  try{ localStorage.setItem('nprepUnlockedTiers', JSON.stringify(state.unlockedTiers)); }catch(e){}
+  buildPlanUI();
+  bumpTotal();
+  // If offers popup is open, refresh its body so the user sees the state change
+  const offersPopup = document.getElementById('offersPopup');
+  if(offersPopup && offersPopup.classList.contains('show')){
+    const body = document.getElementById('offersBody');
+    if(body) body.innerHTML = renderOffersPopupBody();
+  }
+  showToast(`✦ ${tier.pct}% off unlocked`);
+}
+
+function tierIsAvailable(tierId){
+  const tier = OFFER_TIERS.find(t => t.id === tierId);
+  if(!tier) return false;
+  if(!tier.requires) return true;
+  return state.unlockedTiers.includes(tier.requires);
+}
+
+// V3.14 — Offers no longer render inline; this builds the body for the offers popup
+function renderOffersPopupBody(){
+  if(!state.stage) return '';
+  const unlocked = state.unlockedTiers || [];
+  const highest = getHighestTier();
+
+  const cards = OFFER_TIERS.map(tier => {
+    const isUnlocked = unlocked.includes(tier.id);
+    const isAvailable = tierIsAvailable(tier.id);
+    const isActive = highest.id === tier.id;
+    let stateClass, btn;
+
+    if(isUnlocked){
+      stateClass = 'state-unlocked';
+      btn = isActive
+        ? `<span class="off-state"><i class="ph-fill ph-check-circle"></i>applied</span>`
+        : `<span class="off-state muted"><i class="ph-fill ph-check-circle"></i>unlocked</span>`;
+    } else if(isAvailable){
+      stateClass = 'state-available';
+      btn = `<button class="off-cta" data-act="unlock-tier" data-tier="${tier.id}">${tier.cta} <i class="ph ph-arrow-right"></i></button>`;
+    } else {
+      stateClass = 'state-locked';
+      const reqTier = OFFER_TIERS.find(t => t.id === tier.requires);
+      btn = `<span class="off-state locked"><i class="ph-fill ph-lock-simple"></i>unlock ${reqTier?.id || tier.requires} first</span>`;
+    }
+
+    return `<div class="offer-card ${stateClass}">
+      <div class="off-icon"><i class="ph-duotone ${tier.icon}"></i></div>
+      <div class="off-body">
+        <div class="off-title">${tier.title}</div>
+        <div class="off-sub">${tier.sub}</div>
+      </div>
+      <div class="off-action">${btn}</div>
+    </div>`;
+  }).join('');
+
+  return `<div class="op-tagline-row">try before you byte · <strong>${highest.pct}%</strong> off active</div>
+    <div class="op-cards">${cards}</div>
+    <div class="op-footer">
+      <i class="ph ph-info"></i>
+      <span>find these offers anytime in the coupons & offer section below</span>
+    </div>`;
+}
+
+function openOffersPopup(){
+  const body = document.getElementById('offersBody');
+  if(body) body.innerHTML = renderOffersPopupBody();
+  document.getElementById('offersPopup').classList.add('show');
+}
+
+function closeOffersPopup(){
+  document.getElementById('offersPopup').classList.remove('show');
+  // Toast points the user to where they can re-engage with offers later
+  showToast('saved! find offers in the coupons section below ↓');
+  // Briefly highlight the coupon section so the eye knows where to look
+  setTimeout(() => {
+    const sec = document.querySelector('.coupon-card, .coupon-empty');
+    if(sec){
+      sec.classList.add('highlight-pulse');
+      sec.scrollIntoView({ behavior:'smooth', block:'center' });
+      setTimeout(() => sec.classList.remove('highlight-pulse'), 2200);
+    }
+  }, 250);
+}
+
+// V3.13 — celebration popup (one-time per session, fires 12s after plan reveal)
+function showCelebration(){
+  if(state.celebrationShown) return;
+  state.celebrationShown = true;
+  try{ localStorage.setItem('nprepCelebrationShown', '1'); }catch(e){}
+  const popup = document.getElementById('celebrationPopup');
+  if(popup) popup.classList.add('show');
+  state.celebrationOpen = true;
+}
+
+function closeCelebration(showOffers){
+  const popup = document.getElementById('celebrationPopup');
+  if(popup) popup.classList.remove('show');
+  state.celebrationOpen = false;
+  if(showOffers){
+    // V3.14 — celebration → offers popup transition
+    setTimeout(() => openOffersPopup(), 250);
+  }
+}
+
+// V4 — Upgrade-to-Gold inline link. Same minimal soft-link pattern for V1 and V2.
+// Hidden when user is on Gold (extension lives on dedicated surfaces).
+// Match-aware: if matched=Gold and current<Gold, reframes as "Restore Gold".
 function renderUpgradeCard(){
   if(!state.stage) return '';
   const currentPid = getCurrentPlanId();
-  if(currentPid === 'gold') return '';
-  const goldPlan = PLANS.gold;
-  const currentPlan = PLANS[currentPid];
-  const yearlyDelta = goldPlan.price - currentPlan.price;
-  const monthlyDelta = Math.round(yearlyDelta / 12);
-  const dailyDelta = Math.round(yearlyDelta / 365);
-  const isRestore = getRecommendedPlanId() === 'gold';
+  const onGold = currentPid === 'gold';
+  if(onGold) return '';
 
-  const title = isRestore ? 'Gold was your match' : 'upgrade to Gold';
-  const stat = isRestore
-    ? `<span class="up-stat restore"><i class="ph-fill ph-arrow-counter-clockwise"></i>restore</span>`
-    : `<span class="up-stat"><i class="ph-fill ph-trophy"></i>most toppers pick this</span>`;
-  const ctaText = isRestore ? 'restore Gold' : 'upgrade to Gold';
+  const isRestore = getRecommendedPlanId() === 'gold';
+  const ctaLabel = isRestore ? 'Restore Gold' : 'Switch to Gold';
 
   return `<div class="plan-section" style="animation-delay:.15s">
-    <div class="upgrade-card ${isRestore?'restore':''}">
-      <div class="up-head">
-        <span class="up-title">${title}</span>
-        ${stat}
+    <button class="upgrade-link ${isRestore?'restore':''}" data-act="upgrade-to-gold">
+      <div class="ul-row">
+        <i class="ph-fill ph-trophy ul-icon"></i>
+        <span class="ul-headline">Want more? <strong>${ctaLabel}</strong></span>
+        <i class="ph ph-arrow-right ul-arrow"></i>
       </div>
-      <div class="up-feats">+600 hr lectures · 1-on-1 weekly mentor</div>
-      <div class="up-price">just <strong>₹${monthlyDelta}/month</strong> more — ₹${dailyDelta}/day</div>
-      <button class="up-cta" data-act="upgrade-to-gold">${ctaText} <i class="ph ph-arrow-right"></i></button>
-    </div>
+      <div class="ul-sub">1-on-1 mentor + 600 hr lectures</div>
+    </button>
   </div>`;
 }
 
@@ -2606,20 +3135,9 @@ function buildFlatFeatures(plan){
   return { feats: [...ownFeats, ...inheritedFeats], exclusiveLabel };
 }
 
-// 1A — Compact rows (flat list)
-function renderTabFeats1A(plan){
-  const { feats, exclusiveLabel } = buildFlatFeatures(plan);
-  let html = '';
-  html += `<div class="feat-tier-line own"><i class="ph-fill ph-package"></i><span>what's included</span></div>`;
-  html += `<div class="feat-rows-compact">${feats.map(f=>`<div class="feat-row-compact">
-    <i class="${f.icon}"></i>
-    <span class="ftc-text">${f.text}<span class="ftc-sub"> · ${f.sub}</span></span>
-    ${f.exclusive ? `<span class="feat-exclusive-badge">${exclusiveLabel.toLowerCase()}</span>` : ''}
-  </div>`).join('')}</div>`;
-  return html;
-}
+// V3.22 — `renderTabFeats1A` (compact rows view) removed. Chips view is the only view now.
 
-// 1B — Icon chips wrapping (flat list)
+// Icon chips wrapping (flat list)
 function renderTabFeats1B(plan){
   const { feats, exclusiveLabel } = buildFlatFeatures(plan);
   let html = '';
@@ -2669,24 +3187,76 @@ function renderFacultyVideoCard(){
 }
 
 // 6. NPrep Guarantee (3 items)
+// V4 — Pattern B: number-led commitments list (V1) + lockup card (V2 Option 4).
+// Both modes render in DOM; CSS toggles which is visible based on body.v2 class.
+// V2 lockup taps open the editorial bottom sheet (guaranteePopup).
+const GUARANTEE_LOCKUP_LABELS = ['date push', 'plan switch', 'add exams'];
+
 function renderGuaranteeV3(){
   if(!state.stage) return '';
-  return `<div class="plan-section" style="animation-delay:.25s">
+  return `<div class="plan-section guarantee-section" style="animation-delay:.25s">
     <div class="section-h guarantee"><i class="ph-fill ph-shield-check"></i><span>NPrep Guarantee</span></div>
-    <div class="guarantee" style="flex-direction:column;align-items:stretch;gap:12px">
-      <div class="guarantee-body" style="border:0;padding:0">
-        <div class="guarantee-h" style="margin-bottom:2px">we adapt to you, not the other way around.</div>
-        <div class="guarantee-sub" style="margin-bottom:4px">3 commitments tumhare har scenario ke liye.</div>
+
+    <!-- V1 stacked-list mode (default; hidden when body.v2) -->
+    <div class="guarantee-list-mode">
+      <div class="guarantee-intro">
+        <div class="g-intro-h">we adapt to you, not the other way around.</div>
+        <div class="g-intro-sub">3 commitments tumhare har scenario ke liye.</div>
       </div>
-      ${GUARANTEE_ITEMS.map(g=>`<div style="display:flex;align-items:flex-start;gap:11px;padding-top:10px;border-top:1px dashed rgba(14,157,97,.2)">
-        <div class="guarantee-icon" style="width:32px;height:32px;font-size:15px"><i class="ph-duotone ${g.icon}"></i></div>
-        <div style="flex:1">
-          <div style="font-size:13px;font-weight:800;color:var(--midnight);letter-spacing:-.005em;line-height:1.35;margin-bottom:2px">${g.h}</div>
-          <div style="font-size:11.5px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;line-height:1.5">${g.d}</div>
-        </div>
-      </div>`).join('')}
+      <div class="g-list">
+        ${GUARANTEE_ITEMS.map((g, i)=>`<div class="g-item">
+          <div class="g-num">0${i+1}</div>
+          <div class="g-content">
+            <div class="g-h">${g.h}</div>
+            <div class="g-d">${g.d}</div>
+          </div>
+        </div>${i < GUARANTEE_ITEMS.length - 1 ? '<div class="g-divider"></div>' : ''}`).join('')}
+      </div>
+    </div>
+
+    <!-- V2 lockup-mode: compact card with 3 numerals + tagline. Tap opens editorial bottom sheet. -->
+    <div class="guarantee-lockup-mode">
+      <div class="g-lockup-tagline">"we adapt to you, not the other way around."</div>
+      <div class="g-lockup-numerals">
+        ${GUARANTEE_ITEMS.map((g, i)=>`<button class="g-lockup-cell" data-act="open-guarantee-popup">
+          <span class="g-lockup-num">0${i+1}</span>
+          <span class="g-lockup-label">${GUARANTEE_LOCKUP_LABELS[i] || ''}</span>
+        </button>`).join('')}
+      </div>
+      <button class="g-lockup-cta" data-act="open-guarantee-popup">
+        <span>read all 3 commitments</span>
+        <i class="ph ph-arrow-right"></i>
+      </button>
     </div>
   </div>`;
+}
+
+// V4 — Bottom sheet body: full editorial layout (Fraunces 44px numerals + descriptions)
+function renderGuaranteePopup(){
+  const body = document.getElementById('guaranteePopupBody');
+  if(!body) return;
+  body.innerHTML = `
+    <div class="guarantee-intro" style="margin-top:0">
+      <div class="g-intro-h">we adapt to you, not the other way around.</div>
+      <div class="g-intro-sub">3 commitments tumhare har scenario ke liye.</div>
+    </div>
+    <div class="g-list">
+      ${GUARANTEE_ITEMS.map((g, i)=>`<div class="g-item">
+        <div class="g-num">0${i+1}</div>
+        <div class="g-content">
+          <div class="g-h">${g.h}</div>
+          <div class="g-d">${g.d}</div>
+        </div>
+      </div>${i < GUARANTEE_ITEMS.length - 1 ? '<div class="g-divider"></div>' : ''}`).join('')}
+    </div>
+  `;
+}
+function openGuaranteePopup(){
+  renderGuaranteePopup();
+  document.getElementById('guaranteePopup').classList.add('show');
+}
+function closeGuaranteePopup(){
+  document.getElementById('guaranteePopup').classList.remove('show');
 }
 
 // 7. After sign up
@@ -2750,24 +3320,55 @@ function renderAddMoreExamsV3(){
     </div>`;
   }
 
+  // V3.27 — horizontal scroll of portrait cards (~2 visible at a time, swipe for more).
   return `<div class="plan-section" style="animation-delay:.35s">
     <div class="section-h"><i class="ph-fill ph-plus-circle"></i><span>add more exams</span></div>
     <div class="bundled-chip">
       <i class="ph-fill ph-fire"></i>
       <span><strong>62%</strong> of ${PLANS[getCurrentPlanId()].name} + ${TIMELINE_MAJOR_LABEL[state.timeline]} students added an extra exam</span>
     </div>
-    <div class="addon-scroll-row">
-      ${visibleAddOns.map(a=>`<button class="addon-card-v3 ${state.addOns[a.id]?'selected':''}" data-addon-toggle="${a.id}" type="button">
-        <div class="addon-card-head">
-          <div class="addon-card-icon"><i class="ph-duotone ${a.icon}"></i></div>
-          <div class="addon-card-toggle"><i class="ph-fill ph-check"></i></div>
+    <div class="addon-stack">
+      ${visibleAddOns.map(a=>{
+        // V3.29 — Option A: name + chip top, pill pair, savings line (with % inline), CTA with price.
+        const isValidityExt = a.id === 'upgrade12' && a.monthsAdded > 1;
+        const selected = !!state.addOns[a.id];
+        const chipText = isValidityExt
+          ? `+${a.monthsAdded} mo`
+          : (a.examsAdded > 0 ? `+${a.examsAdded} exams` : '');
+
+        // V3.30 — always show the before/after pill pair. Savings line adapts honestly
+        // depending on whether the math is a win (Gold/Revision) or neutral (Practice).
+        let middleBlock = '';
+        if(isValidityExt){
+          const r = getBlendedRates();
+          const isWin = r.savedMonthly > 0;
+          const pillPair = `<div class="addon-pill-pair">
+            <span class="addon-pill ${isWin ? 'without' : 'neutral'}">${isWin ? `<span class="strike">₹${r.baseMonthly}/mo</span>` : `₹${r.baseMonthly}/mo`}</span>
+            <i class="ph ph-arrow-right addon-pill-arrow"></i>
+            <span class="addon-pill ${isWin ? 'with' : 'neutral-with'}">₹${r.extMonthly}/mo</span>
+          </div>`;
+          const savingsLine = isWin
+            ? `<div class="addon-total-saved">save <strong>₹${r.savedTotal.toLocaleString('en-IN')}</strong> · <span class="addon-pct-inline"><i class="ph-fill ph-trend-down"></i>${r.savedPct}%</span></div>`
+            : `<div class="addon-total-saved addon-neutral-line">+${a.monthsAdded} months · <strong>${r.totalMonths} months</strong> total coverage</div>`;
+          middleBlock = pillPair + savingsLine;
+        } else {
+          middleBlock = `<div class="addon-row-sub">${a.sub}</div>`;
+        }
+
+        const ctaContent = selected
+          ? `<i class="ph-fill ph-check"></i> added`
+          : `<i class="ph ph-plus"></i> add · ₹${a.price.toLocaleString('en-IN')}`;
+
+        return `<button class="addon-card-row ${selected?'selected':''}" data-addon-toggle="${a.id}" type="button">
+        <div class="addon-row-top">
+          <div class="addon-row-name">${a.name}</div>
+          ${chipText ? `<span class="addon-month-chip">${chipText}</span>` : ''}
         </div>
-        <div class="addon-card-name">${a.name}</div>
-        <div class="addon-card-sub">${a.sub}</div>
-        <span class="addon-card-price">+₹${a.price.toLocaleString('en-IN')}</span>
-      </button>`).join('')}
+        ${middleBlock}
+        <div class="addon-add-btn">${ctaContent}</div>
+      </button>`}).join('')}
     </div>
-    <div style="font-size:10.5px;color:var(--gray-4);font-weight:500;text-align:center;margin-top:6px;letter-spacing:-.005em;font-family:'JetBrains Mono';text-transform:uppercase">↔ swipe to see all ${visibleAddOns.length}</div>
+    <div style="font-size:10px;color:var(--gray-4);font-weight:600;text-align:center;margin-top:6px;letter-spacing:.08em;font-family:'JetBrains Mono';text-transform:uppercase">↔ swipe for ${visibleAddOns.length} add-on${visibleAddOns.length > 1 ? 's' : ''}</div>
   </div>`;
 }
 
@@ -2802,7 +3403,48 @@ function renderCouponPopup(){
   if(!body) return;
   const sub = rawSubtotal();
   const planId = getCurrentPlanId();
-  const html = COUPONS.map(c=>{
+
+  // V3.15 — split into tier offers (top, visually distinct) + promo coupons (below)
+  const tierCoupons = COUPONS.filter(c => c.tier);
+  const promoCoupons = COUPONS.filter(c => !c.tier);
+
+  // Render tier offers — state-aware (applied / unlocked / locked) — matches offers popup styling
+  const tierHtml = tierCoupons.map(c => {
+    const tierDef = OFFER_TIERS.find(t => t.id === c.tier);
+    const isUnlocked = state.unlockedTiers.includes(c.tier);
+    const isAvailable = !tierDef.requires || state.unlockedTiers.includes(tierDef.requires);
+    const isApplied = state.couponCode === c.code;
+    const disc = Math.round(sub * c.off / 100);
+
+    let stateClass, btn;
+    if(isApplied){
+      stateClass = 'tier-applied';
+      btn = `<span class="tier-state"><i class="ph-fill ph-check-circle"></i>applied</span>`;
+    } else if(isUnlocked){
+      stateClass = 'tier-unlocked';
+      btn = `<button class="tier-cta" data-coupon-pick="${c.code}">apply ₹${disc}</button>`;
+    } else if(isAvailable){
+      stateClass = 'tier-available';
+      btn = `<button class="tier-cta-locked" data-act="close-coupon-open-offers">try to unlock <i class="ph ph-arrow-up-right"></i></button>`;
+    } else {
+      stateClass = 'tier-locked';
+      const reqTier = OFFER_TIERS.find(t => t.id === tierDef.requires);
+      btn = `<span class="tier-state locked"><i class="ph-fill ph-lock-simple"></i>do "${reqTier?.cta || 'previous step'}" first</span>`;
+    }
+
+    return `<div class="tier-coupon-card ${stateClass}">
+      <div class="tier-coupon-icon"><i class="ph-duotone ${tierDef.icon}"></i></div>
+      <div class="tier-coupon-body">
+        <div class="tier-coupon-code">${c.code} · ${c.off}% OFF</div>
+        <div class="tier-coupon-label">${tierDef.title.replace(/^\d+% off · /,'')}</div>
+        <div class="tier-coupon-desc">${c.desc}</div>
+      </div>
+      <div class="tier-coupon-action">${btn}</div>
+    </div>`;
+  }).join('');
+
+  // Render promo coupons — flat rows (existing style)
+  const promoHtml = promoCoupons.map(c => {
     let invalid = '';
     if(c.planOnly && c.planOnly !== planId) invalid = `Gold plan only`;
     if(c.timelineOnly && c.timelineOnly !== state.timeline) invalid = `${TIMELINE_MAJOR_LABEL[c.timelineOnly]||c.timelineOnly} only`;
@@ -2819,7 +3461,13 @@ function renderCouponPopup(){
       <button class="coupon-item-cta">${isApplied ? '✓ applied' : invalid ? 'unavailable' : `save ₹${disc}`}</button>
     </div>`;
   }).join('');
-  body.innerHTML = `<div class="coupon-list">${html}</div>`;
+
+  body.innerHTML = `
+    <div class="coupon-section-h"><i class="ph-fill ph-sparkle"></i><span>your unlocked offers</span></div>
+    <div class="tier-coupon-list">${tierHtml}</div>
+    <div class="coupon-section-h" style="margin-top:18px"><i class="ph-fill ph-tag"></i><span>other coupons</span></div>
+    <div class="coupon-list">${promoHtml}</div>
+  `;
 }
 
 function openCouponPopup(){
@@ -2880,7 +3528,23 @@ function renderCtaBar(){
     </div>
   </div>`;
 
+  // V3.25 — pre-checkout tip line above CTA: non-blocking nudge for the validity extension.
+  // Only shows when extension is available AND not yet active.
+  const upg = ADD_ONS.upgrade12;
+  const upgAvailable = !!upg && (!upg.onlyIf || upg.onlyIf === state.timeline);
+  const showTip = upgAvailable && !state.addOns.upgrade12;
+  let tipLine = '';
+  if(showTip){
+    const r = getBlendedRates();
+    tipLine = `<button class="cta-tip-line" data-act="open-coverage-popup">
+      <i class="ph-fill ph-arrow-fat-up"></i>
+      <span>extend to <strong>NORCET 12</strong> · <strong>₹${r.extMonthly}/mo</strong> · saves <strong>₹${r.savedTotal.toLocaleString('en-IN')}</strong></span>
+      <i class="ph ph-arrow-right"></i>
+    </button>`;
+  }
+
   planCtaBar.innerHTML = `
+    ${tipLine}
     ${receiptHtml}
     <button class="plan-cta" id="planCta">
       <i class="ph-fill ph-shield-check"></i>
@@ -2891,24 +3555,7 @@ function renderCtaBar(){
   planCtaBar.style.display = 'block';
 }
 
-function renderModeToggle(){
-  return `<div class="mode-toggle">
-    <button class="${state.mode==='dashboard'?'on':''}" data-mode-pick="dashboard">dashboard</button>
-    <button class="${state.mode==='storybook'?'on':''}" data-mode-pick="storybook">storybook</button>
-  </div>`;
-}
-
 function buildPlanUI(){
-  // master mode toggle floats above plan content
-  document.body.dataset.mode = state.mode;
-  let modeBar = document.getElementById('modeToggleBar');
-  if(!modeBar){
-    modeBar = document.createElement('div');
-    modeBar.id = 'modeToggleBar';
-    document.querySelector('.phone').appendChild(modeBar);
-  }
-  modeBar.innerHTML = renderModeToggle();
-
   if(state.step <= 1){
     planContent.innerHTML = `<div class="plan-section">
       <div class="section-h"><i class="ph-fill ph-spinner"></i><span>building your plan...</span></div>
@@ -2926,23 +3573,16 @@ function buildPlanUI(){
     state.selectedPlan = getRecommendedPlanId();
   }
 
-  // STORYBOOK MODE — bypass dashboard sections entirely
-  if(state.mode === 'storybook'){
-    planContent.innerHTML = renderStorybookUI();
-    // hide the dashboard sticky CTA — storybook has its own "begin" button on epilogue
-    planCtaBar.style.display = 'none';
-    return;
-  }
-
-  // DASHBOARD MODE
   let html = '';
   html += renderGoalSection();
   html += renderPlanV3();
   if(state.selectedPlan){
+    // V3.14 — offers panel is no longer inline; it lives in a popup opened from the celebration "show me now"
     html += renderUpgradeCard();
     html += renderFacultyVideoCard();
     html += renderGuaranteeV3();
-    html += renderAfterSignupV3();
+    // V3.16 — "After You Sign Up" section removed. Day-1 plan content now lives in the
+    // 15% offers unlock — surface consolidation. Free reveals weakened the paid reveal.
     html += renderAddMoreExamsV3();
     html += renderCouponSection();
     html += renderQAV3();
@@ -2956,15 +3596,58 @@ function buildPlanUI(){
   } else {
     planCtaBar.style.display = 'none';
   }
+
+  // V4 — Show v1/v2 toggle once plan is built (state.step >= 6)
+  updateVersionToggleVisibility();
 }
 
-// Animated bump on price + coverage numbers
+// V4 — v1/v2 toggle visibility + switching
+function updateVersionToggleVisibility(){
+  const toggle = document.getElementById('versionToggle');
+  if(!toggle) return;
+  const visible = state.step >= 6 && !!state.selectedPlan;
+  toggle.classList.toggle('show', visible);
+  document.body.classList.toggle('has-version-toggle', visible);
+}
+function setVersion(v){
+  document.body.classList.toggle('v2', v === 'v2');
+  document.querySelectorAll('.vt-btn').forEach(b => b.classList.toggle('active', b.dataset.v === v));
+  // Persist for the session
+  try { sessionStorage.setItem('nprep_version', v); } catch(e){}
+}
+
+// V4 — Number-tick animation: when total changes, tick from old → new (universal, both versions)
+let _lastBumpTotal = null;
 function bumpTotal(){
+  const total = totalPrice();
+  if(_lastBumpTotal !== null && _lastBumpTotal !== total){
+    document.querySelectorAll('#receiptTotal, #ctaTotal').forEach(el=>{
+      tickPriceNumber(el, _lastBumpTotal, total);
+    });
+  }
+  _lastBumpTotal = total;
   document.querySelectorAll('.cta-num, .cov-num').forEach(el=>{
     el.classList.remove('bumping');
     void el.offsetWidth; // restart animation
     el.classList.add('bumping');
   });
+}
+
+// V4 — Tick a Rupee number from old → new across ~480ms (cubic ease-out)
+function tickPriceNumber(el, from, to){
+  if(!el) return;
+  el.textContent = `₹${from.toLocaleString('en-IN')}`;
+  const start = performance.now();
+  const dur = 480;
+  function tick(now){
+    const t = Math.min(1, (now - start) / dur);
+    const eased = 1 - Math.pow(1 - t, 3);
+    const cur = Math.round(from + (to - from) * eased);
+    el.textContent = `₹${cur.toLocaleString('en-IN')}`;
+    if(t < 1) requestAnimationFrame(tick);
+    else el.textContent = `₹${to.toLocaleString('en-IN')}`;
+  }
+  requestAnimationFrame(tick);
 }
 
 // Switch plan — preserve scroll, kill section animations so it doesn't feel like a full reload
@@ -3090,19 +3773,13 @@ function dismissSheet(){
   backdrop.classList.add('hidden');
   state.sheetDismissed = true;
 
-  // start video prompt timer (30 sec)
+  // V3.13 — celebration popup fires 12s after plan reveal (once per session)
+  // Faculty video auto-popup removed — that surface now lives inline as the faculty card + offers panel
   setTimeout(()=>{
-    if(!state.videoPromptDismissed && state.sheetDismissed){
-      videoPrompt.classList.add('show');
-      state.videoPromptShown = true;
-      // auto-dismiss in 15 sec
-      setTimeout(()=>{
-        if(!state.videoPromptDismissed){
-          videoPrompt.classList.remove('show');
-        }
-      }, 15000);
+    if(state.sheetDismissed && !state.celebrationShown){
+      showCelebration();
     }
-  }, 30000);
+  }, 12000);
 }
 
 function reopenSheet(){
@@ -3150,10 +3827,6 @@ document.getElementById('btnCloseSheet').addEventListener('click', ()=>{
   }
 });
 
-document.getElementById('summaryToggle').addEventListener('click', ()=>{
-  summaryStrip.classList.toggle('collapsed');
-});
-
 document.getElementById('planBack').addEventListener('click', ()=>{
   if(state.sheetDismissed){
     reopenSheet();
@@ -3168,7 +3841,27 @@ document.addEventListener('click', e=>{
   if(e.target.closest('#planCta')){
     showToast('checkout aa raha hai · prototype demo.');
   }
+  // V4 — v1/v2 version toggle
+  const vt = e.target.closest('.vt-btn');
+  if(vt){
+    setVersion(vt.dataset.v);
+    return;
+  }
 });
+
+// V4 — Restore last-selected version on load (per session)
+(function restoreVersion(){
+  try {
+    const v = sessionStorage.getItem('nprep_version');
+    if(v === 'v2'){
+      document.body.classList.add('v2');
+      // Sync the toggle state when DOM is ready
+      document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.vt-btn').forEach(b => b.classList.toggle('active', b.dataset.v === 'v2'));
+      });
+    }
+  } catch(e){}
+})();
 
 document.getElementById('vpClose').addEventListener('click', ()=>{
   videoPrompt.classList.remove('show');
@@ -3362,14 +4055,7 @@ document.addEventListener('click', e=>{
     return;
   }
 
-  // V3.2 tab content style toggle
-  const tabStyle = e.target.closest('[data-tab-content-style]');
-  if(tabStyle){
-    e.stopPropagation();
-    state.tabContentStyle = tabStyle.dataset.tabContentStyle;
-    buildPlanUI();
-    return;
-  }
+  // V3.22 — features-view toggle removed (chips is the only view now)
 
   // V3.2 compare popup style toggle
   const cmpStyle = e.target.closest('[data-cmp-style]');
@@ -3377,6 +4063,49 @@ document.addEventListener('click', e=>{
     e.stopPropagation();
     state.comparePopupStyle = cmpStyle.dataset.cmpStyle;
     renderComparePopup();
+    return;
+  }
+
+  // V3.13 celebration popup
+  if(e.target.closest('[data-act="celebration-show"]')){
+    e.stopPropagation();
+    closeCelebration(true);
+    return;
+  }
+  if(e.target.closest('[data-act="celebration-close"]')){
+    e.stopPropagation();
+    closeCelebration(false);
+    return;
+  }
+  if(e.target.id === 'celebrationPopup'){ closeCelebration(false); return; }
+
+  // V3.14 offers popup
+  if(e.target.closest('[data-act="close-offers-popup"]')){
+    e.stopPropagation();
+    closeOffersPopup();
+    return;
+  }
+  if(e.target.id === 'offersPopup'){ closeOffersPopup(); return; }
+
+  // V3.15 — from coupon popup, jump back to offers popup (e.g., to do the activity)
+  if(e.target.closest('[data-act="close-coupon-open-offers"]')){
+    e.stopPropagation();
+    closeCouponPopup();
+    setTimeout(() => openOffersPopup(), 250);
+    return;
+  }
+
+  // V3.13 tier unlock CTA (mock simulation: unlock immediately + toast)
+  const unlockBtn = e.target.closest('[data-act="unlock-tier"]');
+  if(unlockBtn){
+    e.stopPropagation();
+    const tierId = unlockBtn.dataset.tier;
+    const tier = OFFER_TIERS.find(t => t.id === tierId);
+    if(!tier) return;
+    if(!tierIsAvailable(tierId)) return;
+    // Mock the activity completion — real product would open the actual flow
+    showToast(`${tier.cta} would open here · skipping for demo`);
+    setTimeout(() => unlockTier(tierId), 600);
     return;
   }
 
@@ -3423,32 +4152,14 @@ document.addEventListener('click', e=>{
     return;
   }
 
-  // V3.5 master mode toggle (dashboard <-> storybook)
-  const modeBtn = e.target.closest('[data-mode-pick]');
-  if(modeBtn){
+  // V3.20 — toggle the edit-info pills (button now lives in nav; light DOM swap, no rebuild)
+  if(e.target.closest('[data-act="toggle-edit-inputs"]')){
     e.stopPropagation();
-    const newMode = modeBtn.dataset.modePick;
-    if(newMode === state.mode) return;
-    state.mode = newMode;
-    if(newMode === 'storybook') state.storyChapter = 0;
-    buildPlanUI();
-    planScroll.scrollTop = 0;
-    return;
-  }
-
-  // V3.5 storybook edition picker (book covers in chapter III)
-  const storyEd = e.target.closest('[data-story-edition]');
-  if(storyEd){
-    e.stopPropagation();
-    switchPlanTo(storyEd.dataset.storyEdition);
-    buildPlanUI();
-    return;
-  }
-
-  // V3.5 storybook CTA — same as dashboard checkout (placeholder)
-  if(e.target.closest('#storyCta')){
-    e.stopPropagation();
-    showToast(`begin chapter one — ₹${totalPrice().toLocaleString('en-IN')}`);
+    state.editInputsOpen = !state.editInputsOpen;
+    const btn = document.querySelector('.edit-inputs-btn');
+    const pills = document.querySelector('.edit-inputs-pills');
+    if(btn) btn.setAttribute('aria-expanded', state.editInputsOpen ? 'true' : 'false');
+    if(pills) pills.classList.toggle('show', state.editInputsOpen);
     return;
   }
 
@@ -3460,6 +4171,103 @@ document.addEventListener('click', e=>{
   }
   if(e.target.closest('[data-act="close-popup-goal-detail"]')){ closeGoalDetailPopup(); return; }
   if(e.target.id === 'goalDetailPopup'){ closeGoalDetailPopup(); return; }
+
+  // V3.17 stage popup (lightweight stage edit)
+  if(e.target.closest('[data-act="open-stage-popup"]')){
+    e.stopPropagation();
+    openStagePopup();
+    return;
+  }
+  if(e.target.closest('[data-act="close-stage-popup"]')){ closeStagePopup(); return; }
+  if(e.target.id === 'stagePopup'){ closeStagePopup(); return; }
+  const stagePick = e.target.closest('[data-stage-pick]');
+  if(stagePick){
+    e.stopPropagation();
+    pickStage(stagePick.dataset.stagePick);
+    return;
+  }
+
+  // V3.24 — coverage extension popup
+  if(e.target.closest('[data-act="open-coverage-popup"]')){
+    e.stopPropagation();
+    openCoveragePopup();
+    return;
+  }
+  if(e.target.closest('[data-act="close-coverage-popup"]')){ closeCoveragePopup(); return; }
+  if(e.target.id === 'coveragePopup'){ closeCoveragePopup(); return; }
+
+  // V4 — V2 upgrade-card sub-toggle (variant A ↔ variant C). CSS-driven via [data-variant].
+  const variantPick = e.target.closest('[data-variant-pick]');
+  if(variantPick){
+    e.stopPropagation();
+    state.upgradeVariant = variantPick.dataset.variantPick === 'c' ? 'c' : 'a';
+    const card = variantPick.closest('.up2-card');
+    if(card){
+      card.dataset.variant = state.upgradeVariant;
+      card.querySelectorAll('.uvt-btn').forEach(b => b.classList.toggle('active', b.dataset.variantPick === state.upgradeVariant));
+    }
+    return;
+  }
+
+  // V4 — NPrep Guarantee bottom sheet (V2 lockup → editorial detail)
+  if(e.target.closest('[data-act="open-guarantee-popup"]')){
+    e.stopPropagation();
+    openGuaranteePopup();
+    return;
+  }
+  if(e.target.closest('[data-act="close-guarantee-popup"]')){ closeGuaranteePopup(); return; }
+  if(e.target.id === 'guaranteePopup'){ closeGuaranteePopup(); return; }
+  if(e.target.closest('[data-act="toggle-coverage-norcet12"]')){
+    e.stopPropagation();
+    const wasOn = !!state.addOns.upgrade12;
+    state.addOns.upgrade12 = !wasOn;
+    const added = state.addOns.upgrade12;
+    const r = getBlendedRates();
+    const goalDetailOpen = document.getElementById('goalDetailPopup').classList.contains('show');
+    const coveragePopupOpen = document.getElementById('coveragePopup').classList.contains('show');
+
+    // V3.26 — auto-close goal-detail popup on activation/deactivation, then pulse chip
+    if(goalDetailOpen){
+      // Brief visual confirmation (350ms) then close
+      const card = document.querySelector('.gd-extend-card');
+      if(card){ card.classList.add('just-toggled'); }
+      setTimeout(() => {
+        closeGoalDetailPopup();
+        buildPlanUI();
+        bumpTotal();
+        // Pulse the chip after rebuild
+        requestAnimationFrame(() => {
+          const chip = document.querySelector('.goal-chip');
+          if(chip){
+            chip.classList.add('chip-pulse');
+            setTimeout(() => chip.classList.remove('chip-pulse'), 900);
+          }
+        });
+        if(added){
+          showToast(`✓ NORCET 12 added · saves ₹${r.savedTotal.toLocaleString('en-IN')} (₹${r.extMonthly}/mo)`);
+        } else {
+          showToast('NORCET 12 coverage removed');
+        }
+      }, 350);
+      return;
+    }
+
+    // Coverage popup stays open with animation
+    if(coveragePopupOpen){
+      renderCoveragePopup({ justToggled: true });
+      animateCovNumber(wasOn ? r.extMonthly : r.baseMonthly, added ? r.extMonthly : r.baseMonthly);
+    }
+    buildPlanUI();
+    bumpTotal();
+    if(added){
+      showToast(`✓ NORCET 12 added · saves ₹${r.savedTotal.toLocaleString('en-IN')} (₹${r.extMonthly}/mo)`);
+    } else {
+      showToast('NORCET 12 coverage removed');
+    }
+    return;
+  }
+
+  // V3.27 — see-more toggle removed; add-ons now in horizontal scroll, all visible via swipe
 
   // V3.4 coupon — open popup, pick, remove, close
   if(e.target.closest('[data-act="open-coupons"]')){ openCouponPopup(); return; }
@@ -3522,7 +4330,7 @@ document.addEventListener('click', e=>{
     state.addOns[k] = !state.addOns[k];
     buildPlanUI();
     bumpTotal();
-    showToast(state.addOns[k] ? `${ADD_ONS[k].name} added · +₹${ADD_ONS[k].price.toLocaleString('en-IN')}` : `${ADD_ONS[k].name} removed`);
+    // V4 — toast removed; card state change (selected/border/CTA flip + receipt update) is enough feedback.
     return;
   }
 
