@@ -2715,6 +2715,90 @@ body.v2 .addon-sheet-cta.remove:hover{background:var(--ice-2);color:var(--midnig
 
 .cp-sheet-footer{flex-shrink:0;padding:11px 22px 18px;font-family:'Fraunces',serif;font-style:italic;font-variation-settings:"opsz" 144;font-size:11.5px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;text-align:center;border-top:1px solid var(--ice)}
 
+/* ═══════════════════════════════════════════════════════════════════════════════
+   V27 — Purchase sheets (focused-intent) + bundle card + post-success cross-sell
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* Bundle card on the subscription page (4th action card variant) */
+.sub-bundle-card{position:relative;background:linear-gradient(135deg,rgba(212,166,23,.08) 0%,#fff 60%)!important;border-color:rgba(212,166,23,.30)!important}
+.sub-bundle-card:hover{border-color:var(--gold)!important;background:linear-gradient(135deg,rgba(212,166,23,.12) 0%,#fff 60%)!important}
+.sub-bundle-icon{background:rgba(212,166,23,.18)!important;color:var(--gold)!important}
+.sub-bundle-card .sub-action-title{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.sub-bundle-tag{display:inline-flex;align-items:center;padding:2px 8px;border-radius:99px;background:var(--gold);color:#fff;font-family:'JetBrains Mono';font-size:8.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;line-height:1.4}
+.sub-bundle-card .sub-action-price strong{color:var(--gold)}
+.sub-bundle-card .sub-action-price em.fr-italic{color:var(--success);font-weight:700}
+
+/* Purchase sheets — extend cp-sheet for focused-intent flows */
+.purchase-sheet .cp-sheet-title em.fr-italic{font-style:italic;font-weight:500}
+.purchase-body{padding:0 22px 18px}
+.purchase-section-h{font-family:'Fraunces',serif;font-style:italic;font-variation-settings:"opsz" 144;font-size:14px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;margin:6px 0 10px}
+.purchase-feats{list-style:none;padding:0;margin:0 0 16px;display:flex;flex-direction:column;gap:9px}
+.purchase-feats li{display:flex;align-items:flex-start;gap:10px;font-family:'Poppins';font-size:13px;color:var(--midnight);font-weight:500;letter-spacing:-.005em;line-height:1.45}
+.purchase-feats li > i{font-size:15px;color:var(--success);flex-shrink:0;margin-top:1px}
+.purchase-feats li em.fr-italic{font-family:'Fraunces',serif;font-style:italic;font-variation-settings:"opsz" 144;color:var(--gray-4);font-weight:500}
+.purchase-feats li strong{font-weight:700;color:var(--midnight)}
+
+.purchase-divider{height:1px;background:var(--ice);margin:14px 0}
+
+.purchase-price{display:flex;flex-direction:column;gap:4px;margin-bottom:16px}
+.purchase-price-now{font-family:'Poppins';font-size:13px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;display:flex;align-items:baseline;gap:7px}
+.purchase-price-now .fr-italic-num{font-family:'Fraunces',serif;font-style:italic;font-variation-settings:"opsz" 144;font-size:32px;font-weight:600;color:var(--midnight);line-height:1;letter-spacing:-.020em}
+.purchase-price-suffix{font-family:'Fraunces',serif;font-style:italic;font-variation-settings:"opsz" 144;color:var(--gray-4);font-weight:500;font-size:14px}
+.purchase-price-meta{font-family:'Poppins';font-size:11.5px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;line-height:1.45}
+.purchase-price-meta strong{color:var(--midnight);font-weight:700}
+.purchase-price-meta em.fr-italic{font-family:'Fraunces',serif;font-style:italic;font-variation-settings:"opsz" 144;color:var(--midnight);font-weight:500}
+
+.purchase-cta{display:inline-flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:14px 16px;border-radius:14px;background:var(--midnight);color:#fff;border:0;font-family:'Poppins';font-size:14.5px;font-weight:700;letter-spacing:-.005em;cursor:pointer;transition:all .2s var(--ease);margin-bottom:14px;box-shadow:0 4px 14px rgba(19,27,99,.22)}
+.purchase-cta:hover{background:#0E1554;transform:translateY(-1px);box-shadow:0 6px 18px rgba(19,27,99,.28)}
+.purchase-cta:active{transform:scale(.98)}
+.purchase-cta i{font-size:15px;transition:transform .2s var(--ease)}
+.purchase-cta:hover i{transform:translateX(2px)}
+.purchase-cta-bundle{background:linear-gradient(135deg,var(--gold) 0%,#9c7309 100%);box-shadow:0 4px 14px rgba(184,134,11,.30)}
+.purchase-cta-bundle:hover{background:linear-gradient(135deg,#c8990d 0%,var(--gold) 100%);box-shadow:0 6px 18px rgba(184,134,11,.40)}
+.purchase-cta-bundle em.fr-italic{font-family:'Fraunces',serif;font-style:italic;font-variation-settings:"opsz" 144;font-weight:600;color:#fff;margin:0 1px}
+
+/* Bundle math breakdown */
+.bundle-math{display:flex;flex-direction:column;gap:6px;padding:14px 16px;background:var(--ice-2);border:1px dashed rgba(212,166,23,.30);border-radius:12px;margin-bottom:16px}
+.bundle-math-row{display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-family:'Poppins';font-size:12.5px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em}
+.bundle-math-row .fr-italic-num{font-family:'Fraunces',serif;font-style:italic;font-variation-settings:"opsz" 144;font-weight:500;font-size:14px;color:inherit}
+.bundle-math-faded{opacity:.78}
+.bundle-math-strike{color:var(--gray-3);text-decoration:line-through;text-decoration-color:rgba(19,27,99,.20);text-decoration-thickness:1px}
+.bundle-math-final{padding-top:8px;margin-top:2px;border-top:1px solid rgba(212,166,23,.25);color:var(--midnight);font-weight:700;font-size:14px}
+.bundle-math-final .fr-italic-num{font-size:18px;color:var(--gold);font-weight:600}
+
+/* Trust strip — Razorpay · refund · pause · shared across all purchase sheets */
+.purchase-trust{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:12px 14px;background:rgba(14,157,97,.04);border:1px solid rgba(14,157,97,.16);border-radius:12px}
+.purchase-trust-item{display:flex;align-items:flex-start;gap:8px;min-width:0}
+.purchase-trust-item > i{font-size:16px;flex-shrink:0;margin-top:1px}
+.purchase-trust-item:nth-child(1) > i{color:var(--success)}
+.purchase-trust-item:nth-child(2) > i{color:var(--sky)}
+.purchase-trust-item:nth-child(3) > i{color:var(--gold)}
+.purchase-trust-item > div{display:flex;flex-direction:column;gap:1px;min-width:0}
+.purchase-trust-item strong{font-family:'Poppins';font-size:11px;font-weight:700;color:var(--midnight);letter-spacing:-.005em;line-height:1.25}
+.purchase-trust-item span{font-family:'Poppins';font-size:9.5px;font-weight:500;color:var(--gray-4);letter-spacing:-.005em;line-height:1.3}
+
+/* Success cross-sell sheet — Amazon-style "one more thing" */
+.success-sheet{max-height:88vh}
+.success-sheet .cp-sheet-handle{margin-bottom:10px}
+.success-celebration{padding:8px 22px 4px;display:flex;align-items:center;gap:12px;flex-shrink:0}
+.success-check{flex-shrink:0;width:42px;height:42px;border-radius:50%;background:var(--success);color:#fff;display:grid;place-items:center;font-size:22px;animation:successCheckPop .55s cubic-bezier(.34,1.56,.64,1)}
+@keyframes successCheckPop{0%{transform:scale(0);opacity:0}60%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}
+.success-just{font-family:'Poppins';font-size:14px;font-weight:700;color:var(--midnight);letter-spacing:-.005em;line-height:1.3}
+.success-cross{padding:18px 22px 22px;display:flex;flex-direction:column;gap:10px}
+.success-cross-h{font-family:'JetBrains Mono';font-size:9.5px;font-weight:800;color:var(--gold);letter-spacing:.18em;text-transform:uppercase;margin-bottom:2px}
+.success-cross-title{font-family:'Fraunces',serif;font-weight:600;font-variation-settings:"opsz" 144;font-size:20px;line-height:1.25;letter-spacing:-.015em;color:var(--midnight);margin:0}
+.success-cross-sub{font-family:'Poppins';font-size:12.5px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;line-height:1.5;margin:0 0 8px}
+.success-cross-actions{display:flex;align-items:stretch;gap:10px}
+.success-no,.success-yes{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:13px 14px;border-radius:12px;font-family:'Poppins';font-size:13px;font-weight:700;letter-spacing:-.005em;cursor:pointer;transition:all .2s var(--ease);border:0;line-height:1.2}
+.success-no{background:transparent;color:var(--gray-4);border:1px solid var(--ice)}
+.success-no:hover{background:var(--ice-2);color:var(--midnight)}
+.success-no:active{transform:scale(.98)}
+.success-yes{background:var(--midnight);color:#fff;box-shadow:0 4px 12px rgba(19,27,99,.20)}
+.success-yes:hover{background:#0E1554;transform:translateY(-1px)}
+.success-yes:active{transform:scale(.98)}
+.success-yes-solo{flex:0 0 auto;align-self:stretch;width:100%;margin-top:6px}
+.success-cross-fineprint{font-family:'Fraunces',serif;font-style:italic;font-variation-settings:"opsz" 144;font-size:11px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;text-align:center;margin-top:8px}
+
 /* V25 — Manage coupon section: shared `.coupon-card` chrome + manage-only paste/browse extras */
 .manage-coupon-section{margin-bottom:24px;display:flex;flex-direction:column;gap:10px}
 .manage-coupon-unlock-tag{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:99px;background:rgba(212,166,23,.10);border:1px solid rgba(212,166,23,.25);font-family:'JetBrains Mono';font-size:9.5px;font-weight:800;color:var(--gold);letter-spacing:.10em;text-transform:uppercase;align-self:flex-start;line-height:1;margin-bottom:-2px;animation:planSecIn .45s var(--ease) backwards}
@@ -4650,7 +4734,7 @@ function renderSubscriptionPage(){
   <div class="sub-section sub-section-ice sub-section-actions">
     <div class="sub-section-h sub-section-h-warm">what would you like to do?</div>
 
-    ${showUpgradeCard ? `<button class="sub-action-card" data-act="sub-go-upgrade" type="button">
+    ${showUpgradeCard ? `<button class="sub-action-card" data-act="sub-open-upgrade-now" type="button">
       <div class="sub-action-icon"><i class="ph-fill ph-arrow-up"></i></div>
       <div class="sub-action-body">
         <div class="sub-action-title">upgrade to ${labels[upgradeTarget]}</div>
@@ -4660,7 +4744,7 @@ function renderSubscriptionPage(){
       <i class="ph ph-arrow-right sub-action-arrow"></i>
     </button>` : ''}
 
-    <button class="sub-action-card" data-act="sub-go-extend" type="button">
+    <button class="sub-action-card" data-act="sub-open-extend-now" type="button">
       <div class="sub-action-icon"><i class="ph-fill ph-clock-counter-clockwise"></i></div>
       <div class="sub-action-body">
         <div class="sub-action-title">extend through NORCET 12</div>
@@ -4669,6 +4753,19 @@ function renderSubscriptionPage(){
       </div>
       <i class="ph ph-arrow-right sub-action-arrow"></i>
     </button>
+
+    ${showUpgradeCard ? `<button class="sub-action-card sub-bundle-card" data-act="sub-open-bundle" type="button">
+      <div class="sub-action-icon sub-bundle-icon"><i class="ph-fill ph-package"></i></div>
+      <div class="sub-action-body">
+        <div class="sub-action-title">
+          ${labels[upgradeTarget].toLowerCase()} for both cycles
+          <span class="sub-bundle-tag">bundle</span>
+        </div>
+        <div class="sub-action-desc">upgrade now + extend through NORCET 12 — together</div>
+        <div class="sub-action-price"><strong>₹${(upgradeDelta + cyclePrice[upgradeTarget] - 500).toLocaleString('en-IN')}</strong> · saves <em class="fr-italic">₹500</em></div>
+      </div>
+      <i class="ph ph-arrow-right sub-action-arrow"></i>
+    </button>` : ''}
 
     <button class="sub-action-card" data-act="sub-open-change-plan" type="button">
       <div class="sub-action-icon"><i class="ph ph-arrows-clockwise"></i></div>
@@ -4735,7 +4832,208 @@ function renderSubscriptionPage(){
 
   ${renderWhatsIncludedSheet(includedExams, allFeats, missing, missingAddOns, plan)}
   ${renderChangePlanSheet(tier, cyclePrice, validityDate)}
+  ${renderUpgradeNowSheet(tier, plan, paid, validityDate, upgradeTarget, upgradeDelta, labels, showUpgradeCard)}
+  ${renderExtendNowSheet(tier, plan, cyclePrice, labels, validityDate)}
+  ${renderBundleSheet(tier, plan, upgradeTarget, upgradeDelta, cyclePrice, labels, showUpgradeCard)}
+  ${renderSuccessCrossSellSheet(tier, plan, upgradeTarget, upgradeDelta, cyclePrice, labels)}
   `;
+}
+
+// V27 — Shared trust strip for all purchase sheets (Razorpay · 7-day refund · pause anytime)
+function renderPurchaseTrustStrip(){
+  return `<div class="purchase-trust">
+    <div class="purchase-trust-item">
+      <i class="ph-fill ph-shield-check"></i>
+      <div><strong>Razorpay</strong><span>secure payment</span></div>
+    </div>
+    <div class="purchase-trust-item">
+      <i class="ph-fill ph-arrow-counter-clockwise"></i>
+      <div><strong>7-day refund</strong><span>no questions asked</span></div>
+    </div>
+    <div class="purchase-trust-item">
+      <i class="ph-fill ph-pause-circle"></i>
+      <div><strong>pause anytime</strong><span>up to 30 days</span></div>
+    </div>
+  </div>`;
+}
+
+// V27 — Upgrade-to-target sheet (focused; honors the click)
+function renderUpgradeNowSheet(tier, plan, paid, validityDate, upgradeTarget, upgradeDelta, labels, show){
+  if(!show) return '';
+  const targetPlan = PLANS[upgradeTarget];
+  const targetFeats = targetPlan.feats.slice(0, 3);
+  return `<div class="cp-sheet-backdrop ${state.upgradeNowOpen ? 'show' : ''}" data-act="sub-close-purchase"></div>
+  <div class="cp-sheet purchase-sheet ${state.upgradeNowOpen ? 'show' : ''}" id="upgradeNowSheet">
+    <div class="cp-sheet-handle"></div>
+    <div class="cp-sheet-head">
+      <h2 class="cp-sheet-title">upgrade to <em class="fr-italic">${labels[upgradeTarget]}</em></h2>
+      <button class="cp-sheet-close" data-act="sub-close-purchase" type="button" aria-label="close"><i class="ph ph-x"></i></button>
+    </div>
+    <div class="cp-sheet-body purchase-body">
+      <div class="purchase-section-h">what changes for you</div>
+      <ul class="purchase-feats">
+        ${targetFeats.map(f => `<li><i class="ph-fill ph-check-circle"></i><span>${f.text}${f.sub ? ` <em class="fr-italic">· ${f.sub}</em>` : ''}</span></li>`).join('')}
+        <li><i class="ph-fill ph-check-circle"></i><span>everything in ${labels[tier]} · <em class="fr-italic">you keep it all</em></span></li>
+      </ul>
+      <div class="purchase-divider"></div>
+      <div class="purchase-price">
+        <div class="purchase-price-now"><span class="fr-italic-num">₹${upgradeDelta.toLocaleString('en-IN')}</span> <span class="purchase-price-suffix">prorated</span></div>
+        <div class="purchase-price-meta">valid till <em class="fr-italic">${validityDate}</em> · your current end date</div>
+      </div>
+      <button class="purchase-cta" data-act="sub-confirm-upgrade" type="button">
+        <span>upgrade now</span>
+        <i class="ph ph-arrow-right"></i>
+      </button>
+      ${renderPurchaseTrustStrip()}
+    </div>
+  </div>`;
+}
+
+// V27 — Extend-through-NORCET-12 sheet (focused; honors the click)
+function renderExtendNowSheet(tier, plan, cyclePrice, labels, validityDate){
+  const price = cyclePrice[tier];
+  const nextPrice = price + 300;
+  return `<div class="cp-sheet-backdrop ${state.extendNowOpen ? 'show' : ''}" data-act="sub-close-purchase"></div>
+  <div class="cp-sheet purchase-sheet ${state.extendNowOpen ? 'show' : ''}" id="extendNowSheet">
+    <div class="cp-sheet-handle"></div>
+    <div class="cp-sheet-head">
+      <h2 class="cp-sheet-title">extend through <em class="fr-italic">NORCET 12</em></h2>
+      <button class="cp-sheet-close" data-act="sub-close-purchase" type="button" aria-label="close"><i class="ph ph-x"></i></button>
+    </div>
+    <div class="cp-sheet-body purchase-body">
+      <div class="purchase-section-h">same ${labels[tier]} plan, new cycle</div>
+      <ul class="purchase-feats">
+        <li><i class="ph-fill ph-check-circle"></i><span>all current features carry forward · <em class="fr-italic">nothing resets</em></span></li>
+        <li><i class="ph-fill ph-check-circle"></i><span>NORCET 12 + AIIMS + JIPMER + ESIC for the new cycle</span></li>
+        <li><i class="ph-fill ph-check-circle"></i><span>your progress saved · doesn't restart</span></li>
+        <li><i class="ph-fill ph-check-circle"></i><span>seamless handover from NORCET 11 cycle</span></li>
+      </ul>
+      <div class="purchase-divider"></div>
+      <div class="purchase-price">
+        <div class="purchase-price-now"><span class="fr-italic-num">₹${price.toLocaleString('en-IN')}</span> <span class="purchase-price-suffix">today</span></div>
+        <div class="purchase-price-meta">pricing rises to <strong>₹${nextPrice.toLocaleString('en-IN')}</strong> after Nov 2026</div>
+      </div>
+      <button class="purchase-cta" data-act="sub-confirm-extend" type="button">
+        <span>lock NORCET 12</span>
+        <i class="ph ph-arrow-right"></i>
+      </button>
+      ${renderPurchaseTrustStrip()}
+    </div>
+  </div>`;
+}
+
+// V27 — Bundle sheet (upgrade + extend, framed as ONE product)
+function renderBundleSheet(tier, plan, upgradeTarget, upgradeDelta, cyclePrice, labels, show){
+  if(!show) return '';
+  const extendAtTarget = cyclePrice[upgradeTarget];
+  const separateTotal = upgradeDelta + extendAtTarget;
+  const bundleSavings = 500;
+  const bundlePrice = separateTotal - bundleSavings;
+  return `<div class="cp-sheet-backdrop ${state.bundleOpen ? 'show' : ''}" data-act="sub-close-purchase"></div>
+  <div class="cp-sheet purchase-sheet bundle-sheet ${state.bundleOpen ? 'show' : ''}" id="bundleSheet">
+    <div class="cp-sheet-handle"></div>
+    <div class="cp-sheet-head">
+      <h2 class="cp-sheet-title"><em class="fr-italic">${labels[upgradeTarget]}</em> for both cycles</h2>
+      <button class="cp-sheet-close" data-act="sub-close-purchase" type="button" aria-label="close"><i class="ph ph-x"></i></button>
+    </div>
+    <div class="cp-sheet-body purchase-body">
+      <div class="purchase-section-h">what's in the bundle</div>
+      <ul class="purchase-feats">
+        <li><i class="ph-fill ph-check-circle"></i><span>${labels[upgradeTarget]} for <strong>NORCET 11</strong> · rest of this cycle</span></li>
+        <li><i class="ph-fill ph-check-circle"></i><span>${labels[upgradeTarget]} for <strong>NORCET 12</strong> · full next cycle</span></li>
+        <li><i class="ph-fill ph-check-circle"></i><span>all premium features uninterrupted across both cycles</span></li>
+        <li><i class="ph-fill ph-check-circle"></i><span>locks today's pricing for NORCET 12 too</span></li>
+      </ul>
+      <div class="purchase-divider"></div>
+      <div class="bundle-math">
+        <div class="bundle-math-row bundle-math-faded">
+          <span>${labels[upgradeTarget]} now</span>
+          <span class="fr-italic-num">₹${upgradeDelta.toLocaleString('en-IN')}</span>
+        </div>
+        <div class="bundle-math-row bundle-math-faded">
+          <span>${labels[upgradeTarget]} for NORCET 12</span>
+          <span class="fr-italic-num">₹${extendAtTarget.toLocaleString('en-IN')}</span>
+        </div>
+        <div class="bundle-math-row bundle-math-strike">
+          <span>separate total</span>
+          <span class="fr-italic-num">₹${separateTotal.toLocaleString('en-IN')}</span>
+        </div>
+        <div class="bundle-math-row bundle-math-final">
+          <span>bundle today</span>
+          <span class="fr-italic-num">₹${bundlePrice.toLocaleString('en-IN')}</span>
+        </div>
+      </div>
+      <button class="purchase-cta purchase-cta-bundle" data-act="sub-confirm-bundle" type="button">
+        <span>get the bundle · save <em class="fr-italic">₹${bundleSavings}</em></span>
+        <i class="ph ph-arrow-right"></i>
+      </button>
+      ${renderPurchaseTrustStrip()}
+    </div>
+  </div>`;
+}
+
+// V27 — Post-success cross-sell sheet (Amazon-style; equal-weight buttons)
+function renderSuccessCrossSellSheet(tier, plan, upgradeTarget, upgradeDelta, cyclePrice, labels){
+  if(!state.successOpen) return `<div class="cp-sheet-backdrop" data-act="sub-close-success"></div>
+    <div class="cp-sheet success-sheet" id="successSheet"></div>`;
+  const just = state.successPayload && state.successPayload.just;
+  let justDoneLabel = '';
+  let crossOffer = null;
+  if(just === 'upgrade'){
+    justDoneLabel = `upgraded to ${labels[upgradeTarget]}`;
+    crossOffer = {
+      title: `extend ${labels[upgradeTarget]} through NORCET 12 too?`,
+      sub: 'lock today\'s pricing for the next cycle.',
+      price: cyclePrice[upgradeTarget],
+      action: 'sub-success-extend-yes',
+      yesLabel: `yes, extend · ₹${cyclePrice[upgradeTarget].toLocaleString('en-IN')}`,
+    };
+  } else if(just === 'extend'){
+    justDoneLabel = `locked NORCET 12 at ${labels[tier]}`;
+    if(upgradeTarget !== tier){
+      crossOffer = {
+        title: `upgrade to ${labels[upgradeTarget]} for both cycles?`,
+        sub: 'add 1-on-1 mentoring + premium features now.',
+        price: upgradeDelta + (cyclePrice[upgradeTarget] - cyclePrice[tier]),
+        action: 'sub-success-upgrade-yes',
+        yesLabel: `yes, upgrade · ₹${(upgradeDelta + (cyclePrice[upgradeTarget] - cyclePrice[tier])).toLocaleString('en-IN')}`,
+      };
+    }
+  } else if(just === 'bundle'){
+    justDoneLabel = `bundle confirmed · ${labels[upgradeTarget]} for both cycles`;
+    crossOffer = null; // Already got everything
+  }
+
+  return `<div class="cp-sheet-backdrop ${state.successOpen ? 'show' : ''}" data-act="sub-close-success"></div>
+  <div class="cp-sheet success-sheet ${state.successOpen ? 'show' : ''}" id="successSheet">
+    <div class="cp-sheet-handle"></div>
+    <div class="success-celebration">
+      <div class="success-check"><i class="ph-fill ph-check"></i></div>
+      <div class="success-just">${justDoneLabel}</div>
+    </div>
+    ${crossOffer ? `
+    <div class="success-cross">
+      <div class="success-cross-h">one more thing</div>
+      <h3 class="success-cross-title">${crossOffer.title}</h3>
+      <p class="success-cross-sub">${crossOffer.sub}</p>
+      <div class="success-cross-actions">
+        <button class="success-no" data-act="sub-close-success" type="button">no thanks</button>
+        <button class="success-yes" data-act="${crossOffer.action}" type="button">
+          ${crossOffer.yesLabel}
+        </button>
+      </div>
+      <div class="success-cross-fineprint">refund available within 7 days · pause anytime</div>
+    </div>
+    ` : `
+    <div class="success-cross">
+      <h3 class="success-cross-title">you're all set for both cycles.</h3>
+      <p class="success-cross-sub">we'll send a confirmation to your email.</p>
+      <button class="success-yes success-yes-solo" data-act="sub-close-success" type="button">
+        back to my subscription
+      </button>
+    </div>
+    `}
+  </div>`;
 }
 
 // V26 — What's included sheet (tabbed: exams · features · not included)
@@ -7269,6 +7567,92 @@ function closeIncludedSheet(){
   if(sheet) sheet.classList.remove('show');
   if(backdrop && backdrop.classList.contains('cp-sheet-backdrop')) backdrop.classList.remove('show');
 }
+// V27 — Purchase sheet helpers (focused-intent flow + post-success cross-sell)
+function openUpgradeNowSheet(){
+  state.upgradeNowOpen = true; state.extendNowOpen = false; state.bundleOpen = false;
+  const sheet = document.getElementById('upgradeNowSheet');
+  const backdrop = sheet ? sheet.previousElementSibling : null;
+  if(sheet) sheet.classList.add('show');
+  if(backdrop && backdrop.classList.contains('cp-sheet-backdrop')) backdrop.classList.add('show');
+}
+function openExtendNowSheet(){
+  state.extendNowOpen = true; state.upgradeNowOpen = false; state.bundleOpen = false;
+  const sheet = document.getElementById('extendNowSheet');
+  const backdrop = sheet ? sheet.previousElementSibling : null;
+  if(sheet) sheet.classList.add('show');
+  if(backdrop && backdrop.classList.contains('cp-sheet-backdrop')) backdrop.classList.add('show');
+}
+function openBundleSheet(){
+  state.bundleOpen = true; state.upgradeNowOpen = false; state.extendNowOpen = false;
+  const sheet = document.getElementById('bundleSheet');
+  const backdrop = sheet ? sheet.previousElementSibling : null;
+  if(sheet) sheet.classList.add('show');
+  if(backdrop && backdrop.classList.contains('cp-sheet-backdrop')) backdrop.classList.add('show');
+}
+function closePurchaseSheets(){
+  state.upgradeNowOpen = false; state.extendNowOpen = false; state.bundleOpen = false;
+  ['upgradeNowSheet','extendNowSheet','bundleSheet'].forEach(id => {
+    const sheet = document.getElementById(id);
+    const backdrop = sheet ? sheet.previousElementSibling : null;
+    if(sheet) sheet.classList.remove('show');
+    if(backdrop && backdrop.classList.contains('cp-sheet-backdrop')) backdrop.classList.remove('show');
+  });
+}
+function confirmPurchase(intent){
+  closePurchaseSheets();
+  // Simulate a brief processing pause, then open the post-success cross-sell
+  state.successPayload = { just: intent };
+  setTimeout(() => {
+    // Re-render the success sheet with the fresh payload
+    const planContent = document.getElementById('planContent');
+    if(planContent && state.flowMode === 'subscription'){
+      // Tear down the old success sheet and inject a fresh one with the new payload
+      const oldSuccess = document.getElementById('successSheet');
+      const oldBackdrop = oldSuccess ? oldSuccess.previousElementSibling : null;
+      if(oldSuccess) oldSuccess.remove();
+      if(oldBackdrop && oldBackdrop.classList.contains('cp-sheet-backdrop') && !oldBackdrop.classList.contains('show')) oldBackdrop.remove();
+    }
+    state.successOpen = true;
+    // Inject fresh sheet HTML
+    const tier = state.purchasedTier;
+    const plan = PLANS[tier];
+    const upgradeTarget = TIER_ORDER[Math.min(TIER_ORDER.indexOf(tier) + 1, 2)];
+    const upgradeDelta = TIER_PAID[upgradeTarget] - TIER_PAID[tier];
+    const labels = { practice:'Practice', revision:'Revision', gold:'Gold' };
+    const cyclePrice = { practice: 999, revision: 1799, gold: 2799 };
+    const html = renderSuccessCrossSellSheet(tier, plan, upgradeTarget, upgradeDelta, cyclePrice, labels);
+    if(planContent){
+      const wrapper = document.createElement('div');
+      wrapper.innerHTML = html;
+      while(wrapper.firstChild) planContent.appendChild(wrapper.firstChild);
+      // Trigger show classes on next frame
+      requestAnimationFrame(() => {
+        const sheet = document.getElementById('successSheet');
+        const backdrop = sheet ? sheet.previousElementSibling : null;
+        if(sheet) sheet.classList.add('show');
+        if(backdrop && backdrop.classList.contains('cp-sheet-backdrop')) backdrop.classList.add('show');
+      });
+    }
+  }, 320);
+}
+function closeSuccessSheet(){
+  state.successOpen = false;
+  state.successPayload = null;
+  const sheet = document.getElementById('successSheet');
+  const backdrop = sheet ? sheet.previousElementSibling : null;
+  if(sheet) sheet.classList.remove('show');
+  if(backdrop && backdrop.classList.contains('cp-sheet-backdrop')) backdrop.classList.remove('show');
+}
+function acceptCrossSell(target){
+  const labels = { practice:'Practice', revision:'Revision', gold:'Gold' };
+  const tier = state.purchasedTier;
+  const upgradeTarget = TIER_ORDER[Math.min(TIER_ORDER.indexOf(tier) + 1, 2)];
+  let msg = '';
+  if(target === 'extend') msg = `extended ${labels[upgradeTarget]} through NORCET 12 · all set`;
+  if(target === 'upgrade') msg = `upgraded to ${labels[upgradeTarget]} for both cycles · all set`;
+  closeSuccessSheet();
+  if(typeof showToast === 'function' && msg) showToast(msg);
+}
 // V26.1 — Switch active tab in the what's-included sheet (no re-render: just toggles classes)
 function switchIncludedTab(tabId){
   if(!tabId) return;
@@ -7691,6 +8075,18 @@ document.addEventListener('click', e=>{
   if(e.target.closest('[data-act="chooser-existing"]')){ e.stopPropagation(); chooseExistingStudent(); return; }
   if(e.target.closest('[data-act="chooser-subscription"]')){ e.stopPropagation(); chooseSubscription(); return; }
   if(e.target.closest('[data-act="sub-back-to-chooser"]')){ e.stopPropagation(); state.flowMode='chooser'; document.getElementById('sheet').classList.remove('dismissed'); document.getElementById('backdrop').classList.remove('hidden'); renderQuestionnaire(); return; }
+  // V27 — Honor the click. Each focused CTA opens its own sheet (no more page-jump to upgrade flow)
+  if(e.target.closest('[data-act="sub-open-upgrade-now"]')){ e.stopPropagation(); openUpgradeNowSheet(); return; }
+  if(e.target.closest('[data-act="sub-open-extend-now"]')){ e.stopPropagation(); openExtendNowSheet(); return; }
+  if(e.target.closest('[data-act="sub-open-bundle"]')){ e.stopPropagation(); openBundleSheet(); return; }
+  if(e.target.closest('[data-act="sub-close-purchase"]')){ e.stopPropagation(); closePurchaseSheets(); return; }
+  if(e.target.closest('[data-act="sub-confirm-upgrade"]')){ e.stopPropagation(); confirmPurchase('upgrade'); return; }
+  if(e.target.closest('[data-act="sub-confirm-extend"]')){ e.stopPropagation(); confirmPurchase('extend'); return; }
+  if(e.target.closest('[data-act="sub-confirm-bundle"]')){ e.stopPropagation(); confirmPurchase('bundle'); return; }
+  if(e.target.closest('[data-act="sub-close-success"]')){ e.stopPropagation(); closeSuccessSheet(); return; }
+  if(e.target.closest('[data-act="sub-success-extend-yes"]')){ e.stopPropagation(); acceptCrossSell('extend'); return; }
+  if(e.target.closest('[data-act="sub-success-upgrade-yes"]')){ e.stopPropagation(); acceptCrossSell('upgrade'); return; }
+  // Legacy: kept for backward compatibility but not used by current page
   if(e.target.closest('[data-act="sub-go-upgrade"]')){ e.stopPropagation(); chooseExistingStudent(); return; }
   if(e.target.closest('[data-act="sub-go-extend"]')){ e.stopPropagation(); chooseExistingStudent(); setTimeout(()=>{ const el=document.querySelector('.manage-urgency-ext'); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); }, 200); return; }
   if(e.target.closest('[data-act="sub-go-addons"]')){ e.stopPropagation(); chooseExistingStudent(); setTimeout(()=>{ const el=document.querySelector('.manage-more-options'); if(el){ el.classList.add('open'); el.scrollIntoView({behavior:'smooth',block:'start'}); } }, 200); return; }
