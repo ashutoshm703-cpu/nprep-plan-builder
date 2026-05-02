@@ -2552,9 +2552,13 @@ body.v2 .addon-sheet-cta.remove:hover{background:var(--ice-2);color:var(--midnig
 .sub-hero-progress-row{display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-family:'Poppins';font-size:12px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;flex-wrap:wrap}
 .sub-hero-progress-row strong{font-family:'Fraunces',serif;font-style:italic;font-variation-settings:"opsz" 144;font-size:16px;color:var(--midnight);font-weight:600;margin-right:2px;letter-spacing:-.005em}
 .sub-hero-progress-bar{height:6px;background:rgba(19,27,99,.08);border-radius:99px;overflow:hidden;position:relative}
-.sub-hero-progress-fill{height:100%;background:linear-gradient(90deg,var(--success) 0%,#0EAB7B 100%);border-radius:99px;transition:width .9s cubic-bezier(.32,.72,0,1);animation:subHeroFill 1s cubic-bezier(.32,.72,0,1) .15s backwards;box-shadow:0 0 8px rgba(14,157,97,.30)}
+/* Steady "filling" feel — mostly linear with subtle smoothing at start/end (1.8s = same duration as count-up) */
+.sub-hero-progress-fill{height:100%;background:linear-gradient(90deg,var(--success) 0%,#0EAB7B 100%);border-radius:99px;transition:width 1.8s cubic-bezier(.45,.05,.55,.95);animation:subHeroFill 1.8s cubic-bezier(.45,.05,.55,.95) .15s backwards;box-shadow:0 0 8px rgba(14,157,97,.30);position:relative;overflow:hidden}
 .sub-hero.gold .sub-hero-progress-fill{background:linear-gradient(90deg,var(--gold) 0%,#D4A617 100%);box-shadow:0 0 8px rgba(212,166,23,.30)}
+/* Subtle moving sheen during fill — sells the "actively filling" feel without being distracting */
+.sub-hero-progress-fill::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.35) 50%,transparent 100%);transform:translateX(-100%);animation:subHeroFillSheen 1.8s cubic-bezier(.45,.05,.55,.95) .15s 1 forwards;pointer-events:none}
 @keyframes subHeroFill{from{width:0%!important}}
+@keyframes subHeroFillSheen{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
 
 /* ─── Section 2 — Click-through to "what's included" sheet ─── */
 .sub-included-link{display:flex;align-items:center;gap:12px;width:100%;padding:14px 16px;background:#fff;border:1px solid var(--ice);border-radius:14px;cursor:pointer;font-family:inherit;text-align:left;transition:border-color .25s var(--ease),background .25s var(--ease),transform .15s cubic-bezier(.34,1.56,.64,1);box-shadow:0 1px 3px rgba(19,27,99,.04);margin-bottom:14px;animation:planSecIn .45s var(--ease) backwards;animation-delay:.13s}
@@ -2617,12 +2621,35 @@ body.v2 .addon-sheet-cta.remove:hover{background:var(--ice-2);color:var(--midnig
 .sub-help-text > div{font-family:'Poppins';font-size:13px;font-weight:600;color:var(--midnight);letter-spacing:-.005em;line-height:1.3}
 .sub-help-text small{font-family:'Poppins';font-size:11px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;line-height:1.4}
 
-/* ─── What's-included sheet ─── */
+/* ─── What's-included sheet (tabbed) ─── */
 .wi-sheet{}
-.wi-body{padding-top:6px}
-.wi-subhead{font-family:'JetBrains Mono';font-size:9.5px;font-weight:800;color:var(--gray-4);letter-spacing:.16em;text-transform:uppercase;margin:14px 0 9px}
-.wi-subhead:first-of-type{margin-top:2px}
-.wi-subhead-missing{margin-top:18px;padding-top:14px;border-top:1px dashed rgba(19,27,99,.10);color:var(--gray-3)}
+
+/* Tab nav: segmented pill control with sliding active indicator */
+.wi-tabs{position:relative;display:flex;align-items:stretch;gap:0;margin:0 22px 14px;padding:4px;background:var(--ice-2);border:1px solid var(--ice);border-radius:99px;flex-shrink:0}
+.wi-tab{position:relative;flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:8px 10px;border:0;background:transparent;font-family:'Poppins';font-size:12px;font-weight:600;letter-spacing:-.005em;color:var(--gray-4);cursor:pointer;border-radius:99px;transition:color .25s var(--ease);line-height:1;z-index:1;min-height:32px}
+.wi-tab:hover{color:var(--midnight)}
+.wi-tab.active{color:#fff;font-weight:700}
+.wi-tab-label{text-transform:lowercase}
+.wi-tab-count{display:inline-flex;align-items:center;justify-content:center;min-width:18px;padding:1px 6px;border-radius:99px;background:rgba(19,27,99,.10);color:var(--gray-4);font-family:'JetBrains Mono';font-size:10px;font-weight:800;letter-spacing:.02em;line-height:1.4;transition:background .25s var(--ease),color .25s var(--ease)}
+.wi-tab.active .wi-tab-count{background:rgba(255,255,255,.22);color:#fff}
+
+/* Sliding indicator behind the active tab — pure CSS, position derived from data-active */
+.wi-tabs::before{content:'';position:absolute;top:4px;bottom:4px;left:4px;width:calc((100% - 8px) / 3);background:var(--midnight);border-radius:99px;box-shadow:0 2px 8px rgba(19,27,99,.18);transition:transform .35s cubic-bezier(.32,.72,0,1);z-index:0;will-change:transform}
+.wi-tabs[data-active="exams"]::before{transform:translateX(0)}
+.wi-tabs[data-active="features"]::before{transform:translateX(100%)}
+.wi-tabs[data-active="missing"]::before{transform:translateX(200%)}
+/* Two-tab fallback (when missing panel is hidden because nothing's missing) */
+.wi-tabs:has(.wi-tab:nth-child(2):last-child)::before{width:calc((100% - 8px) / 2)}
+.wi-tabs:has(.wi-tab:nth-child(2):last-child)[data-active="features"]::before{transform:translateX(100%)}
+
+/* Panels: fade between tabs (no re-render — display + opacity toggle) */
+.wi-body{padding-top:0}
+.wi-panel{display:none;animation:wiPanelIn .32s cubic-bezier(.32,.72,0,1)}
+.wi-panel.active{display:block}
+@keyframes wiPanelIn{from{opacity:0;transform:translateY(4px);filter:blur(2px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
+.wi-panel-intro{font-family:'Fraunces',serif;font-style:italic;font-variation-settings:"opsz" 144;font-size:13px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;line-height:1.5;margin:0 0 10px;padding:0 2px}
+.wi-panel-intro em.fr-italic{color:var(--midnight);font-weight:600}
+
 .wi-list{display:flex;flex-direction:column;gap:8px;padding-bottom:2px}
 .wi-row{display:flex;align-items:baseline;gap:10px;font-family:'Poppins';font-size:13px;color:var(--midnight);font-weight:500;letter-spacing:-.005em;line-height:1.4;padding:7px 11px;background:#fff;border:1px solid var(--ice);border-radius:10px}
 .wi-row > i{font-size:14px;color:var(--success);flex-shrink:0;align-self:center}
@@ -4711,8 +4738,16 @@ function renderSubscriptionPage(){
   `;
 }
 
-// V26 — What's included sheet (data behind a tap to keep page light)
+// V26 — What's included sheet (tabbed: exams · features · not included)
 function renderWhatsIncludedSheet(includedExams, allFeats, missing, missingAddOns, plan){
+  const activeTab = state.includedTab || 'exams';
+  const missingCount = missing.length + missingAddOns.length;
+  const tabs = [
+    { id:'exams',    label:'exams',        count: includedExams.length },
+    { id:'features', label:'features',     count: allFeats.length },
+    { id:'missing',  label:'not included', count: missingCount },
+  ].filter(t => t.id !== 'missing' || missingCount > 0);
+
   return `<div class="cp-sheet-backdrop ${state.includedSheetOpen ? 'show' : ''}" data-act="sub-close-included"></div>
   <div class="cp-sheet wi-sheet ${state.includedSheetOpen ? 'show' : ''}" id="includedSheet">
     <div class="cp-sheet-handle"></div>
@@ -4720,38 +4755,60 @@ function renderWhatsIncludedSheet(includedExams, allFeats, missing, missingAddOn
       <h2 class="cp-sheet-title">what's included in <em class="fr-italic">${plan.name}</em></h2>
       <button class="cp-sheet-close" data-act="sub-close-included" type="button" aria-label="close"><i class="ph ph-x"></i></button>
     </div>
+
+    <!-- Tab nav: pill-styled segmented control -->
+    <div class="wi-tabs" role="tablist" data-active="${activeTab}">
+      ${tabs.map(tab => `<button
+        class="wi-tab ${activeTab === tab.id ? 'active' : ''}"
+        data-act="wi-tab"
+        data-wi-tab="${tab.id}"
+        role="tab"
+        aria-selected="${activeTab === tab.id}"
+        type="button">
+        <span class="wi-tab-label">${tab.label}</span>
+        <span class="wi-tab-count">${tab.count}</span>
+      </button>`).join('')}
+    </div>
+
     <div class="cp-sheet-body wi-body">
-      <div class="wi-subhead">exams</div>
-      <div class="wi-list">
-        ${includedExams.map(e => `<div class="wi-row">
-          <i class="ph-fill ph-check-circle"></i>
-          <span class="wi-name">${e.name}</span>
-          <span class="wi-meta">till <em class="fr-italic">${e.short.replace(/(\w{3}) (\d{2})/,'$1 20$2')}</em></span>
-        </div>`).join('')}
+      <!-- Panel: exams -->
+      <div class="wi-panel ${activeTab === 'exams' ? 'active' : ''}" data-wi-panel="exams" role="tabpanel">
+        <div class="wi-list">
+          ${includedExams.map(e => `<div class="wi-row">
+            <i class="ph-fill ph-check-circle"></i>
+            <span class="wi-name">${e.name}</span>
+            <span class="wi-meta">till <em class="fr-italic">${e.short.replace(/(\w{3}) (\d{2})/,'$1 20$2')}</em></span>
+          </div>`).join('')}
+        </div>
       </div>
 
-      <div class="wi-subhead">features</div>
-      <div class="wi-list">
-        ${allFeats.map(f => `<div class="wi-row">
-          <i class="ph-fill ph-check-circle"></i>
-          <span class="wi-name">${f.text}</span>
-          ${f.sub ? `<span class="wi-meta">${f.sub}</span>` : ''}
-        </div>`).join('')}
+      <!-- Panel: features -->
+      <div class="wi-panel ${activeTab === 'features' ? 'active' : ''}" data-wi-panel="features" role="tabpanel">
+        <div class="wi-list">
+          ${allFeats.map(f => `<div class="wi-row">
+            <i class="ph-fill ph-check-circle"></i>
+            <span class="wi-name">${f.text}</span>
+            ${f.sub ? `<span class="wi-meta">${f.sub}</span>` : ''}
+          </div>`).join('')}
+        </div>
       </div>
 
-      ${(missing.length + missingAddOns.length) > 0 ? `
-      <div class="wi-subhead wi-subhead-missing">not included</div>
-      <div class="wi-list">
-        ${missing.map(f => `<div class="wi-row wi-row-missing">
-          <i class="ph ph-lock-simple"></i>
-          <span class="wi-name">${f.text}</span>
-          <span class="wi-meta-pill">${f.source}</span>
-        </div>`).join('')}
-        ${missingAddOns.map(f => `<div class="wi-row wi-row-missing">
-          <i class="ph ph-lock-simple"></i>
-          <span class="wi-name">${f.text}</span>
-          <span class="wi-meta-pill">${f.source}</span>
-        </div>`).join('')}
+      ${missingCount > 0 ? `
+      <!-- Panel: not included (locked / available elsewhere) -->
+      <div class="wi-panel ${activeTab === 'missing' ? 'active' : ''}" data-wi-panel="missing" role="tabpanel">
+        <div class="wi-panel-intro">these aren't in your <em class="fr-italic">${plan.name}</em> plan — but they're available.</div>
+        <div class="wi-list">
+          ${missing.map(f => `<div class="wi-row wi-row-missing">
+            <i class="ph ph-lock-simple"></i>
+            <span class="wi-name">${f.text}</span>
+            <span class="wi-meta-pill">${f.source}</span>
+          </div>`).join('')}
+          ${missingAddOns.map(f => `<div class="wi-row wi-row-missing">
+            <i class="ph ph-lock-simple"></i>
+            <span class="wi-name">${f.text}</span>
+            <span class="wi-meta-pill">${f.source}</span>
+          </div>`).join('')}
+        </div>
       </div>` : ''}
     </div>
     <div class="cp-sheet-footer">
@@ -7212,25 +7269,56 @@ function closeIncludedSheet(){
   if(sheet) sheet.classList.remove('show');
   if(backdrop && backdrop.classList.contains('cp-sheet-backdrop')) backdrop.classList.remove('show');
 }
-// V26 — Count-up animation: animates [data-countup] elements from 0 to data-countup-target
+// V26.1 — Switch active tab in the what's-included sheet (no re-render: just toggles classes)
+function switchIncludedTab(tabId){
+  if(!tabId) return;
+  state.includedTab = tabId;
+  const sheet = document.getElementById('includedSheet');
+  if(!sheet) return;
+  // Update tab nav (active state + slider position via data-active attribute)
+  const tabsWrap = sheet.querySelector('.wi-tabs');
+  if(tabsWrap) tabsWrap.setAttribute('data-active', tabId);
+  sheet.querySelectorAll('.wi-tab').forEach(btn => {
+    const isActive = btn.getAttribute('data-wi-tab') === tabId;
+    btn.classList.toggle('active', isActive);
+    btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+  });
+  // Swap visible panel (CSS handles the fade)
+  sheet.querySelectorAll('.wi-panel').forEach(panel => {
+    panel.classList.toggle('active', panel.getAttribute('data-wi-panel') === tabId);
+  });
+}
+// V26 — Count-up animation: all counters share one clock so they finish together with the progress bar.
+// Duration matches the bar (1.8s) and delay matches the bar's animation-delay (.15s).
+// Easing is ease-out-quart — strong deceleration so the final value lingers and is readable.
 function runCountUpAnimations(scope){
   const root = scope || document;
-  const els = root.querySelectorAll('[data-countup]');
+  const els = Array.from(root.querySelectorAll('[data-countup]'));
+  if(!els.length) return;
+  const DURATION = 1800;            // synced with .sub-hero-progress-fill
+  const DELAY    = 150;             // synced with the fill's animation-delay
+  const ease     = (t) => 1 - Math.pow(1 - t, 4); // ease-out quart
+  const startsAt = performance.now() + DELAY;
+  // Pre-seed every counter to "0[suffix]" so the page doesn't briefly flash the final number
   els.forEach(el => {
-    const target = parseInt(el.getAttribute('data-countup-target') || '0', 10);
     const suffix = el.getAttribute('data-countup-suffix') || '';
-    if(!Number.isFinite(target) || target <= 0){ el.textContent = '0' + suffix; return; }
-    const duration = Math.min(900, 350 + target * 3);
-    const startedAt = performance.now();
-    const ease = (t) => 1 - Math.pow(1 - t, 3); // ease-out cubic
-    function tick(now){
-      const t = Math.min(1, (now - startedAt) / duration);
+    el.textContent = '0' + suffix;
+  });
+  let active = els.length;
+  function tick(now){
+    let stillRunning = false;
+    els.forEach(el => {
+      const target = parseInt(el.getAttribute('data-countup-target') || '0', 10);
+      const suffix = el.getAttribute('data-countup-suffix') || '';
+      if(!Number.isFinite(target) || target <= 0){ el.textContent = '0' + suffix; return; }
+      const t = Math.min(1, Math.max(0, (now - startsAt) / DURATION));
       const value = Math.round(target * ease(t));
       el.textContent = value + suffix;
-      if(t < 1) requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-  });
+      if(t < 1) stillRunning = true;
+    });
+    if(stillRunning) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
 }
 function confirmChangePlan(targetTier){
   const labels = { practice: 'Practice', revision: 'Revision', gold: 'Gold' };
@@ -7610,6 +7698,8 @@ document.addEventListener('click', e=>{
   if(e.target.closest('[data-act="sub-close-change-plan"]')){ e.stopPropagation(); closeChangePlanSheet(); return; }
   if(e.target.closest('[data-act="sub-open-included"]')){ e.stopPropagation(); openIncludedSheet(); return; }
   if(e.target.closest('[data-act="sub-close-included"]')){ e.stopPropagation(); closeIncludedSheet(); return; }
+  const wiTabBtn = e.target.closest('[data-act="wi-tab"]');
+  if(wiTabBtn){ e.stopPropagation(); switchIncludedTab(wiTabBtn.getAttribute('data-wi-tab')); return; }
   const cpPick = e.target.closest('[data-change-plan-pick]');
   if(cpPick){ e.stopPropagation(); confirmChangePlan(cpPick.getAttribute('data-change-plan-pick')); return; }
   if(e.target.closest('[data-act="back-to-chooser"]')){ e.stopPropagation(); backToChooser(); return; }
