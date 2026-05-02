@@ -1903,8 +1903,11 @@ body.v2 .addon-sheet-cta.remove:hover{background:var(--ice-2);color:var(--midnig
 .chooser-card:active{transform:scale(.98)}
 .chooser-card.chooser-existing{background:linear-gradient(135deg,var(--gold-50) 0%,#fff 80%);border-color:rgba(212,166,23,.22)}
 .chooser-card.chooser-existing:hover{border-color:var(--gold);background:linear-gradient(135deg,var(--gold-50) 0%,#fff 60%)}
+.chooser-card.chooser-subscription{background:linear-gradient(135deg,rgba(19,27,99,.05) 0%,#fff 80%);border-color:rgba(19,27,99,.14)}
+.chooser-card.chooser-subscription:hover{border-color:var(--midnight);background:linear-gradient(135deg,rgba(19,27,99,.07) 0%,#fff 60%)}
 .chooser-card-icon{flex-shrink:0;width:44px;height:44px;border-radius:14px;background:var(--sky-100);display:grid;place-items:center;color:var(--sky);font-size:24px}
 .chooser-existing .chooser-card-icon{background:rgba(212,166,23,.18);color:var(--gold)}
+.chooser-subscription .chooser-card-icon{background:rgba(19,27,99,.10);color:var(--midnight)}
 .chooser-card-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;text-align:left}
 .chooser-card-tag{font-family:'JetBrains Mono';font-size:9.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-4)}
 .chooser-card-title{font-family:'Poppins';font-size:15px;font-weight:700;color:var(--midnight);letter-spacing:-.012em;line-height:1.25}
@@ -2502,6 +2505,152 @@ body.v2 .addon-sheet-cta.remove:hover{background:var(--ice-2);color:var(--midnig
 .manage-more-options.open .more-options-body{max-height:1200px;padding:14px 16px;border-top:1px solid var(--ice)}
 
 /* ───── Coupon as discovery ───── */
+/* ═══════════════════════════════════════════════════════════════════════════════
+   V26 — Subscription page (information-led, bank-statement tone)
+   "What do I have, and how do I change it?"
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.sub-header{margin-bottom:18px}
+.sub-headline{font-family:'Fraunces',serif;font-weight:600;font-variation-settings:"opsz" 144;font-size:26px;line-height:1.18;letter-spacing:-.018em;color:var(--midnight);margin:0 0 4px}
+.sub-sublabel{font-family:'Poppins';font-size:12.5px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;margin:0}
+
+.sub-section{padding:16px 18px;background:#fff;border:1px solid var(--ice);border-radius:16px;margin-bottom:14px;box-shadow:0 1px 3px rgba(19,27,99,.04);animation:planSecIn .45s var(--ease) backwards}
+.sub-section:nth-of-type(1){animation-delay:.05s}
+.sub-section:nth-of-type(2){animation-delay:.10s}
+.sub-section:nth-of-type(3){animation-delay:.15s}
+.sub-section:nth-of-type(4){animation-delay:.20s}
+.sub-section:nth-of-type(5){animation-delay:.25s}
+.sub-section:nth-of-type(6){animation-delay:.30s}
+
+/* Section header (uppercase mono, neutral) */
+.sub-section-h{font-family:'JetBrains Mono';font-size:10px;font-weight:800;color:var(--gray-4);letter-spacing:.14em;text-transform:uppercase;margin:0 0 12px}
+.sub-subsection-h{font-family:'JetBrains Mono';font-size:9px;font-weight:800;color:var(--gray-3);letter-spacing:.16em;text-transform:uppercase;margin:14px 0 8px}
+.sub-subsection-h:first-of-type{margin-top:0}
+.sub-subsection-h.sub-not-included-h{color:var(--gray-3);margin-top:18px;padding-top:14px;border-top:1px dashed var(--ice)}
+
+/* Section 1 — current plan summary */
+.sub-status-pill{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:99px;background:rgba(14,157,97,.10);border:1px solid rgba(14,157,97,.25);font-family:'JetBrains Mono';font-size:9px;font-weight:800;color:var(--success);letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px;line-height:1}
+.sub-status-pill i{font-size:7px;animation:subStatusBlink 2.4s ease-in-out infinite}
+@keyframes subStatusBlink{0%,100%{opacity:1}50%{opacity:.4}}
+.sub-plan-line{font-family:'Fraunces',serif;font-weight:600;font-variation-settings:"opsz" 144;font-size:22px;line-height:1.2;letter-spacing:-.018em;color:var(--midnight);margin-bottom:8px}
+.sub-meta-row{font-family:'Poppins';font-size:12.5px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;line-height:1.5}
+.sub-meta-row strong{color:var(--midnight);font-weight:700}
+.sub-divider{height:1px;background:var(--ice);margin:12px 0}
+.sub-stats{display:flex;align-items:baseline;gap:8px;font-family:'Poppins';font-size:12.5px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;flex-wrap:wrap}
+.sub-stats strong{font-family:'Fraunces',serif;font-style:italic;font-variation-settings:"opsz" 144;font-size:15px;color:var(--midnight);font-weight:600;margin-right:1px}
+.sub-stats-sep{color:var(--gray-3)}
+
+/* Section 2 — what's included */
+.sub-row-list{display:flex;flex-direction:column;gap:7px}
+.sub-incl-row{display:flex;align-items:baseline;gap:9px;font-family:'Poppins';font-size:13px;color:var(--midnight);font-weight:500;letter-spacing:-.005em;line-height:1.4}
+.sub-incl-row > i{font-size:14px;color:var(--success);flex-shrink:0;align-self:center}
+.sub-incl-name{flex:1;min-width:0}
+.sub-incl-meta{font-size:11.5px;color:var(--gray-4);font-weight:500;flex-shrink:0;letter-spacing:-.005em}
+.sub-incl-meta em.fr-italic{font-family:'Fraunces',serif;font-style:italic;font-variation-settings:"opsz" 144;color:var(--midnight);font-weight:500}
+.sub-incl-row-missing{color:var(--gray-4);font-weight:500}
+.sub-incl-row-missing > i{color:var(--gray-3)}
+.sub-incl-row-missing .sub-incl-name{color:var(--gray-4);text-decoration:line-through;text-decoration-color:rgba(19,27,99,.18);text-decoration-thickness:1px}
+.sub-incl-row-missing .sub-incl-meta{color:var(--gray-3);font-style:italic;font-family:'Fraunces',serif;font-variation-settings:"opsz" 144;font-size:11px}
+
+/* Section 3 — manage your plan (action cards) */
+.sub-action-card{display:flex;align-items:center;gap:14px;width:100%;padding:14px 14px;background:#fff;border:1px solid var(--ice);border-radius:14px;cursor:pointer;font-family:inherit;text-align:left;transition:border-color .25s var(--ease),background .25s var(--ease),transform .15s cubic-bezier(.34,1.56,.64,1);margin-bottom:10px}
+.sub-action-card:last-child{margin-bottom:0}
+.sub-action-card:hover{border-color:var(--midnight);background:var(--ice-2);transform:translateY(-1px)}
+.sub-action-card:active{transform:scale(.99)}
+.sub-action-icon{flex-shrink:0;width:38px;height:38px;border-radius:11px;background:rgba(19,27,99,.08);display:grid;place-items:center;color:var(--midnight);font-size:18px}
+.sub-action-card:nth-of-type(1) .sub-action-icon{background:var(--success-50);color:var(--success)}
+.sub-action-card:nth-of-type(2) .sub-action-icon{background:rgba(21,202,232,.12);color:var(--sky)}
+.sub-action-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+.sub-action-title{font-family:'Poppins';font-size:14px;font-weight:700;color:var(--midnight);letter-spacing:-.012em;line-height:1.25}
+.sub-action-desc{font-size:11.5px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;line-height:1.4}
+.sub-action-price{font-family:'Poppins';font-size:11.5px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;margin-top:2px}
+.sub-action-price strong{font-family:'Fraunces',serif;font-style:italic;font-variation-settings:"opsz" 144;color:var(--midnight);font-weight:600;font-size:13px;margin-right:1px}
+.sub-action-arrow{flex-shrink:0;color:var(--gray-3);font-size:16px;transition:transform .2s var(--ease),color .2s var(--ease)}
+.sub-action-card:hover .sub-action-arrow{transform:translateX(3px);color:var(--midnight)}
+
+/* Section 4 — cross-link */
+.sub-cross{padding-bottom:14px}
+.sub-cross-copy{font-family:'Poppins';font-size:12.5px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;line-height:1.55;margin:0 0 12px}
+.sub-cross-link{display:inline-flex;align-items:center;gap:6px;background:transparent;border:0;cursor:pointer;font-family:'Poppins';font-size:12px;font-weight:700;color:var(--sky);padding:0;letter-spacing:-.005em;transition:color .2s var(--ease)}
+.sub-cross-link:hover{color:var(--midnight)}
+.sub-cross-link i{font-size:13px;transition:transform .2s var(--ease)}
+.sub-cross-link:hover i{transform:translateX(2px)}
+
+/* Section 5 — billing history */
+.sub-billing-list{display:flex;flex-direction:column;gap:0}
+.sub-billing-row{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--ice)}
+.sub-billing-row:last-child{border-bottom:0}
+.sub-billing-meta{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.sub-billing-date{font-family:'JetBrains Mono';font-size:9.5px;font-weight:700;color:var(--gray-4);letter-spacing:.10em;text-transform:uppercase;line-height:1}
+.sub-billing-label{font-family:'Poppins';font-size:13px;font-weight:600;color:var(--midnight);letter-spacing:-.005em;line-height:1.3}
+.sub-billing-amount{font-family:'Fraunces',serif;font-style:italic;font-variation-settings:"opsz" 144;font-size:14.5px;font-weight:600;color:var(--midnight);letter-spacing:-.005em;flex-shrink:0}
+.sub-billing-receipt{flex-shrink:0;width:30px;height:30px;border-radius:8px;background:transparent;border:1px solid var(--ice);color:var(--gray-4);display:grid;place-items:center;cursor:pointer;font-size:13px;transition:all .2s var(--ease)}
+.sub-billing-receipt:hover{border-color:var(--midnight);color:var(--midnight);background:var(--ice-2)}
+
+/* Section 6 — need help */
+.sub-help{padding-bottom:14px}
+.sub-help-link{display:flex;align-items:center;gap:11px;width:100%;padding:11px 0;background:transparent;border:0;border-bottom:1px solid var(--ice);cursor:pointer;font-family:inherit;text-align:left;transition:opacity .2s var(--ease)}
+.sub-help-link:last-of-type{border-bottom:0}
+.sub-help-link:hover{opacity:.75}
+.sub-help-link > i{font-size:18px;color:var(--midnight);flex-shrink:0;width:20px;text-align:center}
+.sub-help-link:nth-of-type(3) > i{color:#25D366}
+.sub-help-text{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.sub-help-text > div{font-family:'Poppins';font-size:13px;font-weight:600;color:var(--midnight);letter-spacing:-.005em;line-height:1.3}
+.sub-help-text small{font-family:'Poppins';font-size:11px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;line-height:1.4}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   V26 — Change Plan Sheet (modal sheet for tier change scoped to NORCET 12)
+   ═══════════════════════════════════════════════════════════════════════════════ */
+.cp-sheet-backdrop{position:fixed;inset:0;background:rgba(19,27,99,.45);opacity:0;pointer-events:none;transition:opacity .35s cubic-bezier(.32,.72,0,1);z-index:90}
+.cp-sheet-backdrop.show{opacity:1;pointer-events:auto}
+.cp-sheet{position:fixed;left:0;right:0;bottom:0;max-height:90vh;background:#fff;border-radius:22px 22px 0 0;box-shadow:0 -10px 40px rgba(19,27,99,.20);transform:translateY(100%);transition:transform .42s cubic-bezier(.32,.72,0,1);z-index:91;display:flex;flex-direction:column;overflow:hidden}
+.cp-sheet.show{transform:translateY(0)}
+.cp-sheet-handle{width:42px;height:4px;border-radius:99px;background:rgba(19,27,99,.18);margin:10px auto 6px;flex-shrink:0}
+.cp-sheet-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:8px 22px 12px;flex-shrink:0}
+.cp-sheet-title{font-family:'Fraunces',serif;font-weight:600;font-variation-settings:"opsz" 144;font-size:21px;line-height:1.2;letter-spacing:-.015em;color:var(--midnight);margin:0;flex:1;min-width:0}
+.cp-sheet-close{flex-shrink:0;width:32px;height:32px;border-radius:99px;background:var(--ice-2);border:0;cursor:pointer;color:var(--gray-4);display:grid;place-items:center;font-size:14px;transition:all .2s var(--ease)}
+.cp-sheet-close:hover{background:var(--ice);color:var(--midnight)}
+
+.cp-sheet-banner{display:flex;align-items:flex-start;gap:9px;margin:0 22px 14px;padding:11px 14px;background:rgba(21,202,232,.06);border:1px solid rgba(21,202,232,.22);border-radius:11px;flex-shrink:0}
+.cp-sheet-banner > i{font-size:16px;color:var(--sky);flex-shrink:0;margin-top:1px}
+.cp-sheet-banner > div{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.cp-sheet-banner strong{font-family:'Poppins';font-size:12.5px;font-weight:700;color:var(--midnight);letter-spacing:-.005em;line-height:1.4}
+.cp-sheet-banner span{font-family:'Poppins';font-size:11.5px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;line-height:1.45}
+
+.cp-sheet-body{flex:1;min-height:0;overflow-y:auto;padding:0 22px 14px;display:flex;flex-direction:column;gap:12px}
+.cp-tier-card{padding:14px 16px;background:#fff;border:1.5px solid var(--ice);border-radius:14px;display:flex;flex-direction:column;gap:9px;transition:border-color .2s var(--ease),background .2s var(--ease)}
+.cp-tier-card.current{border-color:rgba(212,166,23,.45);background:linear-gradient(135deg,var(--gold-50) 0%,#fff 80%)}
+.cp-tier-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.cp-tier-name{font-family:'Fraunces',serif;font-weight:600;font-variation-settings:"opsz" 144;font-size:20px;letter-spacing:-.012em;color:var(--midnight);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.cp-tier-tag{font-family:'JetBrains Mono';font-size:9px;font-weight:800;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;background:rgba(212,166,23,.14);border-radius:99px;line-height:1}
+.cp-tier-price{font-family:'Fraunces',serif;font-style:italic;font-variation-settings:"opsz" 144;font-size:22px;font-weight:600;color:var(--midnight);letter-spacing:-.018em}
+.cp-tier-tagline{font-family:'Poppins';font-size:12.5px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;line-height:1.4;margin:-2px 0 4px}
+.cp-tier-feats{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:5px}
+.cp-tier-feats li{display:flex;align-items:center;gap:8px;font-family:'Poppins';font-size:12px;color:var(--midnight);font-weight:500;letter-spacing:-.005em;line-height:1.4}
+.cp-tier-feats li i{font-size:13px;color:var(--success);flex-shrink:0}
+
+.cp-tier-trade{padding:10px 12px;background:rgba(19,27,99,.04);border:1px dashed rgba(19,27,99,.16);border-radius:9px;margin-top:4px}
+.cp-tier-savings{font-family:'Poppins';font-size:11.5px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;line-height:1.45;margin-bottom:6px}
+.cp-tier-savings strong{font-family:'Fraunces',serif;font-style:italic;font-variation-settings:"opsz" 144;font-size:13px;color:var(--midnight);font-weight:600;margin:0 1px}
+.cp-tier-lost{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:3px}
+.cp-tier-lost li{font-family:'Poppins';font-size:11.5px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;padding-left:14px;position:relative;line-height:1.4}
+.cp-tier-lost li::before{content:'•';position:absolute;left:4px;color:var(--gray-3)}
+
+.cp-tier-recommend{font-family:'Fraunces',serif;font-style:italic;font-variation-settings:"opsz" 144;font-size:12px;color:var(--gold);font-weight:500;letter-spacing:-.005em;line-height:1.4;margin-top:2px}
+
+.cp-tier-cta{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:11px 14px;border-radius:11px;font-family:'Poppins';font-size:13px;font-weight:700;letter-spacing:-.005em;cursor:pointer;border:0;transition:all .2s var(--ease);margin-top:6px}
+.cp-tier-cta i{font-size:14px;transition:transform .2s var(--ease)}
+.cp-tier-cta:hover i{transform:translateX(2px)}
+.cp-tier-cta.continue{background:var(--gold);color:#fff;box-shadow:0 4px 12px rgba(184,134,11,.22)}
+.cp-tier-cta.continue:hover{background:#9c7309}
+.cp-tier-cta.upgrade{background:var(--midnight);color:#fff;box-shadow:0 4px 12px rgba(19,27,99,.22)}
+.cp-tier-cta.upgrade:hover{background:#0E1554}
+.cp-tier-cta.cheaper{background:transparent;color:var(--midnight);border:1.5px solid var(--gray-3)}
+.cp-tier-cta.cheaper:hover{border-color:var(--midnight);background:var(--ice-2)}
+.cp-tier-cta:active{transform:scale(.98)}
+
+.cp-sheet-footer{flex-shrink:0;padding:11px 22px 18px;font-family:'Fraunces',serif;font-style:italic;font-variation-settings:"opsz" 144;font-size:11.5px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;text-align:center;border-top:1px solid var(--ice)}
+
 /* V25 — Manage coupon section: shared `.coupon-card` chrome + manage-only paste/browse extras */
 .manage-coupon-section{margin-bottom:24px;display:flex;flex-direction:column;gap:10px}
 .manage-coupon-unlock-tag{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:99px;background:rgba(212,166,23,.10);border:1px solid rgba(212,166,23,.25);font-family:'JetBrains Mono';font-size:9.5px;font-weight:800;color:var(--gold);letter-spacing:.10em;text-transform:uppercase;align-self:flex-start;line-height:1;margin-bottom:-2px;animation:planSecIn .45s var(--ease) backwards}
@@ -3845,8 +3994,17 @@ function renderChooser(){
         <div class="chooser-card-icon"><i class="ph-duotone ph-clipboard-text"></i></div>
         <div class="chooser-card-body">
           <div class="chooser-card-tag">existing student</div>
-          <div class="chooser-card-title">manage my plan</div>
-          <div class="chooser-card-sub">upgrade · extend till NORCET 12 · add exams · switch</div>
+          <div class="chooser-card-title">upgrade my plan</div>
+          <div class="chooser-card-sub">recommended next step · extend · add exams</div>
+        </div>
+        <i class="ph ph-arrow-right chooser-card-arrow"></i>
+      </button>
+      <button class="chooser-card chooser-subscription" data-act="chooser-subscription" type="button">
+        <div class="chooser-card-icon"><i class="ph-duotone ph-receipt"></i></div>
+        <div class="chooser-card-body">
+          <div class="chooser-card-tag">subscription</div>
+          <div class="chooser-card-title">my subscription</div>
+          <div class="chooser-card-sub">plan details · billing · change plan for next cycle</div>
         </div>
         <i class="ph ph-arrow-right chooser-card-arrow"></i>
       </button>
@@ -4325,6 +4483,267 @@ function renderManagePlan(){
   ${renderManageStickyCta(tier, canUpgrade)}
 
   <div style="height:96px"></div>`;
+}
+
+// ============= V26 SUBSCRIPTION PAGE — information-led, neutral tone =============
+// "What do I have, and how do I change it?" — bank-statement feel, not marketing surface.
+function renderSubscriptionPage(){
+  const tier = state.purchasedTier;
+  const plan = PLANS[tier];
+  const paid = TIER_PAID[tier];
+  const validityDate = TIER_VALIDITY_DATE[tier];
+  const labels = { practice:'Practice', revision:'Revision', gold:'Gold' };
+  const days = DAYS_TILL_EXAM;
+  const progress = TIER_PROGRESS[tier];
+
+  // Resolve included exams via existing data (status === 'included')
+  const includedExams = ALL_EXAMS_BAR.filter(e => e.status === 'included');
+
+  // Aggregate features from this tier + inherited tiers (so Revision shows Practice's feats too)
+  const inherited = (plan.inherits || []).map(id => PLANS[id]).filter(Boolean);
+  const allFeats = [...inherited.flatMap(p => p.feats), ...plan.feats];
+
+  // What's NOT included — features from higher tiers + add-ons
+  const higherTiers = TIER_ORDER.filter(t => TIER_ORDER.indexOf(t) > TIER_ORDER.indexOf(tier));
+  const missing = higherTiers.flatMap(t => PLANS[t].feats.map(f => ({ ...f, source: labels[t] + ' only' })));
+  const missingAddOns = [
+    { text:'State Nursing exams', source:'add-on' },
+    { text:'Railway exams', source:'add-on' },
+    { text:'Defense exams', source:'add-on' },
+  ];
+
+  // Demo billing history
+  const billing = [
+    { date:'12 Apr 2026', label:`NORCET ${plan.name} · 1-year`, amount: paid },
+    { date:'03 Mar 2026', label:'AIIMS notes add-on', amount: 599 },
+    { date:'12 Feb 2026', label:'NORCET Practice · 6-month', amount: 1499 },
+  ];
+
+  // Pricing for the three NORCET 12 cycle options
+  const cyclePrice = { practice: 999, revision: 1799, gold: 2799 };
+  const upgradeTarget = TIER_ORDER[Math.min(TIER_ORDER.indexOf(tier) + 1, 2)];
+  const showUpgradeCard = upgradeTarget !== tier;
+  const upgradeDelta = TIER_PAID[upgradeTarget] - paid;
+
+  return `${renderManageDemoChip()}
+  <div class="manage-back-row">
+    <button class="manage-back-link" data-act="sub-back-to-chooser" type="button">
+      <i class="ph ph-arrow-left"></i><span>back to chooser</span>
+    </button>
+  </div>
+
+  <!-- Page header -->
+  <div class="sub-header">
+    <h1 class="sub-headline">your subscription</h1>
+    <p class="sub-sublabel">manage plan, billing, and history</p>
+  </div>
+
+  <!-- Section 1 — Current plan summary -->
+  <div class="sub-section">
+    <div class="sub-status-pill"><i class="ph-fill ph-circle"></i><span>active</span></div>
+    <div class="sub-plan-line">NORCET ${plan.name} · 1-year</div>
+    <div class="sub-meta-row">
+      <span><strong>₹${paid.toLocaleString('en-IN')}</strong> paid 12 Apr 2026</span>
+    </div>
+    <div class="sub-meta-row">
+      <span>valid till <strong>${validityDate}</strong></span>
+    </div>
+    <div class="sub-divider"></div>
+    <div class="sub-stats">
+      <span><strong class="fr-italic-num">${days}</strong> days remaining</span>
+      <span class="sub-stats-sep">·</span>
+      <span><strong class="fr-italic-num">${progress}%</strong> syllabus completed</span>
+    </div>
+  </div>
+
+  <!-- Section 2 — What's included -->
+  <div class="sub-section sub-included">
+    <div class="sub-section-h">what you have access to</div>
+
+    <div class="sub-subsection-h">exams</div>
+    <div class="sub-row-list">
+      ${includedExams.map(e => `<div class="sub-incl-row">
+        <i class="ph-fill ph-check-circle"></i>
+        <span class="sub-incl-name">${e.name}</span>
+        <span class="sub-incl-meta">till <em class="fr-italic">${e.short.replace(/(\w{3}) (\d{2})/,'$1 20$2')}</em></span>
+      </div>`).join('')}
+    </div>
+
+    <div class="sub-subsection-h">features</div>
+    <div class="sub-row-list">
+      ${allFeats.map(f => `<div class="sub-incl-row">
+        <i class="ph-fill ph-check-circle"></i>
+        <span class="sub-incl-name">${f.text}</span>
+        ${f.sub ? `<span class="sub-incl-meta">${f.sub}</span>` : ''}
+      </div>`).join('')}
+    </div>
+
+    ${(missing.length + missingAddOns.length) > 0 ? `
+    <div class="sub-subsection-h sub-not-included-h">not included</div>
+    <div class="sub-row-list">
+      ${missing.map(f => `<div class="sub-incl-row sub-incl-row-missing">
+        <i class="ph ph-x-circle"></i>
+        <span class="sub-incl-name">${f.text}</span>
+        <span class="sub-incl-meta">${f.source}</span>
+      </div>`).join('')}
+      ${missingAddOns.map(f => `<div class="sub-incl-row sub-incl-row-missing">
+        <i class="ph ph-x-circle"></i>
+        <span class="sub-incl-name">${f.text}</span>
+        <span class="sub-incl-meta">${f.source}</span>
+      </div>`).join('')}
+    </div>` : ''}
+  </div>
+
+  <!-- Section 3 — Manage your plan -->
+  <div class="sub-section">
+    <div class="sub-section-h">manage your plan</div>
+
+    ${showUpgradeCard ? `<button class="sub-action-card" data-act="sub-go-upgrade" type="button">
+      <div class="sub-action-icon"><i class="ph-fill ph-arrow-up"></i></div>
+      <div class="sub-action-body">
+        <div class="sub-action-title">upgrade to ${labels[upgradeTarget]}</div>
+        <div class="sub-action-desc">${upgradeTarget === 'gold' ? 'add 1-on-1 mentoring + AIIMS Live Faculty Series' : 'add rapid revision lectures · structured drilling'}</div>
+        <div class="sub-action-price"><strong>₹${upgradeDelta.toLocaleString('en-IN')}</strong> prorated · valid till ${validityDate}</div>
+      </div>
+      <i class="ph ph-arrow-right sub-action-arrow"></i>
+    </button>` : ''}
+
+    <button class="sub-action-card" data-act="sub-go-extend" type="button">
+      <div class="sub-action-icon"><i class="ph-fill ph-clock-counter-clockwise"></i></div>
+      <div class="sub-action-body">
+        <div class="sub-action-title">extend through NORCET 12</div>
+        <div class="sub-action-desc">same plan, new cycle</div>
+        <div class="sub-action-price"><strong>₹${cyclePrice[tier].toLocaleString('en-IN')}</strong> today · pricing rises Nov 2026</div>
+      </div>
+      <i class="ph ph-arrow-right sub-action-arrow"></i>
+    </button>
+
+    <button class="sub-action-card" data-act="sub-open-change-plan" type="button">
+      <div class="sub-action-icon"><i class="ph ph-arrows-clockwise"></i></div>
+      <div class="sub-action-body">
+        <div class="sub-action-title">change plan for NORCET 12</div>
+        <div class="sub-action-desc">choose Practice, Revision, or Gold for your next cycle</div>
+      </div>
+      <i class="ph ph-arrow-right sub-action-arrow"></i>
+    </button>
+  </div>
+
+  <!-- Section 4 — Add more exams (cross-link) -->
+  <div class="sub-section sub-cross">
+    <div class="sub-section-h">add more exams</div>
+    <p class="sub-cross-copy">State Nursing, Railway, Defense — these add specific exam coverage and extend your validity through their dates.</p>
+    <button class="sub-cross-link" data-act="sub-go-addons" type="button">
+      <span>see add-on exams</span>
+      <i class="ph ph-arrow-right"></i>
+    </button>
+  </div>
+
+  <!-- Section 5 — Billing history -->
+  <div class="sub-section">
+    <div class="sub-section-h">billing history</div>
+    <div class="sub-billing-list">
+      ${billing.map(b => `<div class="sub-billing-row">
+        <div class="sub-billing-meta">
+          <div class="sub-billing-date">${b.date}</div>
+          <div class="sub-billing-label">${b.label}</div>
+        </div>
+        <div class="sub-billing-amount">₹${b.amount.toLocaleString('en-IN')}</div>
+        <button class="sub-billing-receipt" type="button" aria-label="download receipt"><i class="ph ph-download-simple"></i></button>
+      </div>`).join('')}
+    </div>
+  </div>
+
+  <!-- Section 6 — Need help -->
+  <div class="sub-section sub-help">
+    <div class="sub-section-h">need help?</div>
+    <button class="sub-help-link" type="button">
+      <i class="ph ph-arrow-counter-clockwise"></i>
+      <div class="sub-help-text">
+        <div>request a refund</div>
+        <small>within 7 days of payment</small>
+      </div>
+    </button>
+    <button class="sub-help-link" type="button">
+      <i class="ph ph-pause-circle"></i>
+      <div class="sub-help-text">
+        <div>pause my plan</div>
+        <small>up to 30 days, once per cycle</small>
+      </div>
+    </button>
+    <button class="sub-help-link" type="button">
+      <i class="ph-fill ph-whatsapp-logo"></i>
+      <div class="sub-help-text">
+        <div>talk to support on WhatsApp</div>
+        <small>reply within 2 hours</small>
+      </div>
+    </button>
+  </div>
+
+  <div style="height:60px"></div>
+
+  ${renderChangePlanSheet(tier, cyclePrice, validityDate)}
+  `;
+}
+
+// V26 — Change plan sheet (for NORCET 12 cycle only)
+function renderChangePlanSheet(currentTier, cyclePrice, currentValidityDate){
+  const labels = { practice:'Practice', revision:'Revision', gold:'Gold' };
+  const tiers = ['practice','revision','gold'];
+
+  return `<div class="cp-sheet-backdrop ${state.changePlanSheetOpen ? 'show' : ''}" data-act="sub-close-change-plan"></div>
+  <div class="cp-sheet ${state.changePlanSheetOpen ? 'show' : ''}" id="changePlanSheet">
+    <div class="cp-sheet-handle"></div>
+    <div class="cp-sheet-head">
+      <h2 class="cp-sheet-title">choose a plan for NORCET 12</h2>
+      <button class="cp-sheet-close" data-act="sub-close-change-plan" type="button" aria-label="close"><i class="ph ph-x"></i></button>
+    </div>
+    <div class="cp-sheet-banner">
+      <i class="ph-fill ph-info"></i>
+      <div>
+        <strong>this applies to NORCET 12 only.</strong>
+        <span>your ${labels[currentTier]} plan for NORCET 11 stays exactly as it is, through ${currentValidityDate}.</span>
+      </div>
+    </div>
+    <div class="cp-sheet-body">
+      ${tiers.map(t => {
+        const isCurrent = t === currentTier;
+        const isUpgrade = TIER_ORDER.indexOf(t) > TIER_ORDER.indexOf(currentTier);
+        const isCheaper = TIER_ORDER.indexOf(t) < TIER_ORDER.indexOf(currentTier);
+        const price = cyclePrice[t];
+        const cont = PLANS[t].feats.slice(0,3);
+        const lostFeats = isCheaper ? PLANS[currentTier].feats.slice(0,3).map(f => f.text) : [];
+        const savings = isCheaper ? cyclePrice[currentTier] - price : 0;
+
+        return `<div class="cp-tier-card ${isCurrent ? 'current' : ''}">
+          <div class="cp-tier-head">
+            <div class="cp-tier-name">
+              ${labels[t]}
+              ${isCurrent ? '<span class="cp-tier-tag">your current plan</span>' : ''}
+            </div>
+            <div class="cp-tier-price">₹${price.toLocaleString('en-IN')}</div>
+          </div>
+          <div class="cp-tier-tagline">
+            ${isCurrent ? 'same plan you have now, new cycle' : (isUpgrade ? `everything in ${labels[currentTier]} + premium` : 'mock tests + previous papers')}
+          </div>
+          <ul class="cp-tier-feats">
+            ${cont.map(f => `<li><i class="ph ph-check"></i><span>${f.text}</span></li>`).join('')}
+          </ul>
+          ${isCheaper ? `<div class="cp-tier-trade">
+            <div class="cp-tier-savings">compared to your current ${labels[currentTier]} plan, you'll save <strong>₹${savings.toLocaleString('en-IN')}</strong> — but won't have:</div>
+            <ul class="cp-tier-lost">${lostFeats.map(t => `<li>${t}</li>`).join('')}</ul>
+          </div>` : ''}
+          ${isCurrent ? '<div class="cp-tier-recommend">recommended if your current plan has been working for you.</div>' : ''}
+          <button class="cp-tier-cta ${isCheaper ? 'cheaper' : (isUpgrade ? 'upgrade' : 'continue')}" data-change-plan-pick="${t}" type="button">
+            ${isCurrent ? `continue ${labels[t]}` : (isUpgrade ? `upgrade to ${labels[t]}` : `choose ${labels[t]}`)}
+            <i class="ph ph-arrow-right"></i>
+          </button>
+        </div>`;
+      }).join('')}
+    </div>
+    <div class="cp-sheet-footer">
+      refund available within 7 days of payment.
+    </div>
+  </div>`;
 }
 
 // ── V19 Journey hero — narrative copy, progress, next milestone, single primary CTA ──
@@ -6471,6 +6890,12 @@ function buildPlanUI(){
     wireManageStickyCta();
     return;
   }
+  // V26 — Subscription page: information-led plan management surface
+  if(state.flowMode === 'subscription'){
+    planContent.innerHTML = renderSubscriptionPage();
+    planCtaBar.style.display = 'none';
+    return;
+  }
 
   if(state.step <= 1){
     planContent.innerHTML = `<div class="plan-section">
@@ -6667,6 +7092,46 @@ function chooseExistingStudent(){
   document.getElementById('backdrop').classList.add('hidden');
   buildPlanUI();
   wireManageStickyCta();
+}
+// V26 — Subscription page entry: information-led, "what do I have, how do I change it"
+function chooseSubscription(){
+  state.flowMode = 'subscription';
+  state.step = 6;
+  state.sheetDismissed = true;
+  state.timeline = '6mo';
+  state.stage = state.purchasedTier === 'gold' ? 'starting' : state.purchasedTier === 'revision' ? 'preparing' : 'revising';
+  state.selectedPlan = state.purchasedTier;
+  state.changePlanSheetOpen = false; // ensure sheet starts closed on (re)entry
+  document.getElementById('sheet').classList.add('dismissed');
+  document.getElementById('backdrop').classList.add('hidden');
+  buildPlanUI();
+}
+function openChangePlanSheet(){
+  state.changePlanSheetOpen = true;
+  const sheet = document.getElementById('changePlanSheet');
+  const backdrop = document.querySelector('.cp-sheet-backdrop');
+  if(sheet) sheet.classList.add('show');
+  if(backdrop) backdrop.classList.add('show');
+}
+function closeChangePlanSheet(){
+  state.changePlanSheetOpen = false;
+  const sheet = document.getElementById('changePlanSheet');
+  const backdrop = document.querySelector('.cp-sheet-backdrop');
+  if(sheet) sheet.classList.remove('show');
+  if(backdrop) backdrop.classList.remove('show');
+}
+function confirmChangePlan(targetTier){
+  const labels = { practice: 'Practice', revision: 'Revision', gold: 'Gold' };
+  const tier = state.purchasedTier;
+  let toastMsg = '';
+  if(targetTier === tier){
+    toastMsg = `${labels[tier]} continued for NORCET 12 · ₹${({practice:999,revision:1799,gold:2799})[tier]}`;
+  } else {
+    const direction = TIER_ORDER.indexOf(targetTier) > TIER_ORDER.indexOf(tier) ? 'upgraded' : 'changed';
+    toastMsg = `${direction} to ${labels[targetTier]} for NORCET 12 · NORCET 11 unchanged`;
+  }
+  closeChangePlanSheet();
+  if(typeof showToast === 'function') showToast(toastMsg);
 }
 
 // V11 — Sticky bottom CTA fades in after user scrolls past the hero card
@@ -7024,6 +7489,15 @@ document.addEventListener('click', e=>{
   // V10 — Entry chooser handlers
   if(e.target.closest('[data-act="chooser-new"]')){ e.stopPropagation(); chooseNewBuyer(); return; }
   if(e.target.closest('[data-act="chooser-existing"]')){ e.stopPropagation(); chooseExistingStudent(); return; }
+  if(e.target.closest('[data-act="chooser-subscription"]')){ e.stopPropagation(); chooseSubscription(); return; }
+  if(e.target.closest('[data-act="sub-back-to-chooser"]')){ e.stopPropagation(); state.flowMode='chooser'; document.getElementById('sheet').classList.remove('dismissed'); document.getElementById('backdrop').classList.remove('hidden'); renderQuestionnaire(); return; }
+  if(e.target.closest('[data-act="sub-go-upgrade"]')){ e.stopPropagation(); chooseExistingStudent(); return; }
+  if(e.target.closest('[data-act="sub-go-extend"]')){ e.stopPropagation(); chooseExistingStudent(); setTimeout(()=>{ const el=document.querySelector('.manage-urgency-ext'); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); }, 200); return; }
+  if(e.target.closest('[data-act="sub-go-addons"]')){ e.stopPropagation(); chooseExistingStudent(); setTimeout(()=>{ const el=document.querySelector('.manage-more-options'); if(el){ el.classList.add('open'); el.scrollIntoView({behavior:'smooth',block:'start'}); } }, 200); return; }
+  if(e.target.closest('[data-act="sub-open-change-plan"]')){ e.stopPropagation(); openChangePlanSheet(); return; }
+  if(e.target.closest('[data-act="sub-close-change-plan"]')){ e.stopPropagation(); closeChangePlanSheet(); return; }
+  const cpPick = e.target.closest('[data-change-plan-pick]');
+  if(cpPick){ e.stopPropagation(); confirmChangePlan(cpPick.getAttribute('data-change-plan-pick')); return; }
   if(e.target.closest('[data-act="back-to-chooser"]')){ e.stopPropagation(); backToChooser(); return; }
   const demoTier = e.target.closest('[data-demo-tier]');
   if(demoTier){ e.stopPropagation(); setPurchasedTier(demoTier.dataset.demoTier); return; }
