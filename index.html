@@ -2506,58 +2506,76 @@ body.v2 .addon-sheet-cta.remove:hover{background:var(--ice-2);color:var(--midnig
 
 /* ───── Coupon as discovery ───── */
 /* ═══════════════════════════════════════════════════════════════════════════════
-   V26 — Subscription page (information-led, bank-statement tone)
+   V26 — Subscription page (information-led, bank-statement tone, hero-anchored)
    "What do I have, and how do I change it?"
    ═══════════════════════════════════════════════════════════════════════════════ */
 
 .sub-header{margin-bottom:18px}
-.sub-headline{font-family:'Fraunces',serif;font-weight:600;font-variation-settings:"opsz" 144;font-size:26px;line-height:1.18;letter-spacing:-.018em;color:var(--midnight);margin:0 0 4px}
-.sub-sublabel{font-family:'Poppins';font-size:12.5px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;margin:0}
+.sub-headline{font-family:'Fraunces',serif;font-weight:600;font-variation-settings:"opsz" 144;font-size:28px;line-height:1.15;letter-spacing:-.018em;color:var(--midnight);margin:0 0 4px}
+.sub-sublabel{font-family:'Poppins';font-size:13px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;margin:0}
+.sub-sublabel em.fr-italic{font-family:'Fraunces',serif;font-style:italic;font-variation-settings:"opsz" 144;font-weight:500;color:var(--midnight)}
 
+/* Section base */
 .sub-section{padding:16px 18px;background:#fff;border:1px solid var(--ice);border-radius:16px;margin-bottom:14px;box-shadow:0 1px 3px rgba(19,27,99,.04);animation:planSecIn .45s var(--ease) backwards}
-.sub-section:nth-of-type(1){animation-delay:.05s}
-.sub-section:nth-of-type(2){animation-delay:.10s}
-.sub-section:nth-of-type(3){animation-delay:.15s}
-.sub-section:nth-of-type(4){animation-delay:.20s}
-.sub-section:nth-of-type(5){animation-delay:.25s}
-.sub-section:nth-of-type(6){animation-delay:.30s}
+.sub-section.sub-section-ice{background:linear-gradient(180deg,var(--ice-2) 0%,#fff 100%);border-color:rgba(19,27,99,.06)}
+.sub-section:nth-of-type(1){animation-delay:.10s}
+.sub-section:nth-of-type(2){animation-delay:.15s}
+.sub-section:nth-of-type(3){animation-delay:.20s}
+.sub-section:nth-of-type(4){animation-delay:.25s}
+.sub-section:nth-of-type(5){animation-delay:.30s}
 
-/* Section header (uppercase mono, neutral) */
+/* Section headers */
 .sub-section-h{font-family:'JetBrains Mono';font-size:10px;font-weight:800;color:var(--gray-4);letter-spacing:.14em;text-transform:uppercase;margin:0 0 12px}
-.sub-subsection-h{font-family:'JetBrains Mono';font-size:9px;font-weight:800;color:var(--gray-3);letter-spacing:.16em;text-transform:uppercase;margin:14px 0 8px}
-.sub-subsection-h:first-of-type{margin-top:0}
-.sub-subsection-h.sub-not-included-h{color:var(--gray-3);margin-top:18px;padding-top:14px;border-top:1px dashed var(--ice)}
+.sub-section-h-warm{font-family:'Fraunces',serif;font-weight:600;font-variation-settings:"opsz" 144;font-size:18px;line-height:1.2;letter-spacing:-.012em;color:var(--midnight);text-transform:none}
+.sub-section-h-warm em.fr-italic{font-style:italic;font-weight:500}
 
-/* Section 1 — current plan summary */
-.sub-status-pill{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:99px;background:rgba(14,157,97,.10);border:1px solid rgba(14,157,97,.25);font-family:'JetBrains Mono';font-size:9px;font-weight:800;color:var(--success);letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px;line-height:1}
-.sub-status-pill i{font-size:7px;animation:subStatusBlink 2.4s ease-in-out infinite}
-@keyframes subStatusBlink{0%,100%{opacity:1}50%{opacity:.4}}
-.sub-plan-line{font-family:'Fraunces',serif;font-weight:600;font-variation-settings:"opsz" 144;font-size:22px;line-height:1.2;letter-spacing:-.018em;color:var(--midnight);margin-bottom:8px}
-.sub-meta-row{font-family:'Poppins';font-size:12.5px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;line-height:1.5}
-.sub-meta-row strong{color:var(--midnight);font-weight:700}
-.sub-divider{height:1px;background:var(--ice);margin:12px 0}
-.sub-stats{display:flex;align-items:baseline;gap:8px;font-family:'Poppins';font-size:12.5px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;flex-wrap:wrap}
-.sub-stats strong{font-family:'Fraunces',serif;font-style:italic;font-variation-settings:"opsz" 144;font-size:15px;color:var(--midnight);font-weight:600;margin-right:1px}
-.sub-stats-sep{color:var(--gray-3)}
+/* ─── Section 1 — Hero (gold/amber/sky gradient + ring; matches manage-hero treatment) ─── */
+.sub-hero{position:relative;padding:20px 22px 18px;border-radius:22px;margin-bottom:14px;border:1px solid var(--ice);background:#fff;box-shadow:0 4px 14px rgba(19,27,99,.06);animation:planSecIn .5s var(--ease) backwards;animation-delay:.05s}
+.sub-hero.gold{background:linear-gradient(135deg,var(--gold-50) 0%,#fff 50%,var(--gold-50) 100%);border-color:rgba(212,166,23,.30);box-shadow:0 0 0 3px rgba(212,166,23,.10),0 8px 22px rgba(184,134,11,.10)}
+.sub-hero.amber{background:linear-gradient(135deg,var(--amber-50) 0%,#fff 60%);border-color:var(--amber-100);box-shadow:0 0 0 3px rgba(212,166,23,.06),0 6px 18px rgba(212,166,23,.08)}
+.sub-hero.sky{background:linear-gradient(135deg,var(--sky-100) 0%,#fff 60%);border-color:var(--sky-100);box-shadow:0 0 0 3px rgba(21,202,232,.08),0 6px 18px rgba(21,202,232,.08)}
+.sub-hero-row{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:14px}
+.sub-status-pill{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:99px;background:rgba(14,157,97,.12);border:1px solid rgba(14,157,97,.32);font-family:'JetBrains Mono';font-size:9px;font-weight:800;color:var(--success);letter-spacing:.16em;text-transform:uppercase;line-height:1;animation:subStatusPulse 2.6s ease-in-out infinite}
+.sub-status-pill i{font-size:7px}
+@keyframes subStatusPulse{0%,100%{box-shadow:0 0 0 0 rgba(14,157,97,.30)}50%{box-shadow:0 0 0 5px rgba(14,157,97,0)}}
+.sub-hero-icon{flex-shrink:0;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.85);display:grid;place-items:center;font-size:22px;box-shadow:0 1px 3px rgba(19,27,99,.06)}
+.sub-hero.gold .sub-hero-icon{color:var(--gold)}
+.sub-hero.amber .sub-hero-icon{color:var(--amber-line)}
+.sub-hero.sky .sub-hero-icon{color:var(--sky)}
+.sub-hero-name{font-family:'Fraunces',serif;font-weight:600;font-variation-settings:"opsz" 144;font-size:28px;line-height:1.15;letter-spacing:-.020em;color:var(--midnight);margin:0 0 14px}
+.sub-hero-name em.fr-italic{font-style:italic;font-weight:500;color:var(--midnight)}
+.sub-hero-meta-stack{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.sub-hero-meta-row{display:flex;align-items:center;gap:8px;font-family:'Poppins';font-size:12.5px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;line-height:1.5}
+.sub-hero-meta-row > i{font-size:14px;color:var(--gray-4);width:16px;text-align:center;flex-shrink:0}
+.sub-hero-meta-row strong{color:var(--midnight);font-weight:700}
+.sub-hero-progress{display:flex;flex-direction:column;gap:8px}
+.sub-hero-progress-row{display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-family:'Poppins';font-size:12px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;flex-wrap:wrap}
+.sub-hero-progress-row strong{font-family:'Fraunces',serif;font-style:italic;font-variation-settings:"opsz" 144;font-size:16px;color:var(--midnight);font-weight:600;margin-right:2px;letter-spacing:-.005em}
+.sub-hero-progress-bar{height:6px;background:rgba(19,27,99,.08);border-radius:99px;overflow:hidden;position:relative}
+.sub-hero-progress-fill{height:100%;background:linear-gradient(90deg,var(--success) 0%,#0EAB7B 100%);border-radius:99px;transition:width .9s cubic-bezier(.32,.72,0,1);animation:subHeroFill 1s cubic-bezier(.32,.72,0,1) .15s backwards;box-shadow:0 0 8px rgba(14,157,97,.30)}
+.sub-hero.gold .sub-hero-progress-fill{background:linear-gradient(90deg,var(--gold) 0%,#D4A617 100%);box-shadow:0 0 8px rgba(212,166,23,.30)}
+@keyframes subHeroFill{from{width:0%!important}}
 
-/* Section 2 — what's included */
-.sub-row-list{display:flex;flex-direction:column;gap:7px}
-.sub-incl-row{display:flex;align-items:baseline;gap:9px;font-family:'Poppins';font-size:13px;color:var(--midnight);font-weight:500;letter-spacing:-.005em;line-height:1.4}
-.sub-incl-row > i{font-size:14px;color:var(--success);flex-shrink:0;align-self:center}
-.sub-incl-name{flex:1;min-width:0}
-.sub-incl-meta{font-size:11.5px;color:var(--gray-4);font-weight:500;flex-shrink:0;letter-spacing:-.005em}
-.sub-incl-meta em.fr-italic{font-family:'Fraunces',serif;font-style:italic;font-variation-settings:"opsz" 144;color:var(--midnight);font-weight:500}
-.sub-incl-row-missing{color:var(--gray-4);font-weight:500}
-.sub-incl-row-missing > i{color:var(--gray-3)}
-.sub-incl-row-missing .sub-incl-name{color:var(--gray-4);text-decoration:line-through;text-decoration-color:rgba(19,27,99,.18);text-decoration-thickness:1px}
-.sub-incl-row-missing .sub-incl-meta{color:var(--gray-3);font-style:italic;font-family:'Fraunces',serif;font-variation-settings:"opsz" 144;font-size:11px}
+/* ─── Section 2 — Click-through to "what's included" sheet ─── */
+.sub-included-link{display:flex;align-items:center;gap:12px;width:100%;padding:14px 16px;background:#fff;border:1px solid var(--ice);border-radius:14px;cursor:pointer;font-family:inherit;text-align:left;transition:border-color .25s var(--ease),background .25s var(--ease),transform .15s cubic-bezier(.34,1.56,.64,1);box-shadow:0 1px 3px rgba(19,27,99,.04);margin-bottom:14px;animation:planSecIn .45s var(--ease) backwards;animation-delay:.13s}
+.sub-included-link:hover{border-color:var(--sky);background:var(--ice-2);transform:translateY(-1px)}
+.sub-included-link:active{transform:scale(.99)}
+.sub-included-icon{flex-shrink:0;width:36px;height:36px;border-radius:11px;background:rgba(21,202,232,.12);color:var(--sky);display:grid;place-items:center;font-size:18px}
+.sub-included-text{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.sub-included-title{font-family:'Poppins';font-size:13.5px;font-weight:600;color:var(--midnight);letter-spacing:-.005em;line-height:1.3}
+.sub-included-title strong{font-family:'Fraunces',serif;font-style:italic;font-variation-settings:"opsz" 144;font-weight:600;color:var(--midnight);margin:0 1px}
+.sub-included-sub{font-family:'Poppins';font-size:11px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;line-height:1.4}
+.sub-included-arrow{flex-shrink:0;color:var(--gray-3);font-size:14px;transition:transform .2s var(--ease),color .2s var(--ease)}
+.sub-included-link:hover .sub-included-arrow{color:var(--midnight);transform:translateX(2px)}
 
-/* Section 3 — manage your plan (action cards) */
+/* ─── Section 3 — Manage your plan (action cards on Ice Blue band) ─── */
+.sub-section-actions{padding:18px}
 .sub-action-card{display:flex;align-items:center;gap:14px;width:100%;padding:14px 14px;background:#fff;border:1px solid var(--ice);border-radius:14px;cursor:pointer;font-family:inherit;text-align:left;transition:border-color .25s var(--ease),background .25s var(--ease),transform .15s cubic-bezier(.34,1.56,.64,1);margin-bottom:10px}
 .sub-action-card:last-child{margin-bottom:0}
-.sub-action-card:hover{border-color:var(--midnight);background:var(--ice-2);transform:translateY(-1px)}
+.sub-action-card:hover{border-color:var(--midnight);background:#fff;transform:translateY(-1px);box-shadow:0 4px 12px rgba(19,27,99,.08)}
 .sub-action-card:active{transform:scale(.99)}
-.sub-action-icon{flex-shrink:0;width:38px;height:38px;border-radius:11px;background:rgba(19,27,99,.08);display:grid;place-items:center;color:var(--midnight);font-size:18px}
+.sub-action-icon{flex-shrink:0;width:38px;height:38px;border-radius:11px;background:rgba(19,27,99,.08);display:grid;place-items:center;color:var(--midnight);font-size:18px;transition:transform .25s cubic-bezier(.34,1.56,.64,1),background .25s var(--ease)}
+.sub-action-card:hover .sub-action-icon{transform:scale(1.08)}
 .sub-action-card:nth-of-type(1) .sub-action-icon{background:var(--success-50);color:var(--success)}
 .sub-action-card:nth-of-type(2) .sub-action-icon{background:rgba(21,202,232,.12);color:var(--sky)}
 .sub-action-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
@@ -2577,26 +2595,45 @@ body.v2 .addon-sheet-cta.remove:hover{background:var(--ice-2);color:var(--midnig
 .sub-cross-link:hover i{transform:translateX(2px)}
 
 /* Section 5 — billing history */
-.sub-billing-list{display:flex;flex-direction:column;gap:0}
-.sub-billing-row{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--ice)}
+.sub-billing-list{display:flex;flex-direction:column;gap:0;margin:-2px -8px 0;padding:0 8px}
+.sub-billing-row{display:flex;align-items:center;gap:10px;padding:12px 8px;border-bottom:1px solid rgba(19,27,99,.06);border-radius:8px;transition:background .2s var(--ease)}
 .sub-billing-row:last-child{border-bottom:0}
+.sub-billing-row:hover{background:rgba(255,255,255,.55)}
 .sub-billing-meta{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
 .sub-billing-date{font-family:'JetBrains Mono';font-size:9.5px;font-weight:700;color:var(--gray-4);letter-spacing:.10em;text-transform:uppercase;line-height:1}
 .sub-billing-label{font-family:'Poppins';font-size:13px;font-weight:600;color:var(--midnight);letter-spacing:-.005em;line-height:1.3}
 .sub-billing-amount{font-family:'Fraunces',serif;font-style:italic;font-variation-settings:"opsz" 144;font-size:14.5px;font-weight:600;color:var(--midnight);letter-spacing:-.005em;flex-shrink:0}
 .sub-billing-receipt{flex-shrink:0;width:30px;height:30px;border-radius:8px;background:transparent;border:1px solid var(--ice);color:var(--gray-4);display:grid;place-items:center;cursor:pointer;font-size:13px;transition:all .2s var(--ease)}
-.sub-billing-receipt:hover{border-color:var(--midnight);color:var(--midnight);background:var(--ice-2)}
+.sub-billing-receipt:hover{border-color:var(--midnight);color:var(--midnight);background:#fff}
 
 /* Section 6 — need help */
 .sub-help{padding-bottom:14px}
-.sub-help-link{display:flex;align-items:center;gap:11px;width:100%;padding:11px 0;background:transparent;border:0;border-bottom:1px solid var(--ice);cursor:pointer;font-family:inherit;text-align:left;transition:opacity .2s var(--ease)}
+.sub-help-link{display:flex;align-items:center;gap:11px;width:100%;padding:11px 6px;background:transparent;border:0;border-bottom:1px solid var(--ice);cursor:pointer;font-family:inherit;text-align:left;border-radius:8px;transition:background .2s var(--ease),padding-left .2s var(--ease)}
 .sub-help-link:last-of-type{border-bottom:0}
-.sub-help-link:hover{opacity:.75}
+.sub-help-link:hover{background:var(--ice-2);padding-left:10px}
 .sub-help-link > i{font-size:18px;color:var(--midnight);flex-shrink:0;width:20px;text-align:center}
 .sub-help-link:nth-of-type(3) > i{color:#25D366}
 .sub-help-text{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
 .sub-help-text > div{font-family:'Poppins';font-size:13px;font-weight:600;color:var(--midnight);letter-spacing:-.005em;line-height:1.3}
 .sub-help-text small{font-family:'Poppins';font-size:11px;color:var(--gray-4);font-weight:500;letter-spacing:-.005em;line-height:1.4}
+
+/* ─── What's-included sheet ─── */
+.wi-sheet{}
+.wi-body{padding-top:6px}
+.wi-subhead{font-family:'JetBrains Mono';font-size:9.5px;font-weight:800;color:var(--gray-4);letter-spacing:.16em;text-transform:uppercase;margin:14px 0 9px}
+.wi-subhead:first-of-type{margin-top:2px}
+.wi-subhead-missing{margin-top:18px;padding-top:14px;border-top:1px dashed rgba(19,27,99,.10);color:var(--gray-3)}
+.wi-list{display:flex;flex-direction:column;gap:8px;padding-bottom:2px}
+.wi-row{display:flex;align-items:baseline;gap:10px;font-family:'Poppins';font-size:13px;color:var(--midnight);font-weight:500;letter-spacing:-.005em;line-height:1.4;padding:7px 11px;background:#fff;border:1px solid var(--ice);border-radius:10px}
+.wi-row > i{font-size:14px;color:var(--success);flex-shrink:0;align-self:center}
+.wi-name{flex:1;min-width:0}
+.wi-meta{font-size:11.5px;color:var(--gray-4);font-weight:500;flex-shrink:0;letter-spacing:-.005em}
+.wi-meta em.fr-italic{font-family:'Fraunces',serif;font-style:italic;font-variation-settings:"opsz" 144;color:var(--midnight);font-weight:500}
+/* Soft "not included" — opacity + lock icon + pill source label (no harsh strikethrough) */
+.wi-row-missing{opacity:.62;background:var(--ice-2);border-color:rgba(19,27,99,.05)}
+.wi-row-missing > i{color:var(--gray-3)}
+.wi-row-missing .wi-name{color:var(--gray-4);text-decoration:none;font-weight:500}
+.wi-meta-pill{flex-shrink:0;padding:3px 8px;border-radius:99px;background:rgba(19,27,99,.05);border:1px solid rgba(19,27,99,.08);font-family:'JetBrains Mono';font-size:8.5px;font-weight:800;color:var(--gray-4);letter-spacing:.10em;text-transform:uppercase;line-height:1.2}
 
 /* ═══════════════════════════════════════════════════════════════════════════════
    V26 — Change Plan Sheet (modal sheet for tier change scoped to NORCET 12)
@@ -4525,6 +4562,12 @@ function renderSubscriptionPage(){
   const showUpgradeCard = upgradeTarget !== tier;
   const upgradeDelta = TIER_PAID[upgradeTarget] - paid;
 
+  // Heuristic accent based on current tier (matches the manage-hero treatment for parity)
+  const accent = TIER_ACCENT[tier];
+  const heroIconName = accent==='gold' ? 'ph-trophy' : accent==='amber' ? 'ph-flame' : 'ph-target';
+  // Pretty access summary line (e.g., "4 exams + faculty videos + 14k MCQs")
+  const accessSummary = `${includedExams.length} exams + ${allFeats.length} features`;
+
   return `${renderManageDemoChip()}
   <div class="manage-back-row">
     <button class="manage-back-link" data-act="sub-back-to-chooser" type="button">
@@ -4535,68 +4578,50 @@ function renderSubscriptionPage(){
   <!-- Page header -->
   <div class="sub-header">
     <h1 class="sub-headline">your subscription</h1>
-    <p class="sub-sublabel">manage plan, billing, and history</p>
+    <p class="sub-sublabel">plan, billing, history — <em class="fr-italic">sab kuch yahan</em></p>
   </div>
 
-  <!-- Section 1 — Current plan summary -->
-  <div class="sub-section">
-    <div class="sub-status-pill"><i class="ph-fill ph-circle"></i><span>active</span></div>
-    <div class="sub-plan-line">NORCET ${plan.name} · 1-year</div>
-    <div class="sub-meta-row">
-      <span><strong>₹${paid.toLocaleString('en-IN')}</strong> paid 12 Apr 2026</span>
+  <!-- Section 1 — Hero (anchors the page; gold gradient + ring matches manage-hero) -->
+  <div class="sub-hero ${accent}">
+    <div class="sub-hero-row">
+      <div class="sub-status-pill"><i class="ph-fill ph-circle"></i><span>active</span></div>
+      <div class="sub-hero-icon"><i class="ph-fill ${heroIconName}"></i></div>
     </div>
-    <div class="sub-meta-row">
-      <span>valid till <strong>${validityDate}</strong></span>
+    <h2 class="sub-hero-name">NORCET ${plan.name} · <em class="fr-italic">1-year</em></h2>
+    <div class="sub-hero-meta-stack">
+      <div class="sub-hero-meta-row">
+        <i class="ph ph-currency-inr"></i>
+        <span><strong>₹${paid.toLocaleString('en-IN')}</strong> paid 12 Apr 2026</span>
+      </div>
+      <div class="sub-hero-meta-row">
+        <i class="ph ph-calendar-check"></i>
+        <span>valid till <strong>${validityDate}</strong></span>
+      </div>
     </div>
-    <div class="sub-divider"></div>
-    <div class="sub-stats">
-      <span><strong class="fr-italic-num">${days}</strong> days remaining</span>
-      <span class="sub-stats-sep">·</span>
-      <span><strong class="fr-italic-num">${progress}%</strong> syllabus completed</span>
+    <div class="sub-hero-progress">
+      <div class="sub-hero-progress-row">
+        <span class="sub-hero-progress-label"><strong class="fr-italic-num" data-countup data-countup-target="${progress}" data-countup-suffix="%">0</strong> syllabus covered</span>
+        <span class="sub-hero-progress-days"><strong class="fr-italic-num" data-countup data-countup-target="${days}">0</strong> days remaining</span>
+      </div>
+      <div class="sub-hero-progress-bar">
+        <div class="sub-hero-progress-fill" style="width:${progress}%"></div>
+      </div>
     </div>
   </div>
 
-  <!-- Section 2 — What's included -->
-  <div class="sub-section sub-included">
-    <div class="sub-section-h">what you have access to</div>
-
-    <div class="sub-subsection-h">exams</div>
-    <div class="sub-row-list">
-      ${includedExams.map(e => `<div class="sub-incl-row">
-        <i class="ph-fill ph-check-circle"></i>
-        <span class="sub-incl-name">${e.name}</span>
-        <span class="sub-incl-meta">till <em class="fr-italic">${e.short.replace(/(\w{3}) (\d{2})/,'$1 20$2')}</em></span>
-      </div>`).join('')}
+  <!-- Section 2 — What you have access to (click-through; opens bottom sheet) -->
+  <button class="sub-included-link" data-act="sub-open-included" type="button">
+    <div class="sub-included-icon"><i class="ph-fill ph-list-checks"></i></div>
+    <div class="sub-included-text">
+      <div class="sub-included-title">access to <strong>${includedExams.length} exams</strong> + faculty videos</div>
+      <div class="sub-included-sub">tap to see what's included</div>
     </div>
+    <i class="ph ph-caret-right sub-included-arrow"></i>
+  </button>
 
-    <div class="sub-subsection-h">features</div>
-    <div class="sub-row-list">
-      ${allFeats.map(f => `<div class="sub-incl-row">
-        <i class="ph-fill ph-check-circle"></i>
-        <span class="sub-incl-name">${f.text}</span>
-        ${f.sub ? `<span class="sub-incl-meta">${f.sub}</span>` : ''}
-      </div>`).join('')}
-    </div>
-
-    ${(missing.length + missingAddOns.length) > 0 ? `
-    <div class="sub-subsection-h sub-not-included-h">not included</div>
-    <div class="sub-row-list">
-      ${missing.map(f => `<div class="sub-incl-row sub-incl-row-missing">
-        <i class="ph ph-x-circle"></i>
-        <span class="sub-incl-name">${f.text}</span>
-        <span class="sub-incl-meta">${f.source}</span>
-      </div>`).join('')}
-      ${missingAddOns.map(f => `<div class="sub-incl-row sub-incl-row-missing">
-        <i class="ph ph-x-circle"></i>
-        <span class="sub-incl-name">${f.text}</span>
-        <span class="sub-incl-meta">${f.source}</span>
-      </div>`).join('')}
-    </div>` : ''}
-  </div>
-
-  <!-- Section 3 — Manage your plan -->
-  <div class="sub-section">
-    <div class="sub-section-h">manage your plan</div>
+  <!-- Section 3 — Manage your plan (Ice Blue tint; Fraunces conversational header) -->
+  <div class="sub-section sub-section-ice sub-section-actions">
+    <div class="sub-section-h sub-section-h-warm">what would you like to do?</div>
 
     ${showUpgradeCard ? `<button class="sub-action-card" data-act="sub-go-upgrade" type="button">
       <div class="sub-action-icon"><i class="ph-fill ph-arrow-up"></i></div>
@@ -4638,8 +4663,8 @@ function renderSubscriptionPage(){
     </button>
   </div>
 
-  <!-- Section 5 — Billing history -->
-  <div class="sub-section">
+  <!-- Section 5 — Billing history (Ice Blue tint — auditable zone) -->
+  <div class="sub-section sub-section-ice">
     <div class="sub-section-h">billing history</div>
     <div class="sub-billing-list">
       ${billing.map(b => `<div class="sub-billing-row">
@@ -4653,9 +4678,9 @@ function renderSubscriptionPage(){
     </div>
   </div>
 
-  <!-- Section 6 — Need help -->
+  <!-- Section 6 — Need help (Fraunces Hindi-mix header) -->
   <div class="sub-section sub-help">
-    <div class="sub-section-h">need help?</div>
+    <div class="sub-section-h sub-section-h-warm"><em class="fr-italic">madad chahiye?</em></div>
     <button class="sub-help-link" type="button">
       <i class="ph ph-arrow-counter-clockwise"></i>
       <div class="sub-help-text">
@@ -4681,8 +4706,58 @@ function renderSubscriptionPage(){
 
   <div style="height:60px"></div>
 
+  ${renderWhatsIncludedSheet(includedExams, allFeats, missing, missingAddOns, plan)}
   ${renderChangePlanSheet(tier, cyclePrice, validityDate)}
   `;
+}
+
+// V26 — What's included sheet (data behind a tap to keep page light)
+function renderWhatsIncludedSheet(includedExams, allFeats, missing, missingAddOns, plan){
+  return `<div class="cp-sheet-backdrop ${state.includedSheetOpen ? 'show' : ''}" data-act="sub-close-included"></div>
+  <div class="cp-sheet wi-sheet ${state.includedSheetOpen ? 'show' : ''}" id="includedSheet">
+    <div class="cp-sheet-handle"></div>
+    <div class="cp-sheet-head">
+      <h2 class="cp-sheet-title">what's included in <em class="fr-italic">${plan.name}</em></h2>
+      <button class="cp-sheet-close" data-act="sub-close-included" type="button" aria-label="close"><i class="ph ph-x"></i></button>
+    </div>
+    <div class="cp-sheet-body wi-body">
+      <div class="wi-subhead">exams</div>
+      <div class="wi-list">
+        ${includedExams.map(e => `<div class="wi-row">
+          <i class="ph-fill ph-check-circle"></i>
+          <span class="wi-name">${e.name}</span>
+          <span class="wi-meta">till <em class="fr-italic">${e.short.replace(/(\w{3}) (\d{2})/,'$1 20$2')}</em></span>
+        </div>`).join('')}
+      </div>
+
+      <div class="wi-subhead">features</div>
+      <div class="wi-list">
+        ${allFeats.map(f => `<div class="wi-row">
+          <i class="ph-fill ph-check-circle"></i>
+          <span class="wi-name">${f.text}</span>
+          ${f.sub ? `<span class="wi-meta">${f.sub}</span>` : ''}
+        </div>`).join('')}
+      </div>
+
+      ${(missing.length + missingAddOns.length) > 0 ? `
+      <div class="wi-subhead wi-subhead-missing">not included</div>
+      <div class="wi-list">
+        ${missing.map(f => `<div class="wi-row wi-row-missing">
+          <i class="ph ph-lock-simple"></i>
+          <span class="wi-name">${f.text}</span>
+          <span class="wi-meta-pill">${f.source}</span>
+        </div>`).join('')}
+        ${missingAddOns.map(f => `<div class="wi-row wi-row-missing">
+          <i class="ph ph-lock-simple"></i>
+          <span class="wi-name">${f.text}</span>
+          <span class="wi-meta-pill">${f.source}</span>
+        </div>`).join('')}
+      </div>` : ''}
+    </div>
+    <div class="cp-sheet-footer">
+      ${plan.name} plan · valid till ${TIER_VALIDITY_DATE[state.purchasedTier]}
+    </div>
+  </div>`;
 }
 
 // V26 — Change plan sheet (for NORCET 12 cycle only)
@@ -6894,6 +6969,8 @@ function buildPlanUI(){
   if(state.flowMode === 'subscription'){
     planContent.innerHTML = renderSubscriptionPage();
     planCtaBar.style.display = 'none';
+    // Count-up the hero stats after layout settles (next frame so animation is visible)
+    requestAnimationFrame(() => requestAnimationFrame(() => runCountUpAnimations(planContent)));
     return;
   }
 
@@ -7109,16 +7186,51 @@ function chooseSubscription(){
 function openChangePlanSheet(){
   state.changePlanSheetOpen = true;
   const sheet = document.getElementById('changePlanSheet');
-  const backdrop = document.querySelector('.cp-sheet-backdrop');
+  // Find the change-plan sheet's own backdrop (the one immediately preceding it in the DOM)
+  const backdrop = sheet ? sheet.previousElementSibling : null;
   if(sheet) sheet.classList.add('show');
-  if(backdrop) backdrop.classList.add('show');
+  if(backdrop && backdrop.classList.contains('cp-sheet-backdrop')) backdrop.classList.add('show');
 }
 function closeChangePlanSheet(){
   state.changePlanSheetOpen = false;
   const sheet = document.getElementById('changePlanSheet');
-  const backdrop = document.querySelector('.cp-sheet-backdrop');
+  const backdrop = sheet ? sheet.previousElementSibling : null;
   if(sheet) sheet.classList.remove('show');
-  if(backdrop) backdrop.classList.remove('show');
+  if(backdrop && backdrop.classList.contains('cp-sheet-backdrop')) backdrop.classList.remove('show');
+}
+function openIncludedSheet(){
+  state.includedSheetOpen = true;
+  const sheet = document.getElementById('includedSheet');
+  const backdrop = sheet ? sheet.previousElementSibling : null;
+  if(sheet) sheet.classList.add('show');
+  if(backdrop && backdrop.classList.contains('cp-sheet-backdrop')) backdrop.classList.add('show');
+}
+function closeIncludedSheet(){
+  state.includedSheetOpen = false;
+  const sheet = document.getElementById('includedSheet');
+  const backdrop = sheet ? sheet.previousElementSibling : null;
+  if(sheet) sheet.classList.remove('show');
+  if(backdrop && backdrop.classList.contains('cp-sheet-backdrop')) backdrop.classList.remove('show');
+}
+// V26 — Count-up animation: animates [data-countup] elements from 0 to data-countup-target
+function runCountUpAnimations(scope){
+  const root = scope || document;
+  const els = root.querySelectorAll('[data-countup]');
+  els.forEach(el => {
+    const target = parseInt(el.getAttribute('data-countup-target') || '0', 10);
+    const suffix = el.getAttribute('data-countup-suffix') || '';
+    if(!Number.isFinite(target) || target <= 0){ el.textContent = '0' + suffix; return; }
+    const duration = Math.min(900, 350 + target * 3);
+    const startedAt = performance.now();
+    const ease = (t) => 1 - Math.pow(1 - t, 3); // ease-out cubic
+    function tick(now){
+      const t = Math.min(1, (now - startedAt) / duration);
+      const value = Math.round(target * ease(t));
+      el.textContent = value + suffix;
+      if(t < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  });
 }
 function confirmChangePlan(targetTier){
   const labels = { practice: 'Practice', revision: 'Revision', gold: 'Gold' };
@@ -7496,6 +7608,8 @@ document.addEventListener('click', e=>{
   if(e.target.closest('[data-act="sub-go-addons"]')){ e.stopPropagation(); chooseExistingStudent(); setTimeout(()=>{ const el=document.querySelector('.manage-more-options'); if(el){ el.classList.add('open'); el.scrollIntoView({behavior:'smooth',block:'start'}); } }, 200); return; }
   if(e.target.closest('[data-act="sub-open-change-plan"]')){ e.stopPropagation(); openChangePlanSheet(); return; }
   if(e.target.closest('[data-act="sub-close-change-plan"]')){ e.stopPropagation(); closeChangePlanSheet(); return; }
+  if(e.target.closest('[data-act="sub-open-included"]')){ e.stopPropagation(); openIncludedSheet(); return; }
+  if(e.target.closest('[data-act="sub-close-included"]')){ e.stopPropagation(); closeIncludedSheet(); return; }
   const cpPick = e.target.closest('[data-change-plan-pick]');
   if(cpPick){ e.stopPropagation(); confirmChangePlan(cpPick.getAttribute('data-change-plan-pick')); return; }
   if(e.target.closest('[data-act="back-to-chooser"]')){ e.stopPropagation(); backToChooser(); return; }
